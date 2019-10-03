@@ -1,7 +1,26 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { PrincipalComponent } from './principal/principal.component';
+import { LancamentoComponent } from './lancamento/lancamento.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'principal',
+    component: PrincipalComponent,
+    data: { title: 'Tela Principal' }
+  },
+  {
+    path: 'lancamento',
+    component: LancamentoComponent,
+    data: { title: 'Lançamento' }
+  },
+  {
+    path: '',
+    redirectTo: '/principal',
+    pathMatch: 'full'
+  },
+  { path: '**', component: PrincipalComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

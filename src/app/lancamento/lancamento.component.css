@@ -1,0 +1,11 @@
+.form {
+  margin: 10px;
+  flex-direction: column;
+  display: flex;
+}
+.form-header{
+  border-width: 3px;
+}
+.form.form-body {
+  width: 100%;
+}
