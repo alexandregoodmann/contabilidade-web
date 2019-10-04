@@ -1,49 +1,42 @@
 <app-top-bar></app-top-bar>
 
 <div class="form">
-    <div class="form-header">
-        <a href="/">
-            <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_back</mat-icon>
-        </a>
-        Lançamento
 
-    </div>
-    <div class="form-body">
-        <mat-form-field>
-            <mat-select placeholder="Conta">
-                <mat-option value="">Débito Santander</mat-option>
-                <mat-option value="">Crédito Santander</mat-option>
-                <mat-option value="">Bradesco</mat-option>
-                <mat-option value="">Nubank</mat-option>
-                <mat-option value="">Carteira</mat-option>
-            </mat-select>
-        </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Conta">
+            <mat-option value="">Débito Santander</mat-option>
+            <mat-option value="">Crédito Santander</mat-option>
+            <mat-option value="">Bradesco</mat-option>
+            <mat-option value="">Nubank</mat-option>
+            <mat-option value="">Carteira</mat-option>
+        </mat-select>
+    </mat-form-field>
 
-        <mat-form-field>
-            <mat-select placeholder="Categoria">
-                <mat-option value="">Alexandre</mat-option>
-                <mat-option value="">Educação</mat-option>
-                <mat-option value="">Carro</mat-option>
-                <mat-option value="">Outros</mat-option>
-            </mat-select>
-        </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Categoria">
+            <mat-option value="">Alexandre</mat-option>
+            <mat-option value="">Educação</mat-option>
+            <mat-option value="">Carro</mat-option>
+            <mat-option value="">Outros</mat-option>
+        </mat-select>
+    </mat-form-field>
 
-        <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Data">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Descrição">
-        </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Descrição">
+    </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Valor">
-        </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Valor">
+    </mat-form-field>
 
-    </div>
-    <div class="form-footer">
-        <button mat-raised-button color="primary">Salvar</button>
-    </div>
+
+</div>
+<div class="form-button">
+    <button mat-raised-button color="primary" (click)=salvar()>Salvar</button>
 </div>
