@@ -14,13 +14,15 @@ import { AppComponent } from './app.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PrincipalComponent,
     LancamentoComponent,
-    TopBarComponent
+    TopBarComponent,
+    BotaoMenuComponent
   ],
   imports: [
     BrowserModule,
