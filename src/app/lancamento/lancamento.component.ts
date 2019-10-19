@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Lancamento } from '../model/lancamento';
 
 
 @Component({
@@ -9,13 +10,39 @@ import { Router } from '@angular/router';
 })
 export class LancamentoComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  param;
+  model: Lancamento;
+  caralho;
 
-  ngOnInit() {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.route.params.subscribe(params => this.param = params);
+  }
+
+  ngOnInit(): void {
+
+    if (this.param.categoria != 0) {
+      this.preparar();
+      console.log(this.model);
+    } else {
+      this.model = new Lancamento();
+    }
   }
 
   salvar() {
-    this.router.navigateByUrl('/');
+    this.model.conta = this.caralho;
+    console.log(this.model);
+
+    //this.router.navigateByUrl('/');
+  }
+
+  private preparar() {
+    let l = new Lancamento();
+    l.categoria = this.param.categoria;
+    l.dtLancamento = new Date();
+    this.model = l;
   }
 
 }

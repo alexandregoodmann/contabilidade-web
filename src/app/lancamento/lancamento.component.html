@@ -3,18 +3,22 @@
 <div class="form">
 
     <mat-form-field>
-        <mat-select placeholder="Conta">
-            <mat-option value="">Débito Santander</mat-option>
-            <mat-option value="">Crédito Santander</mat-option>
-            <mat-option value="">Carteira</mat-option>
+        <mat-select placeholder="Conta" ng-model="caralho">
+            <mat-option value="Débito Santander">Débito Santander</mat-option>
+            <mat-option value="Crédito Santander">Crédito Santander</mat-option>
+            <mat-option value="Carteira">Carteira</mat-option>
         </mat-select>
     </mat-form-field>
 
     <mat-form-field>
         <mat-select placeholder="Categoria">
             <mat-option value="">Alexandre</mat-option>
-            <mat-option value="">Educação</mat-option>
+            <mat-option value="">Alimentação</mat-option>
+            <mat-option value="">Almoço</mat-option>
             <mat-option value="">Carro</mat-option>
+            <mat-option value="">Diversão</mat-option>
+            <mat-option value="">Educação</mat-option>
+            <mat-option value="">Saúde</mat-option>
             <mat-option value="">Outros</mat-option>
         </mat-select>
     </mat-form-field>

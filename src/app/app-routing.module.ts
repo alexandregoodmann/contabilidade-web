@@ -10,7 +10,7 @@ const routes: Routes = [
     data: { title: 'Tela Principal' }
   },
   {
-    path: 'lancamento',
+    path: 'lancamento/:categoria',
     component: LancamentoComponent,
     data: { title: 'Lançamento' }
   },
