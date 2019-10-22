@@ -5,18 +5,18 @@ import { LancamentoComponent } from './lancamento/lancamento.component';
 
 const routes: Routes = [
   {
-    path: 'principal',
+    path: '#principal',
     component: PrincipalComponent,
     data: { title: 'Tela Principal' }
   },
   {
-    path: 'lancamento/:categoria',
+    path: '#lancamento/:categoria',
     component: LancamentoComponent,
     data: { title: 'Lançamento' }
   },
   {
     path: '',
-    redirectTo: '/principal',
+    redirectTo: '/#principal',
     pathMatch: 'full'
   },
   { path: '**', component: PrincipalComponent }
