@@ -6,15 +6,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
+import { ConfiguracaoComponent } from './configuracao/configuracao.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
     PrincipalComponent,
     LancamentoComponent,
     TopBarComponent,
-    BotaoMenuComponent
+    BotaoMenuComponent,
+    ConfiguracaoComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,9 @@ import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule,
+    MatCardModule
     //MATERIAL
   ],
   providers: [],
