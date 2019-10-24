@@ -8,7 +8,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +19,7 @@ import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
 import { ConfiguracaoComponent } from './configuracao/configuracao.component';
 import { LancamentoRapidoComponent } from './lancamento-rapido/lancamento-rapido.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
+import { ListaLancamentoComponent } from './lista-lancamento/lista-lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 
@@ -28,7 +31,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     TopBarComponent,
     BotaoMenuComponent,
     ConfiguracaoComponent,
-    LancamentoRapidoComponent
+    LancamentoRapidoComponent,
+    ListaLancamentoComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule
     //MATERIAL
   ],
   providers: [],

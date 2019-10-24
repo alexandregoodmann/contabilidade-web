@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ConfiguracaoComponent } from './configuracao/configuracao.component';
 import { LancamentoRapidoComponent } from './lancamento-rapido/lancamento-rapido.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
+import { ListaLancamentoComponent } from './lista-lancamento/lista-lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
 
 const routes: Routes = [
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'lancamento-rapido',
     component: LancamentoRapidoComponent,
+    data: { title: 'Lançamento' }
+  },
+  {
+    path: 'lista-lancamento',
+    component: ListaLancamentoComponent,
     data: { title: 'Lançamento' }
   },
   {
