@@ -1,9 +1,13 @@
-<app-top-bar titulo="Lançameto"></app-top-bar>
+<app-top-bar titulo="Lançameto Rápido"></app-top-bar>
 
 <div class="form">
 
     <mat-form-field>
-        <mat-select placeholder="Conta" >
+        <input matInput placeholder="Título Botão">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Conta">
             <mat-option value="Débito Santander">Débito Santander</mat-option>
             <mat-option value="Crédito Santander">Crédito Santander</mat-option>
             <mat-option value="Carteira">Carteira</mat-option>
@@ -23,11 +27,20 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Data">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <table>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Data">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-checkbox>Data Atual</mat-checkbox>
+            </td>
+        </tr>
+    </table>
 
     <mat-form-field>
         <input matInput placeholder="Descrição">

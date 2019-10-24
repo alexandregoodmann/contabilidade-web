@@ -12,7 +12,6 @@ export class LancamentoComponent implements OnInit {
 
   param;
   model: Lancamento;
-  caralho;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +31,6 @@ export class LancamentoComponent implements OnInit {
   }
 
   salvar() {
-    this.model.conta = this.caralho;
     console.log(this.model);
 
     //this.router.navigateByUrl('/');

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConfiguracaoComponent } from './configuracao/configuracao.component';
+import { LancamentoRapidoComponent } from './lancamento-rapido/lancamento-rapido.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
 
@@ -13,6 +14,11 @@ const routes: Routes = [
   {
     path: 'lancamento',
     component: LancamentoComponent,
+    data: { title: 'Lançamento' }
+  },
+  {
+    path: 'lancamento-rapido',
+    component: LancamentoRapidoComponent,
     data: { title: 'Lançamento' }
   },
   {

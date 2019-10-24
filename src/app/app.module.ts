@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatInputModule, MatNativeDateModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -14,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
 import { ConfiguracaoComponent } from './configuracao/configuracao.component';
+import { LancamentoRapidoComponent } from './lancamento-rapido/lancamento-rapido.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -25,7 +27,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     LancamentoComponent,
     TopBarComponent,
     BotaoMenuComponent,
-    ConfiguracaoComponent
+    ConfiguracaoComponent,
+    LancamentoRapidoComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatCheckboxModule
     //MATERIAL
   ],
   providers: [],
