@@ -1,7 +1,8 @@
 export class Lancamento {
     conta: string;
     categoria: string;
-    dtLancamento: Date;
+    dtLancamento: string;
     descricao: string;
     valor: number;
+    data: string;
 }

@@ -10,7 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -51,8 +50,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     MatListModule,
     MatCardModule,
     MatCheckboxModule,
-    MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
     //MATERIAL
   ],
   providers: [],

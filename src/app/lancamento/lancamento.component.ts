@@ -39,7 +39,6 @@ export class LancamentoComponent implements OnInit {
   private preparar() {
     let l = new Lancamento();
     l.categoria = this.param.categoria;
-    l.dtLancamento = new Date();
     this.model = l;
   }
 
