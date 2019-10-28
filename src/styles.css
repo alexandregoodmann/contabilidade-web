@@ -24,3 +24,10 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
 .form-button {
     margin-left: 20px;
 }
+
+.card {
+    border-style: solid;
+    border-width: 0.05em;
+    margin: 15px;
+    padding: 10px;
+}

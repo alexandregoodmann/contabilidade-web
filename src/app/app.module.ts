@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,7 +21,9 @@ import { LancamentoRapidoComponent } from './lancamento-rapido/lancamento-rapido
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { ListaLancamentoComponent } from './lista-lancamento/lista-lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { SaldosComponent } from './saldos/saldos.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     BotaoMenuComponent,
     ConfiguracaoComponent,
     LancamentoRapidoComponent,
-    ListaLancamentoComponent
+    ListaLancamentoComponent,
+    SaldosComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +56,13 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     MatCardModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatExpansionModule
     //MATERIAL
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+
+}

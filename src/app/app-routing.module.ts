@@ -5,12 +5,18 @@ import { LancamentoRapidoComponent } from './lancamento-rapido/lancamento-rapido
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { ListaLancamentoComponent } from './lista-lancamento/lista-lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { SaldosComponent } from './saldos/saldos.component';
 
 const routes: Routes = [
   {
     path: 'principal',
     component: PrincipalComponent,
     data: { title: 'Tela Principal' }
+  },
+  {
+    path: 'saldos',
+    component: SaldosComponent,
+    data: { title: 'Saldos' }
   },
   {
     path: 'lancamento',
