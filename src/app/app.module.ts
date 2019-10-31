@@ -74,7 +74,7 @@ const routes: Routes = [
     ProgressBarComponent
   ],
   imports: [
-    RouterModule.forRoot(routes, { useHash: false }),
+    RouterModule.forRoot(routes, { useHash: true }),
     BrowserModule,
     BrowserAnimationsModule,
     //MATERIAL
