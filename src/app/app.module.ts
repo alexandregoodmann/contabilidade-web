@@ -13,7 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
 import { ConfiguracaoComponent } from './configuracao/configuracao.component';
@@ -21,9 +21,44 @@ import { LancamentoRapidoComponent } from './lancamento-rapido/lancamento-rapido
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { ListaLancamentoComponent } from './lista-lancamento/lista-lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { SaldosComponent } from './saldos/saldos.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+
+
+const routes: Routes = [
+  {
+    path: 'principal',
+    component: PrincipalComponent,
+  },
+  {
+    path: 'saldos',
+    component: SaldosComponent,
+  },
+  {
+    path: 'lancamento',
+    component: LancamentoComponent,
+  },
+  {
+    path: 'lancamento-rapido',
+    component: LancamentoRapidoComponent,
+  },
+  {
+    path: 'lista-lancamento',
+    component: ListaLancamentoComponent,
+  },
+  {
+    path: 'configuracao',
+    component: ConfiguracaoComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'principal',
+    pathMatch: 'full'
+  },
+  { path: '**', component: PrincipalComponent }
+];
+
 
 @NgModule({
   declarations: [
@@ -39,8 +74,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     ProgressBarComponent
   ],
   imports: [
+    RouterModule.forRoot(routes, { useHash: false }),
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     //MATERIAL
     MatCardModule,
