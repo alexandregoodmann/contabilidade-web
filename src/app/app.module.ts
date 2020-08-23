@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatInputModule, MatNativeDateModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BotaoMenuComponent } from './botao-menu/botao-menu.component';
-import { ConfiguracaoComponent } from './configuracao/configuracao.component';
+import { CadastroBasicoComponent } from './components/cadastro-basico/cadastro-basico.component';
 import { LancamentoRapidoComponent } from './lancamento-rapido/lancamento-rapido.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { ListaLancamentoComponent } from './lista-lancamento/lista-lancamento.component';
@@ -48,8 +49,8 @@ const routes: Routes = [
     component: ListaLancamentoComponent,
   },
   {
-    path: 'configuracao',
-    component: ConfiguracaoComponent,
+    path: 'cadastro-basico',
+    component: CadastroBasicoComponent
   },
   {
     path: '',
@@ -67,16 +68,17 @@ const routes: Routes = [
     LancamentoComponent,
     TopBarComponent,
     BotaoMenuComponent,
-    ConfiguracaoComponent,
     LancamentoRapidoComponent,
     ListaLancamentoComponent,
     SaldosComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    CadastroBasicoComponent
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     //MATERIAL
     MatCardModule,
     MatGridListModule,
