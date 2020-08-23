@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,31 +12,42 @@ export class BasicCrudService {
   constructor(private http: HttpClient) { }
 
   create<T>(url, obj): Observable<T> {
-    console.log(environment.url + url, obj);
-    return this.http.post<T>(environment.url + url, obj, httpOptions);
+    return this.http.post<T>(url, obj, httpOptions).pipe(
+      catchError(this.handleError<T>('create'))
+    );
+  }
+
+  update<T>(url, obj): Observable<T> {
+    return this.http.put<T>(url, obj, httpOptions)
+      .pipe(
+        catchError(this.handleError('update', obj))
+      );
+  }
+
+  delete(url): Observable<{}> {
+    return this.http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('delete'))
+      );
+  }
+
+  findById<T>(url, id) {
+    return this.http.get<T>(url);
   }
 
   findAll<T>(url) {
-    return this.http.get<T>(environment.url + url);
+    return this.http.get<T>(url);
   }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    return throwError(
-      'Something bad happened; please try again later.');
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
   }
 
 }
 
 const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: 'my-auth-token'
-  })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

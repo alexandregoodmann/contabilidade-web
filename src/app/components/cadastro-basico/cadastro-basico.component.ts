@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Banco } from 'src/app/model/banco';
 import { BasicCrudService } from 'src/app/services/basic-crud.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cadastro-basico',
@@ -9,20 +10,24 @@ import { BasicCrudService } from 'src/app/services/basic-crud.service';
 })
 export class CadastroBasicoComponent implements OnInit {
 
-  bancos: Banco[];
+  bancos;
+  url = environment.url + '/bancos';
+  model;
 
   constructor(private crud: BasicCrudService) { }
 
-  createBanco() {
-    const b = new Banco();
-    b.banco = 'banco1';
-    this.crud.create<Banco>('/bancos', b).subscribe(d => {
-      console.log(d);
-    });
+  ngOnInit() {
+    this.findAll();
   }
 
-  ngOnInit() {
-    this.createBanco();
+  delete(id) {
+    this.crud.delete(`${this.url}/${id}`).subscribe(() => { this.findAll() });
+  }
+
+  findAll() {
+    this.crud.findAll<Banco>(this.url).subscribe(data => {
+      this.bancos = data;
+    });
   }
 
 }
