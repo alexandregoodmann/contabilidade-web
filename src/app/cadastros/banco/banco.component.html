@@ -1,0 +1,23 @@
+<div class="card">
+
+    <form [formGroup]="group" (ngSubmit)="addBanco()">
+        <mat-form-field class="example-form-field">
+            <mat-label>Adicionar novo banco</mat-label>
+            <input matInput type="text" formControlName="banco">
+            <mat-error>Informe o nome do banco</mat-error>
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" type="submit" [disabled]="group.invalid">
+                <mat-icon>add</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
+
+    <div *ngFor="let banco of bancos">
+        <span>
+            {{banco.banco}}
+        </span>
+        <span style="float: right;">
+            <mat-icon (click)="delete(banco)" aria-hidden="false">close</mat-icon>
+        </span>
+    </div>
+
+</div>

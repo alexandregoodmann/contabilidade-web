@@ -31,3 +31,7 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
     margin: 15px;
     padding: 10px;
 }
+
+.mat-form-field {
+    width: 100%;
+}

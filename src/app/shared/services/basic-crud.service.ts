@@ -9,34 +9,39 @@ import { environment } from 'src/environments/environment';
 })
 export class BasicCrudService {
 
+  private url;
   constructor(private http: HttpClient) { }
 
-  create<T>(url, obj): Observable<T> {
-    return this.http.post<T>(url, obj, httpOptions).pipe(
+  setUrl(crudName: string) {
+    this.url = `${environment.url}/${crudName}`;
+  }
+
+  create<T>(obj): Observable<T> {
+    return this.http.post<T>(this.url, obj, httpOptions).pipe(
       catchError(this.handleError<T>('create'))
     );
   }
 
-  update<T>(url, obj): Observable<T> {
-    return this.http.put<T>(url, obj, httpOptions)
+  update<T>(obj): Observable<T> {
+    return this.http.put<T>(this.url, obj, httpOptions)
       .pipe(
         catchError(this.handleError('update', obj))
       );
   }
 
-  delete(url): Observable<{}> {
-    return this.http.delete(url, httpOptions)
+  delete(id: string): Observable<{}> {
+    return this.http.delete(`${this.url}/${id}`, httpOptions)
       .pipe(
         catchError(this.handleError('delete'))
       );
   }
 
-  findById<T>(url, id) {
-    return this.http.get<T>(url);
+  findById<T>(id: string) {
+    return this.http.get<T>(`${this.url}/${id}`);
   }
 
-  findAll<T>(url) {
-    return this.http.get<T>(url);
+  findAll<T>() {
+    return this.http.get<T>(this.url);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

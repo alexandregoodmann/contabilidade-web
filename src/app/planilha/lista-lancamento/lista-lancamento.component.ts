@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Lancamento } from '../model/lancamento';
+import { Lancamento } from 'src/app/shared/model/lancamento';
 
 @Component({
   selector: 'app-lista-lancamento',
