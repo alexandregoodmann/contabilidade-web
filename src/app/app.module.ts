@@ -18,8 +18,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { BancoComponent } from './cadastros/banco/banco.component';
 import { CadastrosComponent } from './cadastros/cadastros/cadastros.component';
+import { CategoriaComponent } from './cadastros/categoria/categoria.component';
 import { LancamentoRapidoComponent } from './planilha/lancamento-rapido/lancamento-rapido.component';
 import { LancamentoComponent } from './planilha/lancamento/lancamento.component';
 import { ListaLancamentoComponent } from './planilha/lista-lancamento/lista-lancamento.component';
@@ -74,8 +74,8 @@ const routes: Routes = [
     ListaLancamentoComponent,
     SaldosComponent,
     ProgressBarComponent,
-    BancoComponent,
-    CadastrosComponent
+    CadastrosComponent,
+    CategoriaComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
