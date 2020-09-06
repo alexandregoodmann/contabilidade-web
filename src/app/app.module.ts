@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -20,6 +21,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CadastrosComponent } from './cadastros/cadastros/cadastros.component';
 import { CategoriaComponent } from './cadastros/categoria/categoria.component';
+import { ContaComponent } from './cadastros/conta/conta.component';
 import { LancamentoRapidoComponent } from './planilha/lancamento-rapido/lancamento-rapido.component';
 import { LancamentoComponent } from './planilha/lancamento/lancamento.component';
 import { ListaLancamentoComponent } from './planilha/lista-lancamento/lista-lancamento.component';
@@ -76,6 +78,7 @@ const routes: Routes = [
     ProgressBarComponent,
     CadastrosComponent,
     CategoriaComponent,
+    ContaComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
@@ -99,7 +102,8 @@ const routes: Routes = [
     MatCheckboxModule,
     MatPaginatorModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatAutocompleteModule
     //MATERIAL
   ],
   providers: [],

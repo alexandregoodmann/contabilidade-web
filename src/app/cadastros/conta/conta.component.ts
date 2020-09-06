@@ -1,57 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { Categoria } from 'src/app/shared/model/categoria';
+import { Conta } from 'src/app/shared/model/conta';
 import { BasicCrudService } from 'src/app/shared/services/basic-crud.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-categoria',
-  templateUrl: './categoria.component.html',
-  styleUrls: ['./categoria.component.css']
+  selector: 'app-conta',
+  templateUrl: './conta.component.html',
+  styleUrls: ['./conta.component.css']
 })
-export class CategoriaComponent implements OnInit {
+export class ContaComponent implements OnInit {
 
-  private url = `${environment.url}/categorias`;
+  private url = `${environment.url}/contas`;
   group: FormGroup;
-  categorias: Array<Categoria>;
+  categorias: Array<Conta>;
 
   constructor(
     private fb: FormBuilder,
-    private crudService: BasicCrudService<Categoria>,
+    private crudService: BasicCrudService<Conta>,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.buildGroup();
     this.findAll();
+
+    this.crudService.url = `${environment.url}/bancos`;
+    this.crudService.findAll().subscribe(data => {
+      console.log(data);
+    });
   }
 
   private buildGroup() {
     this.group = this.fb.group({
       id: [null],
-      categoria: [null, [Validators.required]]
+      conta: [null, [Validators.required]],
+      banco: [null, [Validators.required]]
     });
   }
 
-  addCategoria() {
+  addConta() {
     this.crudService.url = this.url;
     this.create(this.group.value);
   }
 
-  create(categoria: Categoria) {
-    this.crudService.create(categoria).subscribe(data => {
+  create(conta: Conta) {
+    this.crudService.create(conta).subscribe(data => {
     }, (err) => { }, () => {
       this.buildGroup();
       this.findAll();
     });
   }
 
-  delete(categoria: Categoria) {
+  delete(conta: Conta) {
     this.crudService.url = this.url;
-    this.crudService.delete(categoria.id).subscribe(data => {
+    this.crudService.delete(conta.id).subscribe(data => {
     }, (err) => { }, () => {
-      this.openSnackBar('Categoria excluída', 'Desfazer', categoria);
+      this.openSnackBar('Conta excluída', 'Desfazer', conta);
       this.findAll();
     });
   }
@@ -59,13 +65,14 @@ export class CategoriaComponent implements OnInit {
   findAll() {
     this.crudService.url = this.url;
     this.crudService.findAll().subscribe(data => {
-      this.categorias = data as unknown as Categoria[];
+      this.categorias = data as unknown as Conta[];
     });
   }
 
-  openSnackBar(message: string, action: string, categoria: Categoria) {
+  openSnackBar(message: string, action: string, conta: Conta) {
     this.snackBar.open(message, action, { duration: 3000 }).onAction().subscribe(action => {
-      this.create(categoria);
+      this.create(conta);
     });
   }
+
 }

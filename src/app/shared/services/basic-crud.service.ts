@@ -2,44 +2,43 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BasicCrudService {
+export class BasicCrudService<T> {
 
-  constructor(private http: HttpClient) { }
+  url;
 
-  create<T>(url, obj): Observable<T> {
-    return this.http.post<T>(url, obj, httpOptions).pipe(
+  constructor(private http: HttpClient) {
+  }
+
+  create(obj): Observable<T> {
+    return this.http.post<T>(this.url, obj, httpOptions).pipe(
       catchError(this.handleError<T>('create'))
     );
   }
 
-  update<T>(url, obj): Observable<T> {
-    return this.http.put<T>(url, obj, httpOptions)
+  update(obj): Observable<T> {
+    return this.http.put<T>(this.url, obj, httpOptions)
       .pipe(
         catchError(this.handleError('update', obj))
       );
   }
 
-  delete(url, id: string): Observable<{}> {
-    const u = `${url}/${id}`;
-    console.log(u);
-    
-    return this.http.delete(u, httpOptions)
+  delete(id: string): Observable<{}> {
+    return this.http.delete(`${this.url}/${id}`, httpOptions)
       .pipe(
         catchError(this.handleError('delete'))
       );
   }
 
-  findById<T>(url, id: string) {
-    return this.http.get<T>(`${url}/${id}`);
+  findById(id: string) {
+    return this.http.get<T>(`${this.url}/${id}`);
   }
 
-  findAll<T>(url) {
-    return this.http.get<T>(url);
+  findAll() {
+    return this.http.get<T>(this.url);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
