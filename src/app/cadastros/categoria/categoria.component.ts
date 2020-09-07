@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Categoria } from 'src/app/shared/model/categoria';
-import { BasicCrudService } from 'src/app/shared/services/basic-crud.service';
-import { environment } from 'src/environments/environment';
+import { CategoriaService } from 'src/app/shared/services/categoria.service';
 
 @Component({
   selector: 'app-categoria',
@@ -12,13 +11,12 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoriaComponent implements OnInit {
 
-  private url = `${environment.url}/categorias`;
   group: FormGroup;
   categorias: Array<Categoria>;
 
   constructor(
     private fb: FormBuilder,
-    private crudService: BasicCrudService<Categoria>,
+    private categoriaService: CategoriaService,
     private snackBar: MatSnackBar
   ) { }
 
@@ -35,12 +33,11 @@ export class CategoriaComponent implements OnInit {
   }
 
   addCategoria() {
-    this.crudService.url = this.url;
     this.create(this.group.value);
   }
 
   create(categoria: Categoria) {
-    this.crudService.create(categoria).subscribe(data => {
+    this.categoriaService.create(categoria).subscribe(data => {
     }, (err) => { }, () => {
       this.buildGroup();
       this.findAll();
@@ -48,8 +45,7 @@ export class CategoriaComponent implements OnInit {
   }
 
   delete(categoria: Categoria) {
-    this.crudService.url = this.url;
-    this.crudService.delete(categoria.id).subscribe(data => {
+    this.categoriaService.delete(categoria.id).subscribe(data => {
     }, (err) => { }, () => {
       this.openSnackBar('Categoria excluída', 'Desfazer', categoria);
       this.findAll();
@@ -57,8 +53,7 @@ export class CategoriaComponent implements OnInit {
   }
 
   findAll() {
-    this.crudService.url = this.url;
-    this.crudService.findAll().subscribe(data => {
+    this.categoriaService.findAll().subscribe(data => {
       this.categorias = data as unknown as Categoria[];
     });
   }

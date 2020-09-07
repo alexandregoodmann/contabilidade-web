@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { Banco } from 'src/app/shared/model/banco';
 import { Conta } from 'src/app/shared/model/conta';
-import { BasicCrudService } from 'src/app/shared/services/basic-crud.service';
-import { environment } from 'src/environments/environment';
+import { BancoService } from 'src/app/shared/services/banco.service';
+import { ContaService } from 'src/app/shared/services/conta.service';
 
 @Component({
   selector: 'app-conta',
@@ -12,23 +15,46 @@ import { environment } from 'src/environments/environment';
 })
 export class ContaComponent implements OnInit {
 
-  private url = `${environment.url}/contas`;
   group: FormGroup;
   categorias: Array<Conta>;
 
+  bancos: Array<Banco>;
+  options: Array<string>;
+  filteredOptions: Observable<string[]>;
+
   constructor(
     private fb: FormBuilder,
-    private crudService: BasicCrudService<Conta>,
+    private bancoService: BancoService,
+    private contaService: ContaService,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.buildGroup();
     this.findAll();
+    this.getBancos();
+    this.filteredOptions = this.group.get('banco').valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
 
-    this.crudService.url = `${environment.url}/bancos`;
-    this.crudService.findAll().subscribe(data => {
-      console.log(data);
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    if (this.options) {
+      const filtered = this.options.filter(option => option.toLowerCase().includes(filterValue));
+      console.log(filtered);
+      return filtered;
+    }
+  }
+
+  private getBancos() {
+    this.bancoService.findAll().subscribe(data => {
+      this.bancos = data as unknown as Array<Banco>;
+      this.options = [];
+      this.bancos.forEach(b => {
+        this.options.push(b.banco);
+      });
     });
   }
 
@@ -41,12 +67,11 @@ export class ContaComponent implements OnInit {
   }
 
   addConta() {
-    this.crudService.url = this.url;
     this.create(this.group.value);
   }
 
   create(conta: Conta) {
-    this.crudService.create(conta).subscribe(data => {
+    this.contaService.create(conta).subscribe(data => {
     }, (err) => { }, () => {
       this.buildGroup();
       this.findAll();
@@ -54,8 +79,7 @@ export class ContaComponent implements OnInit {
   }
 
   delete(conta: Conta) {
-    this.crudService.url = this.url;
-    this.crudService.delete(conta.id).subscribe(data => {
+    this.contaService.delete(conta.id).subscribe(data => {
     }, (err) => { }, () => {
       this.openSnackBar('Conta excluída', 'Desfazer', conta);
       this.findAll();
@@ -63,8 +87,7 @@ export class ContaComponent implements OnInit {
   }
 
   findAll() {
-    this.crudService.url = this.url;
-    this.crudService.findAll().subscribe(data => {
+    this.contaService.findAll().subscribe(data => {
       this.categorias = data as unknown as Conta[];
     });
   }

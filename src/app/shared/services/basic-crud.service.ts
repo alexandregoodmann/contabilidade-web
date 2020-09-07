@@ -8,37 +8,40 @@ import { catchError } from 'rxjs/operators';
 })
 export class BasicCrudService<T> {
 
-  url;
+  private _url;
+  private _http: HttpClient;
 
-  constructor(private http: HttpClient) {
+  constructor(url: string, http: HttpClient) {
+    this._url = url;
+    this._http = http;
   }
 
   create(obj): Observable<T> {
-    return this.http.post<T>(this.url, obj, httpOptions).pipe(
+    return this._http.post<T>(this._url, obj, httpOptions).pipe(
       catchError(this.handleError<T>('create'))
     );
   }
 
   update(obj): Observable<T> {
-    return this.http.put<T>(this.url, obj, httpOptions)
+    return this._http.put<T>(this._url, obj, httpOptions)
       .pipe(
         catchError(this.handleError('update', obj))
       );
   }
 
   delete(id: string): Observable<{}> {
-    return this.http.delete(`${this.url}/${id}`, httpOptions)
+    return this._http.delete(`${this._url}/${id}`, httpOptions)
       .pipe(
         catchError(this.handleError('delete'))
       );
   }
 
   findById(id: string) {
-    return this.http.get<T>(`${this.url}/${id}`);
+    return this._http.get<T>(`${this._url}/${id}`);
   }
 
   findAll() {
-    return this.http.get<T>(this.url);
+    return this._http.get<T>(this._url);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

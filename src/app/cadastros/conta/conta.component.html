@@ -1,17 +1,15 @@
 <div class="card">
     <form [formGroup]="group" (ngSubmit)="add()">
-<!--
 
-    <mat-form-field>
-        <input type="text" placeholder="Escolha um banco" aria-label="Number" matInput [formControl]="banco"
-        [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
--->
+        <mat-form-field>
+            <input type="text" placeholder="Nome do banco" aria-label="Number" matInput formControlName="banco"
+                [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
 
         <mat-form-field>
             <mat-label>Adicionar nova conta</mat-label>
