@@ -5,8 +5,8 @@
             <input type="text" placeholder="Nome do banco" aria-label="Number" matInput formControlName="banco"
                 [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                    {{option}}
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.banco">
+                    {{option.banco}}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
@@ -21,6 +21,7 @@
             </button>
         </mat-form-field>
     </form>
+
     <div *ngFor="let item of contas" style="height: 30px;">
         <span>
             {{item.conta}}
@@ -29,4 +30,5 @@
             <mat-icon (click)="delete(item)" style="font-size: 22px !important;">close</mat-icon>
         </span>
     </div>
+    
 </div>

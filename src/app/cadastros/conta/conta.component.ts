@@ -16,11 +16,10 @@ import { ContaService } from 'src/app/shared/services/conta.service';
 export class ContaComponent implements OnInit {
 
   group: FormGroup;
-  categorias: Array<Conta>;
+  contas: Array<Conta>;
 
   bancos: Array<Banco>;
-  options: Array<string>;
-  filteredOptions: Observable<string[]>;
+  filteredOptions: Observable<Banco[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -39,11 +38,9 @@ export class ContaComponent implements OnInit {
     );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    if (this.options) {
-      const filtered = this.options.filter(option => option.toLowerCase().includes(filterValue));
-      console.log(filtered);
+  private _filter(value: string): Banco[] {
+    if (this.bancos) {
+      const filtered = this.bancos.filter(o => o.banco.toLowerCase().includes(value.toLowerCase()));
       return filtered;
     }
   }
@@ -51,10 +48,6 @@ export class ContaComponent implements OnInit {
   private getBancos() {
     this.bancoService.findAll().subscribe(data => {
       this.bancos = data as unknown as Array<Banco>;
-      this.options = [];
-      this.bancos.forEach(b => {
-        this.options.push(b.banco);
-      });
     });
   }
 
@@ -66,7 +59,7 @@ export class ContaComponent implements OnInit {
     });
   }
 
-  addConta() {
+  add() {
     this.create(this.group.value);
   }
 
@@ -88,7 +81,7 @@ export class ContaComponent implements OnInit {
 
   findAll() {
     this.contaService.findAll().subscribe(data => {
-      this.categorias = data as unknown as Conta[];
+      this.contas = data as unknown as Conta[];
     });
   }
 
