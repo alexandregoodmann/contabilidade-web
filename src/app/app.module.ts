@@ -53,8 +53,8 @@ const routes: Routes = [
     component: ListaLancamentoComponent,
   },
   {
-    path: 'cadastros',
-    component: CadastrosComponent
+    path: 'contas',
+    component: ContaComponent
   },
   {
     path: '',

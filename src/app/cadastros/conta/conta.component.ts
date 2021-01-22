@@ -29,13 +29,25 @@ export class ContaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.buildGroup();
-    this.findAll();
-    this.getBancos();
-    this.filteredOptions = this.group.get('banco').valueChanges.pipe(
+
+    //busca todos os bancos
+    this.bancoService.findAll().subscribe(data => {
+      this.bancos = data as unknown as Array<Banco>;
+    });
+
+    //cria group
+    this.group = this.fb.group({
+      conta: [null, [Validators.required]],
+      banco: [null, [Validators.required]]
+    });
+
+    //filtro
+    const control = this.group.get('banco');
+    this.filteredOptions = control.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
+
   }
 
   private _filter(value: string): Banco[] {
@@ -45,29 +57,22 @@ export class ContaComponent implements OnInit {
     }
   }
 
-  private getBancos() {
-    this.bancoService.findAll().subscribe(data => {
-      this.bancos = data as unknown as Array<Banco>;
-    });
-  }
+  create() {
+    const control = this.group.get('banco');
+    const banco = this.bancos.filter(o => o.banco === control.value);
 
-  private buildGroup() {
-    this.group = this.fb.group({
-      id: [null],
-      conta: [null, [Validators.required]],
-      banco: [null, [Validators.required]]
-    });
-  }
+    if (banco.length === 0) {
+      control.setErrors(Validators.required);
+      return;
+    }
 
-  add() {
-    this.create(this.group.value);
-  }
+    const conta = new Conta();
+    conta.banco = banco[0];
+    conta.conta = this.group.get('conta').value;
+    console.log(conta);
 
-  create(conta: Conta) {
     this.contaService.create(conta).subscribe(data => {
     }, (err) => { }, () => {
-      this.buildGroup();
-      this.findAll();
     });
   }
 
@@ -75,19 +80,12 @@ export class ContaComponent implements OnInit {
     this.contaService.delete(conta.id).subscribe(data => {
     }, (err) => { }, () => {
       this.openSnackBar('Conta excluída', 'Desfazer', conta);
-      this.findAll();
-    });
-  }
-
-  findAll() {
-    this.contaService.findAll().subscribe(data => {
-      this.contas = data as unknown as Conta[];
     });
   }
 
   openSnackBar(message: string, action: string, conta: Conta) {
     this.snackBar.open(message, action, { duration: 3000 }).onAction().subscribe(action => {
-      this.create(conta);
+      // this.create(conta);
     });
   }
 

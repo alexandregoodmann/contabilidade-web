@@ -1,9 +1,12 @@
+<app-top-bar titulo="Contas"></app-top-bar>
+
 <div class="card">
-    <form [formGroup]="group" (ngSubmit)="add()">
+    <form [formGroup]="group" (ngSubmit)="create()">
 
         <mat-form-field>
             <input type="text" placeholder="Nome do banco" aria-label="Number" matInput formControlName="banco"
                 [matAutocomplete]="auto">
+            <mat-error>Informe um banco a partir da lista</mat-error>
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option.banco">
                     {{option.banco}}
@@ -12,23 +15,24 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Adicionar nova conta</mat-label>
+            <mat-label>Descrição da Conta</mat-label>
             <input matInput type="text" formControlName="conta">
             <mat-error>Informe a conta</mat-error>
-            <button mat-button matSuffix mat-icon-button type="submit" [disabled]="group.invalid"
-                style="margin-right: 2px;">
-                <mat-icon style="font-size: 24px !important;">add</mat-icon>
-            </button>
         </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit" [disabled]="group.invalid">Salvar</button>
+
     </form>
 
-    <div *ngFor="let item of contas" style="height: 30px;">
-        <span>
+    <!-- 
+        <div *ngFor="let item of contas" style="height: 30px;">
+            <span>
             {{item.conta}}
         </span>
         <span style="float: right;">
             <mat-icon (click)="delete(item)" style="font-size: 22px !important;">close</mat-icon>
         </span>
     </div>
-    
+    -->
+
 </div>
