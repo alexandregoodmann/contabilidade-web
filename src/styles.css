@@ -35,3 +35,9 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
 .mat-form-field {
     width: 100%;
 }
+
+
+.mat-chip.mat-standard-chip {
+    background-color: white !important;
+    color: rgba(0, 0, 0, 0.87);
+}

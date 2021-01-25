@@ -40,7 +40,7 @@ export class BasicCrudService<T> {
     return this._http.get<T>(`${this._url}/${id}`);
   }
 
-  findAll() {
+  findAll(): Observable<T> {
     return this._http.get<T>(this._url);
   }
 

@@ -36,10 +36,7 @@ export class ContaComponent implements OnInit {
     });
 
     //cria group
-    this.group = this.fb.group({
-      conta: [null, [Validators.required]],
-      banco: [null, [Validators.required]]
-    });
+    this.criarGroup();
 
     //filtro
     const control = this.group.get('banco');
@@ -55,6 +52,13 @@ export class ContaComponent implements OnInit {
       const filtered = this.bancos.filter(o => o.banco.toLowerCase().includes(value.toLowerCase()));
       return filtered;
     }
+  }
+
+  private criarGroup() {
+    this.group = this.fb.group({
+      conta: [null, [Validators.required]],
+      banco: [null, [Validators.required]]
+    });
   }
 
   create() {
@@ -74,6 +78,9 @@ export class ContaComponent implements OnInit {
     this.contaService.create(conta).subscribe(data => {
     }, (err) => { }, () => {
     });
+
+    this.criarGroup();
+    this.group.markAsUntouched();
   }
 
   delete(conta: Conta) {

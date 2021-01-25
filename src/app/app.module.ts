@@ -30,6 +30,9 @@ import { PrincipalComponent } from './principal/principal.component';
 import { BotaoMenuComponent } from './shared/components/botao-menu/botao-menu.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatChipsModule } from '@angular/material/chips';
 
 const routes: Routes = [
   {
@@ -53,8 +56,12 @@ const routes: Routes = [
     component: ListaLancamentoComponent,
   },
   {
-    path: 'contas',
+    path: 'conta',
     component: ContaComponent
+  },
+  {
+    path: 'categoria',
+    component: CategoriaComponent
   },
   {
     path: '',
@@ -103,8 +110,10 @@ const routes: Routes = [
     MatPaginatorModule,
     MatExpansionModule,
     MatSnackBarModule,
-    MatAutocompleteModule
-    //MATERIAL
+    MatAutocompleteModule,
+    MatRadioModule,
+    MatBadgeModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

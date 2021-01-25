@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Conta } from 'src/app/shared/model/conta';
 import { Lancamento } from 'src/app/shared/model/lancamento';
+import { CategoriaService } from 'src/app/shared/services/categoria.service';
+import { ContaService } from 'src/app/shared/services/conta.service';
 
 
 @Component({
@@ -10,36 +14,45 @@ import { Lancamento } from 'src/app/shared/model/lancamento';
 })
 export class LancamentoComponent implements OnInit {
 
-  param;
+  group: FormGroup;
   model: Lancamento;
+  contas;
+  categorias;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private fb: FormBuilder,
+    private contaService: ContaService,
+    private categoriaService: CategoriaService,
   ) {
-    this.route.params.subscribe(params => this.param = params);
   }
 
   ngOnInit(): void {
+    this.contaService.findAll().subscribe(data => {
+      this.contas = data;
+    });
+    this.categoriaService.findAll().subscribe(data => {
+      this.categorias = data;
+    });
 
-    if (this.param.categoria != 0) {
-      this.preparar();
-      console.log(this.model);
-    } else {
-      this.model = new Lancamento();
-    }
+    this.group = this.fb.group({
+      conta: [null, [Validators.required]],
+      categoria: [null, [Validators.required]],
+      data: [null, [Validators.required]],
+      descricao: [null, [Validators.required]],
+      valor: [null, [Validators.required]]
+    });
+
   }
 
   salvar() {
     console.log(this.model);
-
     //this.router.navigateByUrl('/');
   }
 
-  private preparar() {
-    let l = new Lancamento();
-    l.categoria = this.param.categoria;
-    this.model = l;
+  setConta(e) {
+    console.log(e);
   }
 
 }

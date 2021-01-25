@@ -2,7 +2,6 @@
 
 <div class="card">
     <form [formGroup]="group" (ngSubmit)="create()">
-
         <mat-form-field>
             <input type="text" placeholder="Nome do banco" aria-label="Number" matInput formControlName="banco"
                 [matAutocomplete]="auto">
@@ -23,16 +22,4 @@
         <button mat-flat-button color="primary" type="submit" [disabled]="group.invalid">Salvar</button>
 
     </form>
-
-    <!-- 
-        <div *ngFor="let item of contas" style="height: 30px;">
-            <span>
-            {{item.conta}}
-        </span>
-        <span style="float: right;">
-            <mat-icon (click)="delete(item)" style="font-size: 22px !important;">close</mat-icon>
-        </span>
-    </div>
-    -->
-
 </div>
