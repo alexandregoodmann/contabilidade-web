@@ -1,32 +1,49 @@
 <app-top-bar titulo="Lançameto"></app-top-bar>
 
 <div class="form">
-    <form [formGroup]="group" (ngSubmit)="salvar()">
+    <form [formGroup]="group" (ngSubmit)="salvar()" autocomplete="off">
 
-        <mat-chip-list aria-label="Selecione a Conta">
-            <mat-chip (click)="setConta(conta)" *ngFor="let conta of contas">{{conta.conta}}</mat-chip>
-        </mat-chip-list>
+        <div class="chips-container">
+            <label class="chips-label">Selecione a Conta Corrente</label>
+            <div [ngClass]="{'chips-selected': contaSelected === conta, 'chips': contaSelected !== conta}"
+                (click)="setValues('conta', conta)" *ngFor="let conta of contas">
+                <span>
+                    {{conta.conta}}
+                </span>
+            </div>
+        </div>
 
+        <div class="chips-container">
+            <label class="chips-label">Selecione a Categoria</label>
+            <div [ngClass]="{'chips-selected': categoriaSelected === categoria, 'chips': categoriaSelected !== categoria}"
+                (click)="setValues('categoria', categoria)" *ngFor="let categoria of categorias">
+                <span>
+                    {{categoria.categoria}}
+                </span>
+            </div>
+        </div>
 
-        <mat-chip-list aria-label="Selecione a Categoria">
-            <mat-chip *ngFor="let categoria of categorias">{{categoria.categoria}}</mat-chip>
-        </mat-chip-list>
-
-        <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Data">
+        <mat-form-field appearance="fill">
+            <mat-label>Data</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="data">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error>Obrigatório</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Descrição">
+        <mat-form-field appearance="fill">
+            <mat-label>Descrição</mat-label>
+            <input matInput formControlName="descricao">
+            <mat-error>Obrigatório</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Valor">
+        <mat-form-field appearance="fill">
+            <mat-label>Valor</mat-label>
+            <input currencyMask matInput formControlName="valor">
+            <mat-error>Obrigatório</mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit">Salvar</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>
     </form>
 </div>
 

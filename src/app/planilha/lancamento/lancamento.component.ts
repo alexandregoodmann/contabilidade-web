@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Categoria } from 'src/app/shared/model/categoria';
 import { Conta } from 'src/app/shared/model/conta';
 import { Lancamento } from 'src/app/shared/model/lancamento';
 import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ContaService } from 'src/app/shared/services/conta.service';
+import { LancamentoService } from 'src/app/shared/services/lancamento.service';
 
 
 @Component({
@@ -15,25 +17,27 @@ import { ContaService } from 'src/app/shared/services/conta.service';
 export class LancamentoComponent implements OnInit {
 
   group: FormGroup;
-  model: Lancamento;
-  contas;
-  categorias;
+  contas: Conta[];
+  contaSelected: Conta;
+  categorias: Categoria[];
+  categoriaSelected: Categoria;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private fb: FormBuilder,
     private contaService: ContaService,
     private categoriaService: CategoriaService,
+    private lancamentoService: LancamentoService
   ) {
   }
 
   ngOnInit(): void {
+
     this.contaService.findAll().subscribe(data => {
-      this.contas = data;
+      this.contas = data as unknown as Conta[];
     });
+
     this.categoriaService.findAll().subscribe(data => {
-      this.categorias = data;
+      this.categorias = data as unknown as Categoria[];
     });
 
     this.group = this.fb.group({
@@ -44,15 +48,27 @@ export class LancamentoComponent implements OnInit {
       valor: [null, [Validators.required]]
     });
 
+    this.group.get('data').setValue(new Date());
   }
 
   salvar() {
-    console.log(this.model);
-    //this.router.navigateByUrl('/');
+    let model = this.group.value;
+    this.lancamentoService.create(model).subscribe(data => {
+    }, (err) => { }, () => {
+    });
   }
 
-  setConta(e) {
-    console.log(e);
+  setValues(controlName: string, obj: any) {
+    this.group.get(controlName).setValue(obj);
+    this.group.updateValueAndValidity();
+
+    if (controlName === 'conta') {
+      this.contaSelected = obj;
+    }
+
+    if (controlName === 'categoria') {
+      this.categoriaSelected = obj;
+    }
   }
 
 }

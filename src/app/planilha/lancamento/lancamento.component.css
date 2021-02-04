@@ -1,0 +1,32 @@
+.chips {
+    display      : inline-block;
+    height       : 25px;
+    font-size    : 12px;
+    border-radius: 25px;
+    padding      : 3px 15px;
+    margin       : 3px 6px 3px 0;
+    border       : solid 1px gray;
+}
+
+.chips-selected {
+    display         : inline-block;
+    height          : 25px;
+    font-size       : 12px;
+    border-radius   : 25px;
+    background-color: black;
+    padding         : 3px 15px;
+    margin          : 3px;
+    color           : #d4d4d4;
+}
+
+
+.chips-container {
+    margin-bottom: 20px;
+}
+
+.chips-label {
+    font-size  : 11.5px;
+    color      : #615f5f;
+    display    : block;
+    margin-left: 11px;
+}

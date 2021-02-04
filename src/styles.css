@@ -16,7 +16,7 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
 .form {
     display: flex;
     flex-direction: column;
-    margin-top: 48px;
+    margin-top: 24px;
     margin-left: 20px;
     padding-right: 20px;
 }

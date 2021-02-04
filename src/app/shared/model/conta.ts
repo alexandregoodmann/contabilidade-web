@@ -5,4 +5,5 @@ export class Conta {
     conta: string;
     saldo: Number;
     banco: Banco;
+    selecionado: boolean;
 }

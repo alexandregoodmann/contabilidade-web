@@ -33,6 +33,18 @@ import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from "ng2-currency-mask";
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "left",
+  allowNegative: false,
+  decimal: ",",
+  precision: 2,
+  prefix: "R$ ",
+  suffix: "",
+  thousands: "."
+};
 
 const routes: Routes = [
   {
@@ -94,6 +106,7 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    CurrencyMaskModule,
     //MATERIAL
     MatCardModule,
     MatGridListModule,
@@ -115,10 +128,11 @@ const routes: Routes = [
     MatBadgeModule,
     MatChipsModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-
-
 }
+
