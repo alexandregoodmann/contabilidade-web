@@ -19,13 +19,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CadastrosComponent } from './cadastros/cadastros/cadastros.component';
-import { CategoriaComponent } from './cadastros/categoria/categoria.component';
-import { ContaComponent } from './cadastros/conta/conta.component';
-import { LancamentoRapidoComponent } from './planilha/lancamento-rapido/lancamento-rapido.component';
-import { LancamentoComponent } from './planilha/lancamento/lancamento.component';
-import { ListaLancamentoComponent } from './planilha/lista-lancamento/lista-lancamento.component';
-import { SaldosComponent } from './planilha/saldos/saldos.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { BotaoMenuComponent } from './shared/components/botao-menu/botao-menu.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
@@ -35,6 +28,12 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from "ng2-currency-mask";
+import { ExtratoComponent } from './extrato/extrato.component';
+import { SaldosComponent } from './saldos/saldos.component';
+import { LancamentoComponent } from './lancamento/lancamento.component';
+import { CategoriaComponent } from './categoria/categoria.component';
+import { ContaComponent } from './conta/conta.component';
+import { LOCALE_ID } from '@angular/core';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -60,20 +59,16 @@ const routes: Routes = [
     component: LancamentoComponent,
   },
   {
-    path: 'lancamento-rapido',
-    component: LancamentoRapidoComponent,
-  },
-  {
-    path: 'lista-lancamento',
-    component: ListaLancamentoComponent,
-  },
-  {
     path: 'conta',
     component: ContaComponent
   },
   {
     path: 'categoria',
     component: CategoriaComponent
+  },
+  {
+    path: 'extrato',
+    component: ExtratoComponent
   },
   {
     path: '',
@@ -91,13 +86,11 @@ const routes: Routes = [
     LancamentoComponent,
     TopBarComponent,
     BotaoMenuComponent,
-    LancamentoRapidoComponent,
-    ListaLancamentoComponent,
     SaldosComponent,
     ProgressBarComponent,
-    CadastrosComponent,
     CategoriaComponent,
     ContaComponent,
+    ExtratoComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),

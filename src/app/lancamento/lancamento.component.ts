@@ -1,5 +1,7 @@
+import { Directionality } from '@angular/cdk/bidi';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from 'src/app/shared/model/categoria';
 import { Conta } from 'src/app/shared/model/conta';
@@ -26,7 +28,8 @@ export class LancamentoComponent implements OnInit {
     private fb: FormBuilder,
     private contaService: ContaService,
     private categoriaService: CategoriaService,
-    private lancamentoService: LancamentoService
+    private lancamentoService: LancamentoService,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -55,6 +58,12 @@ export class LancamentoComponent implements OnInit {
     let model = this.group.value;
     this.lancamentoService.create(model).subscribe(data => {
     }, (err) => { }, () => {
+      this.contaSelected = null;
+      this.categoriaSelected = null;
+      this.snackBar.open('Salvo', '', {
+        duration: 2000,
+        horizontalPosition: 'start'
+      });
     });
   }
 

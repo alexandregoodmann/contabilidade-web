@@ -1,15 +1,15 @@
 <app-top-bar titulo="Lançameto"></app-top-bar>
 
 <div class="form">
-    <form [formGroup]="group" (ngSubmit)="salvar()" autocomplete="off">
+    <form #form [formGroup]="group" (ngSubmit)="salvar(); form.reset();" autocomplete="off">
 
         <div class="chips-container">
             <label class="chips-label">Selecione a Conta Corrente</label>
-            <div [ngClass]="{'chips-selected': contaSelected === conta, 'chips': contaSelected !== conta}"
-                (click)="setValues('conta', conta)" *ngFor="let conta of contas">
-                <span>
+            <div>
+                <div [ngClass]="{'chips-selected': contaSelected === conta, 'chips': contaSelected !== conta}"
+                    (click)="setValues('conta', conta)" *ngFor="let conta of contas">
                     {{conta.conta}}
-                </span>
+                </div>
             </div>
         </div>
 
@@ -17,9 +17,7 @@
             <label class="chips-label">Selecione a Categoria</label>
             <div [ngClass]="{'chips-selected': categoriaSelected === categoria, 'chips': categoriaSelected !== categoria}"
                 (click)="setValues('categoria', categoria)" *ngFor="let categoria of categorias">
-                <span>
-                    {{categoria.categoria}}
-                </span>
+                {{categoria.categoria}}
             </div>
         </div>
 
@@ -33,7 +31,7 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Descrição</mat-label>
-            <input matInput formControlName="descricao">
+            <input matInput formControlName="descricao" minlength="3">
             <mat-error>Obrigatório</mat-error>
         </mat-form-field>
 

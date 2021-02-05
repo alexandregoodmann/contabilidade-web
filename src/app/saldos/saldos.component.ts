@@ -15,11 +15,6 @@ export class SaldosComponent implements OnInit {
 
   ngOnInit() {
 
-    this.contaService.findAll().subscribe(data => {
-      console.log(data);
-
-    });
-
   }
 
 

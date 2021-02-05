@@ -4,5 +4,5 @@ export class Lancamento {
     dtLancamento: string;
     descricao: string;
     valor: number;
-    data: string;
+    data: Date;
 }

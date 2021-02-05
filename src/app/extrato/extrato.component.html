@@ -1,0 +1,9 @@
+<app-top-bar titulo="Lista de Lançamentos"></app-top-bar>
+
+<table class="w3-table w3-bordered">
+    <tr *ngFor="let item of lancamentos">
+        <td>{{item.data | date:'dd/MM/yy'}}</td>
+        <td>{{item.descricao}}</td>
+        <td>{{item.valor | currency:'BRL':true:'1.2-2'}}</td>
+    </tr>
+</table>
