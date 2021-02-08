@@ -1,28 +1,20 @@
-import { Directionality } from '@angular/cdk/bidi';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Categoria } from 'src/app/shared/model/categoria';
-import { Conta } from 'src/app/shared/model/conta';
-import { Lancamento } from 'src/app/shared/model/lancamento';
+import { MatSnackBar } from '@angular/material';
 import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ContaService } from 'src/app/shared/services/conta.service';
 import { LancamentoService } from 'src/app/shared/services/lancamento.service';
 
-
 @Component({
   selector: 'app-lancamento',
   templateUrl: './lancamento.component.html',
-  styleUrls: ['./lancamento.component.css']
+  styleUrls: ['./lancamento.component.scss']
 })
 export class LancamentoComponent implements OnInit {
 
   group: FormGroup;
-  contas: Conta[];
-  contaSelected: Conta;
-  categorias: Categoria[];
-  categoriaSelected: Categoria;
+  chipsContas = [];
+  chipsCategorias = [];
 
   constructor(
     private fb: FormBuilder,
@@ -36,11 +28,15 @@ export class LancamentoComponent implements OnInit {
   ngOnInit(): void {
 
     this.contaService.findAll().subscribe(data => {
-      this.contas = data as unknown as Conta[];
+      data.forEach(e => {
+        this.chipsContas.push(e.conta);
+      });
     });
 
     this.categoriaService.findAll().subscribe(data => {
-      this.categorias = data as unknown as Categoria[];
+      data.forEach(e => {
+        this.chipsCategorias.push(e.categoria);
+      })
     });
 
     this.group = this.fb.group({
@@ -56,10 +52,8 @@ export class LancamentoComponent implements OnInit {
 
   salvar() {
     let model = this.group.value;
-    this.lancamentoService.create(model).subscribe(data => {
-    }, (err) => { }, () => {
-      this.contaSelected = null;
-      this.categoriaSelected = null;
+    this.lancamentoService.create(model).subscribe(() => {
+    }, () => { }, () => {
       this.snackBar.open('Salvo', '', {
         duration: 2000,
         horizontalPosition: 'start'
@@ -67,17 +61,9 @@ export class LancamentoComponent implements OnInit {
     });
   }
 
-  setValues(controlName: string, obj: any) {
-    this.group.get(controlName).setValue(obj);
-    this.group.updateValueAndValidity();
+  tipoLancamento(e) {
+    console.log('no tipo papai', e);
 
-    if (controlName === 'conta') {
-      this.contaSelected = obj;
-    }
-
-    if (controlName === 'categoria') {
-      this.categoriaSelected = obj;
-    }
   }
 
 }

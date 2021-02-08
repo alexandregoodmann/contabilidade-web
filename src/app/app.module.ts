@@ -34,6 +34,7 @@ import { LancamentoComponent } from './lancamento/lancamento.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { ContaComponent } from './conta/conta.component';
 import { LOCALE_ID } from '@angular/core';
+import { ChipsComponent } from './shared/components/chips/chips.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -91,6 +92,7 @@ const routes: Routes = [
     CategoriaComponent,
     ContaComponent,
     ExtratoComponent,
+    ChipsComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),

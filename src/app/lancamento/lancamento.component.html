@@ -5,20 +5,12 @@
 
         <div class="chips-container">
             <label class="chips-label">Selecione a Conta Corrente</label>
-            <div>
-                <div [ngClass]="{'chips-selected': contaSelected === conta, 'chips': contaSelected !== conta}"
-                    (click)="setValues('conta', conta)" *ngFor="let conta of contas">
-                    {{conta.conta}}
-                </div>
-            </div>
+            <c-chips [list]="chipsContas"></c-chips>
         </div>
 
         <div class="chips-container">
             <label class="chips-label">Selecione a Categoria</label>
-            <div [ngClass]="{'chips-selected': categoriaSelected === categoria, 'chips': categoriaSelected !== categoria}"
-                (click)="setValues('categoria', categoria)" *ngFor="let categoria of categorias">
-                {{categoria.categoria}}
-            </div>
+            <c-chips [list]="chipsCategorias"></c-chips>
         </div>
 
         <mat-form-field appearance="fill">
@@ -35,15 +27,19 @@
             <mat-error>Obrigatório</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Valor</mat-label>
-            <input currencyMask matInput formControlName="valor">
-            <mat-error>Obrigatório</mat-error>
-        </mat-form-field>
+        <div class="w3-row">
+            <div class="w3-col s9">
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor</mat-label>
+                    <input currencyMask matInput formControlName="valor">
+                    <mat-error>Obrigatório</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="w3-col s3">
+                <c-chips [list]="['Entrada','Saída']" class="small" (selectedEvent)="tipoLancamento($event)"></c-chips>
+            </div>
+        </div>
 
         <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>
     </form>
-</div>
-
-<div class="form-button">
 </div>
