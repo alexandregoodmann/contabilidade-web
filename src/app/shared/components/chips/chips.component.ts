@@ -8,14 +8,21 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ChipsComponent {
 
   @Input() class;
-  @Input() list;
+  @Input() list: ChipsObject[] = [];
+
   selected;
 
   @Output() selectedEvent = new EventEmitter<string>();
 
-  select(value: string) {
+  select(value) {
     this.selected = value;
     this.selectedEvent.emit(value);
   }
 
+}
+
+export class ChipsObject {
+  key;
+  label;
+  value?;
 }

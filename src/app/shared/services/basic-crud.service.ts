@@ -53,6 +53,6 @@ export class BasicCrudService<T> {
 
 }
 
-const httpOptions = {
+export const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

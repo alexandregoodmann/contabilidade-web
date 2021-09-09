@@ -18,7 +18,7 @@ export class ExtratoComponent implements OnInit {
   ngOnInit() {
     this.lancamentoService.findAll().subscribe(data => {
       this.lancamentos = data as unknown as Lancamento[];
-    })
+    });
   }
 
 }

@@ -41,3 +41,14 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
     background-color: white !important;
     color: rgba(0, 0, 0, 0.87);
 }
+
+.chips-container {
+    margin-bottom: 20px;
+}
+
+.chips-label {
+    font-size  : 11.5px;
+    color      : #615f5f;
+    display    : block;
+    margin-left: 11px;
+}

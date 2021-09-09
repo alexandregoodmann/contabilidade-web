@@ -35,6 +35,7 @@ import { CategoriaComponent } from './categoria/categoria.component';
 import { ContaComponent } from './conta/conta.component';
 import { LOCALE_ID } from '@angular/core';
 import { ChipsComponent } from './shared/components/chips/chips.component';
+import { CargaComponent } from './carga/carga.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -72,6 +73,10 @@ const routes: Routes = [
     component: ExtratoComponent
   },
   {
+    path: 'carga',
+    component: CargaComponent
+  },
+  {
     path: '',
     redirectTo: 'principal',
     pathMatch: 'full'
@@ -93,6 +98,7 @@ const routes: Routes = [
     ContaComponent,
     ExtratoComponent,
     ChipsComponent,
+    CargaComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),

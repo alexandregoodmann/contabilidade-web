@@ -5,12 +5,12 @@
 
         <div class="chips-container">
             <label class="chips-label">Selecione a Conta Corrente</label>
-            <c-chips [list]="chipsContas"></c-chips>
+            <c-chips [list]="chipsContas" (selectedEvent)="setConta($event)"></c-chips>
         </div>
 
         <div class="chips-container">
             <label class="chips-label">Selecione a Categoria</label>
-            <c-chips [list]="chipsCategorias"></c-chips>
+            <c-chips [list]="chipsCategorias" (selectedEvent)="setCategoria($event)"></c-chips>
         </div>
 
         <mat-form-field appearance="fill">
@@ -36,7 +36,7 @@
                 </mat-form-field>
             </div>
             <div class="w3-col s3">
-                <c-chips [list]="['Entrada','Saída']" class="small" (selectedEvent)="tipoLancamento($event)"></c-chips>
+                <c-chips [list]="tipoLancamento" class="small" (selectedEvent)="setTipoLancamento($event)"></c-chips>
             </div>
         </div>
 

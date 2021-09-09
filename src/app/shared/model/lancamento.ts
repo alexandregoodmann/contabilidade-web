@@ -1,6 +1,9 @@
+import { Categoria } from "./categoria";
+import { Conta } from "./conta";
+
 export class Lancamento {
-    conta: string;
-    categoria: string;
+    conta: Conta;
+    categoria: Categoria;
     dtLancamento: string;
     descricao: string;
     valor: number;
