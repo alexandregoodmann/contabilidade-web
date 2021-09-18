@@ -10,12 +10,13 @@ export class ChipsComponent {
   @Input() class;
   @Input() list: ChipsObject[] = [];
 
-  selected;
-
   @Output() selectedEvent = new EventEmitter<string>();
 
   select(value) {
-    this.selected = value;
+    this.list.forEach(i=>{
+      i.selected = false;
+    });
+    value.selected = true;
     this.selectedEvent.emit(value);
   }
 
@@ -25,4 +26,5 @@ export class ChipsObject {
   key;
   label;
   value?;
+  selected?;
 }

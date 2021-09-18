@@ -1,4 +1,4 @@
 <div class="chips" *ngFor="let item of list" [class]="class"
-    [ngClass]="{'chips-selected': selected === item, 'chips': selected !== item}" (click)="select(item);">
+    [ngClass]="{'chips-selected': item.selected, 'chips': !item.selected}" (click)="select(item);">
     {{item.label}}
 </div>

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ContaService } from 'src/app/shared/services/conta.service';
 import { LancamentoService } from 'src/app/shared/services/lancamento.service';
 import { ChipsObject } from '../shared/components/chips/chips.component';
+import { Lancamento } from '../shared/model/lancamento';
 
 @Component({
   selector: 'app-lancamento',
@@ -13,6 +15,7 @@ import { ChipsObject } from '../shared/components/chips/chips.component';
 })
 export class LancamentoComponent implements OnInit {
 
+  lancamento: Lancamento;
   group: FormGroup;
   chipsContas: ChipsObject[] = [];
   chipsCategorias: ChipsObject[] = [];
@@ -23,7 +26,8 @@ export class LancamentoComponent implements OnInit {
     private contaService: ContaService,
     private categoriaService: CategoriaService,
     private lancamentoService: LancamentoService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: ActivatedRoute,
   ) {
   }
 
@@ -51,6 +55,50 @@ export class LancamentoComponent implements OnInit {
     });
 
     this.group.get('data').setValue(new Date());
+
+    this.router.queryParamMap.subscribe(param => {
+      if (param.get('id') != null) {
+        this.lancamentoService.findById(param.get('id')).subscribe(lancamento => {
+
+          this.lancamento = lancamento;
+
+          console.log(this.lancamento);
+          
+
+          this.group.patchValue(lancamento);
+          this.group.get('data').setValue(new Date(lancamento.data));
+
+          //Parse Conta
+          if (this.group.get('conta').value != null) {
+            this.chipsContas.forEach(i => {
+              if (i.key == lancamento.conta.id) {
+                i.selected = true;
+              }
+            });
+            this.setConta(lancamento.conta);
+          }
+
+          //Parse Categoria
+          if (this.group.get('categoria').value != null) {
+            this.chipsCategorias.forEach(i => {
+              if (i.key == lancamento.categoria.id) {
+                i.selected = true;
+              }
+            });
+            this.setCategoria(lancamento.categoria);
+          }
+
+          //Parse Tipo
+          let tipo = this.lancamento.valor > 0 ? 1 : -1;
+          this.group.get('tipo').setValue(tipo);
+          this.tipoLancamento.forEach(i => {
+            i.selected = (i.key == tipo ? true : false);
+          });
+
+        });
+      }
+    });
+
   }
 
   setConta(conta) {
@@ -67,14 +115,26 @@ export class LancamentoComponent implements OnInit {
 
   salvar() {
     let model = this.group.value;
-    model.valor = model.valor * model.tipo;
-    this.lancamentoService.create(model).subscribe(() => {
-    }, () => { }, () => {
-      this.snackBar.open('Salvo', '', {
-        duration: 2000,
-        horizontalPosition: 'start'
+    if (this.lancamento && this.lancamento.id) {
+      model.id = this.lancamento.id;
+      this.lancamentoService.update(model).subscribe(() => {
+      }, () => { }, () => {
+        this.snackBar.open('Atualizado', '', {
+          duration: 2000,
+          horizontalPosition: 'start'
+        });
       });
-    });
+    } else {
+      model.valor = model.valor * model.tipo;
+      this.lancamentoService.create(model).subscribe(() => {
+      }, () => { }, () => {
+        this.snackBar.open('Salvo', '', {
+          duration: 2000,
+          horizontalPosition: 'start'
+        });
+      });
+    }
+
   }
 
 }

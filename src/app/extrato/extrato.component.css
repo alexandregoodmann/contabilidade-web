@@ -1,0 +1,6 @@
+.c-row-extrato {
+    display: flex;
+    align-items: center;
+    border-bottom: solid 0.5px rgb(228, 227, 227);
+    min-height: 40px;
+}
