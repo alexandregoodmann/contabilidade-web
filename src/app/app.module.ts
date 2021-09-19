@@ -3,9 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatNativeDateModule } from '@angular/material';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,30 +16,25 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from "ng2-currency-mask";
 import { AppComponent } from './app.component';
+import { BancoComponent } from './banco/banco.component';
+import { CargaComponent } from './carga/carga.component';
+import { CategoriaComponent } from './categoria/categoria.component';
+import { ContaComponent } from './conta/conta.component';
+import { ExtratoComponent } from './extrato/extrato.component';
+import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { SaldosComponent } from './saldos/saldos.component';
 import { BotaoMenuComponent } from './shared/components/botao-menu/botao-menu.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatChipsModule } from '@angular/material/chips';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from "ng2-currency-mask";
-import { ExtratoComponent } from './extrato/extrato.component';
-import { SaldosComponent } from './saldos/saldos.component';
-import { LancamentoComponent } from './lancamento/lancamento.component';
-import { CategoriaComponent } from './categoria/categoria.component';
-import { ContaComponent } from './conta/conta.component';
-import { LOCALE_ID } from '@angular/core';
-import { ChipsComponent } from './shared/components/chips/chips.component';
-import { CargaComponent } from './carga/carga.component';
-import { BancoComponent } from './banco/banco.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -57,26 +55,23 @@ const routes: Routes = [
     path: 'categoria',
     component: CategoriaComponent
   },
-/*
   {
-    path: 'principal',
-    component: PrincipalComponent,
-  },
-  {
-    path: 'saldos',
-    component: SaldosComponent,
+    path: 'conta',
+    component: ContaComponent
   },
   {
     path: 'lancamento',
     component: LancamentoComponent,
   },
   {
-    path: 'conta',
-    component: ContaComponent
-  },
-  {
     path: 'extrato',
     component: ExtratoComponent
+  },
+  
+/*
+  {
+    path: 'saldos',
+    component: SaldosComponent,
   },
   {
     path: 'carga',
@@ -103,7 +98,6 @@ const routes: Routes = [
     CategoriaComponent,
     ContaComponent,
     ExtratoComponent,
-    ChipsComponent,
     CargaComponent,
     BancoComponent,
   ],

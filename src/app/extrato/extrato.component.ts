@@ -24,8 +24,6 @@ export class ExtratoComponent implements OnInit {
 
     this.lancamentoService.findAll().subscribe(data => {
       this.lancamentos = data as unknown as Lancamento[];
-      console.log(this.lancamentos);
-      
     });
   }
 

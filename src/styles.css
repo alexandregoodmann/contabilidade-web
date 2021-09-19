@@ -52,6 +52,7 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
     color: rgba(0, 0, 0, 0.87);
     border: solid 1px rgb(206, 205, 205);
     font-size: 13px;
+    min-height: 25px;
 }
 
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {

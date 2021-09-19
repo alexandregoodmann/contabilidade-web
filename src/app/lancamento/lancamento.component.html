@@ -7,7 +7,7 @@
             <label class="chips-label">Selecione a Conta Corrente</label>
             <mat-chip-list #chipList selectable formControlName="conta">
                 <mat-chip #c="matChip" (click)="setConta(c)" *ngFor="let conta of contas" [value]="conta">
-                    {{conta.conta}}
+                    {{conta.descricao}}
                 </mat-chip>
             </mat-chip-list>
         </div>
@@ -15,9 +15,9 @@
         <div class="chips-container">
             <label class="chips-label">Selecione a Categoria</label>
             <mat-chip-list #chipList multiple formControlName="categoria">
-                <mat-chip #c="matChip" (click)="setCategoria(c)" *ngFor="let categoria of categorias" [selected]="contaSelected"
-                    [value]="categoria">
-                    {{categoria.categoria}}
+                <mat-chip #c="matChip" (click)="setCategoria(c)" *ngFor="let categoria of categorias"
+                    [selected]="contaSelected" [value]="categoria">
+                    {{categoria.descricao}}
                 </mat-chip>
             </mat-chip-list>
         </div>
@@ -27,27 +27,24 @@
             <input matInput [matDatepicker]="picker" formControlName="data">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error>Obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>Descrição</mat-label>
             <input matInput formControlName="descricao" minlength="3">
-            <mat-error>Obrigatório</mat-error>
         </mat-form-field>
 
-        <div class="w3-row">
-            <div class="w3-col s9">
-                <mat-form-field appearance="fill">
-                    <mat-label>Valor</mat-label>
-                    <input currencyMask matInput formControlName="valor">
-                    <mat-error>Obrigatório</mat-error>
-                </mat-form-field>
-            </div>
-            <div class="w3-col s3">
-                <c-chips [list]="tipoLancamento" class="small" (selectedEvent)="setTipoLancamento($event)"></c-chips>
-            </div>
-        </div>
+        <mat-form-field appearance="fill">
+            <mat-label>Valor</mat-label>
+            <mat-chip-list #chipList aria-label="Valor" formControlName="tipo">
+                <mat-chip #c="matChip" (click)="setTipo(c)" *ngFor="let tipo of tipos" [selected]="keyword"
+                    [value]="tipo.value">
+                    {{tipo.label}}
+                </mat-chip>
+                <input currencyMask formControlName="valor" placeholder="Digite o valor"
+                    [matChipInputFor]="chipList">
+            </mat-chip-list>
+        </mat-form-field>
 
         <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>
     </form>

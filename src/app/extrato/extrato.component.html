@@ -4,14 +4,10 @@
     <div class="w3-row c-row-extrato" *ngFor="let item of lancamentos" (click)="editar(item)">
         <div class="w3-col s2 m1">{{item.data | date:'dd/MM'}}</div>
         <div class="w3-col s2 m1">
-            <span *ngIf="item.conta.conta == 'Cartão C6'" class="w3-tag w3-tiny w3-round-medium">C6</span>
-            <span *ngIf="item.conta.conta == 'Bradesco'" class="w3-tag w3-tiny w3-round-medium w3-blue">Bra</span>
-            <span *ngIf="item.conta.conta == 'Cartão Santander'"
-                class="w3-tag w3-tiny w3-round-medium w3-red">Way</span>
-            <span *ngIf="item.conta.conta == 'Santander'" class="w3-tag w3-tiny w3-round-medium w3-red">San</span>
+            <span class="w3-tag w3-tiny w3-round-medium">{{item.conta.label}}</span>
         </div>
         <div *ngIf="!mobile" class="w3-col s2 m2" [ngStyle]="{'color': item.categoria == null ? 'gray' : 'black' }">
-            {{item.categoria == null ? 'indefinido': item.categoria.categoria}}
+            {{item.categoria == null ? 'indefinido': item.categoria.descricao}}
         </div>
         <div class="w3-col s6 m5">{{item.descricao}}</div>
         <div class="w3-col s2 m2" style="text-align: right;" [ngStyle]="{'color':item.valor < 0 ? 'red' : 'black' }">

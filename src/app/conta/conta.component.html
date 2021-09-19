@@ -1,25 +1,36 @@
 <app-top-bar titulo="Contas"></app-top-bar>
 
 <div class="card">
-    <form [formGroup]="group" (ngSubmit)="create()">
-        <mat-form-field>
-            <input type="text" placeholder="Nome do banco" aria-label="Number" matInput formControlName="banco"
-                [matAutocomplete]="auto">
-            <mat-error>Informe um banco a partir da lista</mat-error>
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.banco">
-                    {{option.banco}}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-
+    <form #form [formGroup]="group" (ngSubmit)="add(); form.reset();" autocomplete="off">
+        <div class="chips-container">
+            <label class="chips-label">Selecione o banco</label>
+            <mat-chip-list #chipList selectable formControlName="banco">
+                <mat-chip #c="matChip" (click)="setBanco(c)" *ngFor="let banco of bancos" [value]="banco">
+                    {{banco.descricao}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
         <mat-form-field>
             <mat-label>Descrição da Conta</mat-label>
-            <input matInput type="text" formControlName="conta">
+            <input matInput type="text" formControlName="descricao">
             <mat-error>Informe a conta</mat-error>
         </mat-form-field>
-
+        <mat-form-field>
+            <mat-label>Label da conta no extrato</mat-label>
+            <input matInput type="text" formControlName="label">
+            <mat-error>Informe o label</mat-error>
+        </mat-form-field>
         <button mat-flat-button color="primary" type="submit" [disabled]="group.invalid">Salvar</button>
-
     </form>
+</div>
+
+<div class="card">
+    <div *ngFor="let item of contas" style="height: 30px;">
+        <span>
+            {{item.descricao}}
+        </span>
+        <span style="float: right;">
+            <mat-icon (click)="delete(item)" style="font-size: 22px !important;">close</mat-icon>
+        </span>
+    </div>
 </div>

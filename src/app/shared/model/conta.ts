@@ -1,10 +1,8 @@
 import { Banco } from "./banco";
 
 export class Conta {
-    [x: string]: any;
     id: string;
-    conta: string;
-    saldo: Number;
+    descricao: string;
+    label: string;
     banco: Banco;
-    selecionado: boolean;
 }

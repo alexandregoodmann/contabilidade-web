@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChipsObject } from '../shared/components/chips/chips.component';
 import { Conta } from '../shared/model/conta';
 import { CargaService } from '../shared/services/carga.service';
 import { ContaService } from '../shared/services/conta.service';
@@ -12,7 +11,6 @@ import { ContaService } from '../shared/services/conta.service';
 })
 export class CargaComponent implements OnInit {
 
-  chipsContas: ChipsObject[] = [];
   group: FormGroup;
 
   constructor(
@@ -28,9 +26,10 @@ export class CargaComponent implements OnInit {
     });
 
     this.contaService.findAll().subscribe((data: Conta) => {
+      /*
       data.forEach(e => {
         this.chipsContas.push({ key: e.id, label: e.conta, value: e });
-      });
+      });*/
     });
   }
 
