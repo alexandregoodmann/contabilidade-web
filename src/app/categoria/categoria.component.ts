@@ -21,35 +21,18 @@ export class CategoriaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.buildGroup();
+    this.group = this.fb.group({
+      descricao: [null, [Validators.required]]
+    });
     this.findAll();
   }
 
-  private buildGroup() {
-    this.group = this.fb.group({
-      id: [null],
-      categoria: [null, [Validators.required]]
-    });
-  }
-
-  addCategoria() {
-    this.create(this.group.value);
-  }
-
-  create(categoria: Categoria) {
-    this.categoriaService.create(categoria).subscribe(data => {
-    }, (err) => { }, () => {
-      this.buildGroup();
-      this.findAll();
-    });
+  add() {
+    this.categoriaService.create(this.group.value).subscribe(() => { }, () => { }, () => { this.findAll(); });
   }
 
   delete(categoria: Categoria) {
-    this.categoriaService.delete(categoria.id).subscribe(data => {
-    }, (err) => { }, () => {
-      this.openSnackBar('Categoria excluída', 'Desfazer', categoria);
-      this.findAll();
-    });
+    this.categoriaService.delete(categoria.id).subscribe(() => { }, () => { }, () => { this.findAll(); });
   }
 
   findAll() {
@@ -58,9 +41,4 @@ export class CategoriaComponent implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: string, categoria: Categoria) {
-    this.snackBar.open(message, action, { duration: 3000 }).onAction().subscribe(action => {
-      this.create(categoria);
-    });
-  }
 }

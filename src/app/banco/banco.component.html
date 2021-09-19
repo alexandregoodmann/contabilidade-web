@@ -1,17 +1,19 @@
-<app-top-bar titulo="Categoria"></app-top-bar>
+<app-top-bar titulo="Banco"></app-top-bar>
 
 <div class="card">
     <form #form [formGroup]="group" (ngSubmit)="add(); form.reset();" autocomplete="off">
         <mat-form-field class="example-form-field">
-            <mat-label>Adicionar nova categoria</mat-label>
+            <mat-label>Adicionar novo banco</mat-label>
             <input matInput type="text" formControlName="descricao">
-            <mat-error>Informe a categoria</mat-error>
-            <button mat-button matSuffix mat-icon-button type="submit" [disabled]="group.invalid" style="margin-right: 2px;">
+            <mat-error>Informe o banco</mat-error>
+            <button mat-button matSuffix mat-icon-button type="submit" [disabled]="group.invalid"
+                style="margin-right: 2px;">
                 <mat-icon style="font-size: 24px !important;">add</mat-icon>
             </button>
         </mat-form-field>
     </form>
-    <div *ngFor="let item of categorias" style="height: 30px;">
+
+    <div *ngFor="let item of bancos" style="height: 30px;">
         <span>
             {{item.descricao}}
         </span>
@@ -19,4 +21,5 @@
             <mat-icon (click)="delete(item)" style="font-size: 22px !important;">close</mat-icon>
         </span>
     </div>
+
 </div>

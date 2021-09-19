@@ -64,31 +64,18 @@ export class LancamentoComponent implements OnInit {
       }
     });
 
-    
+
   }
 
   salvar() {
     let model = this.group.value;
-    if (this.lancamento && this.lancamento.id) {
-      model.id = this.lancamento.id;
-      this.lancamentoService.update(model).subscribe(() => {
-      }, () => { }, () => {
-        this.snackBar.open('Atualizado', '', {
-          duration: 2000,
-          horizontalPosition: 'start'
-        });
-      });
-    } else {
-      model.valor = model.valor * model.tipo;
       this.lancamentoService.create(model).subscribe(() => {
-      }, () => { }, () => {
-        this.snackBar.open('Salvo', '', {
-          duration: 2000,
-          horizontalPosition: 'start'
-        });
+    }, () => { }, () => {
+      this.snackBar.open('Salvo', '', {
+        duration: 2000,
+        horizontalPosition: 'start'
       });
-    }
-
+    });
   }
 
   setConta(chip: MatChip) {
@@ -101,8 +88,8 @@ export class LancamentoComponent implements OnInit {
     this.group.get('categoria').setValue(chip.value);
   }
 
-  get contaSelected(){
-    if (this.lancamento && this.lancamento.conta){
+  get contaSelected() {
+    if (this.lancamento && this.lancamento.conta) {
       return this.group.get('conta').value == this.lancamento.conta;
     }
     return false;

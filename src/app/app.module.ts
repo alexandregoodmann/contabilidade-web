@@ -36,6 +36,7 @@ import { ContaComponent } from './conta/conta.component';
 import { LOCALE_ID } from '@angular/core';
 import { ChipsComponent } from './shared/components/chips/chips.component';
 import { CargaComponent } from './carga/carga.component';
+import { BancoComponent } from './banco/banco.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -48,6 +49,15 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 };
 
 const routes: Routes = [
+  {
+    path: 'banco',
+    component: BancoComponent
+  },
+  {
+    path: 'categoria',
+    component: CategoriaComponent
+  },
+/*
   {
     path: 'principal',
     component: PrincipalComponent,
@@ -65,17 +75,13 @@ const routes: Routes = [
     component: ContaComponent
   },
   {
-    path: 'categoria',
-    component: CategoriaComponent
-  },
-  {
     path: 'extrato',
     component: ExtratoComponent
   },
   {
     path: 'carga',
     component: CargaComponent
-  },
+  },*/
   {
     path: '',
     redirectTo: 'principal',
@@ -99,6 +105,7 @@ const routes: Routes = [
     ExtratoComponent,
     ChipsComponent,
     CargaComponent,
+    BancoComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
