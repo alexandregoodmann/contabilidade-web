@@ -13,10 +13,11 @@ export class ChipsComponent {
   @Output() selectedEvent = new EventEmitter<string>();
 
   select(value) {
-    this.list.forEach(i=>{
+    this.list.forEach(i => {
       i.selected = false;
     });
-    value.selected = true;
+    let i = this.list.findIndex(value);
+    this.list[i].selected = true;
     this.selectedEvent.emit(value);
   }
 

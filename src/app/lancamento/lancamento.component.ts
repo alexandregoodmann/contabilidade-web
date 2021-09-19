@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatChip, MatChipInputEvent, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ContaService } from 'src/app/shared/services/conta.service';
 import { LancamentoService } from 'src/app/shared/services/lancamento.service';
 import { ChipsObject } from '../shared/components/chips/chips.component';
+import { Conta } from '../shared/model/conta';
 import { Lancamento } from '../shared/model/lancamento';
 
 @Component({
@@ -15,11 +16,10 @@ import { Lancamento } from '../shared/model/lancamento';
 })
 export class LancamentoComponent implements OnInit {
 
-  lancamento: Lancamento;
   group: FormGroup;
-  chipsContas: ChipsObject[] = [];
-  chipsCategorias: ChipsObject[] = [];
-  tipoLancamento: ChipsObject[] = [{ key: 1, label: 'Entrada' }, { key: -1, label: 'Saída' }]
+  contas;
+  categorias;
+  lancamento: Lancamento;
 
   constructor(
     private fb: FormBuilder,
@@ -28,21 +28,16 @@ export class LancamentoComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private snackBar: MatSnackBar,
     private router: ActivatedRoute,
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
 
     this.contaService.findAll().subscribe(data => {
-      data.forEach(e => {
-        this.chipsContas.push({ key: e.id, label: e.conta, value: e });
-      });
+      this.contas = data;
     });
 
     this.categoriaService.findAll().subscribe(data => {
-      data.forEach(e => {
-        this.chipsCategorias.push({ key: e.id, label: e.categoria, value: e });
-      });
+      this.categorias = data;
     });
 
     this.group = this.fb.group({
@@ -50,7 +45,6 @@ export class LancamentoComponent implements OnInit {
       categoria: [null, [Validators.required]],
       data: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
-      tipo: [null, [Validators.required]],
       valor: [null, [Validators.required]]
     });
 
@@ -59,58 +53,18 @@ export class LancamentoComponent implements OnInit {
     this.router.queryParamMap.subscribe(param => {
       if (param.get('id') != null) {
         this.lancamentoService.findById(param.get('id')).subscribe(lancamento => {
-
           this.lancamento = lancamento;
-
-          console.log(this.lancamento);
-          
-
+          console.log('lancamento', lancamento);
           this.group.patchValue(lancamento);
           this.group.get('data').setValue(new Date(lancamento.data));
-
-          //Parse Conta
-          if (this.group.get('conta').value != null) {
-            this.chipsContas.forEach(i => {
-              if (i.key == lancamento.conta.id) {
-                i.selected = true;
-              }
-            });
-            this.setConta(lancamento.conta);
-          }
-
-          //Parse Categoria
-          if (this.group.get('categoria').value != null) {
-            this.chipsCategorias.forEach(i => {
-              if (i.key == lancamento.categoria.id) {
-                i.selected = true;
-              }
-            });
-            this.setCategoria(lancamento.categoria);
-          }
-
-          //Parse Tipo
-          let tipo = this.lancamento.valor > 0 ? 1 : -1;
-          this.group.get('tipo').setValue(tipo);
-          this.tipoLancamento.forEach(i => {
-            i.selected = (i.key == tipo ? true : false);
-          });
-
+          this.group.get('conta').setValue(lancamento.conta);
+          this.group.get('categoria').setValue(lancamento.categoria);
+          console.log('group', this.group.value);
         });
       }
     });
 
-  }
-
-  setConta(conta) {
-    this.group.get('conta').setValue(conta.value);
-  }
-
-  setCategoria(categoria) {
-    this.group.get('categoria').setValue(categoria.value);
-  }
-
-  setTipoLancamento(tipo) {
-    this.group.get('tipo').setValue(tipo.key);
+    
   }
 
   salvar() {
@@ -137,4 +91,20 @@ export class LancamentoComponent implements OnInit {
 
   }
 
+  setConta(chip: MatChip) {
+    chip.toggleSelected();
+    this.group.get('conta').setValue(chip.value);
+  }
+
+  setCategoria(chip: MatChip) {
+    chip.toggleSelected();
+    this.group.get('categoria').setValue(chip.value);
+  }
+
+  get contaSelected(){
+    if (this.lancamento && this.lancamento.conta){
+      return this.group.get('conta').value == this.lancamento.conta;
+    }
+    return false;
+  }
 }

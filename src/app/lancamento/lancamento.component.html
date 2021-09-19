@@ -5,12 +5,21 @@
 
         <div class="chips-container">
             <label class="chips-label">Selecione a Conta Corrente</label>
-            <c-chips [list]="chipsContas" (selectedEvent)="setConta($event)"></c-chips>
+            <mat-chip-list #chipList selectable formControlName="conta">
+                <mat-chip #c="matChip" (click)="setConta(c)" *ngFor="let conta of contas" [value]="conta">
+                    {{conta.conta}}
+                </mat-chip>
+            </mat-chip-list>
         </div>
 
         <div class="chips-container">
             <label class="chips-label">Selecione a Categoria</label>
-            <c-chips [list]="chipsCategorias" (selectedEvent)="setCategoria($event)"></c-chips>
+            <mat-chip-list #chipList multiple formControlName="categoria">
+                <mat-chip #c="matChip" (click)="setCategoria(c)" *ngFor="let categoria of categorias" [selected]="contaSelected"
+                    [value]="categoria">
+                    {{categoria.categoria}}
+                </mat-chip>
+            </mat-chip-list>
         </div>
 
         <mat-form-field appearance="fill">
