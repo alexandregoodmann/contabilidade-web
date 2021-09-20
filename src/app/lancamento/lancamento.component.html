@@ -6,17 +6,16 @@
         <div class="chips-container">
             <label class="chips-label">Selecione a Conta Corrente</label>
             <mat-chip-list #chipList selectable formControlName="conta">
-                <mat-chip #c="matChip" (click)="setConta(c)" *ngFor="let conta of contas" [value]="conta">
+                <mat-chip #c="matChip" (click)="setConta(c)" *ngFor="let conta of contas" [value]="conta.id">
                     {{conta.descricao}}
                 </mat-chip>
             </mat-chip-list>
         </div>
-
         <div class="chips-container">
             <label class="chips-label">Selecione a Categoria</label>
             <mat-chip-list #chipList multiple formControlName="categoria">
                 <mat-chip #c="matChip" (click)="setCategoria(c)" *ngFor="let categoria of categorias"
-                    [selected]="contaSelected" [value]="categoria">
+                    [value]="categoria.id">
                     {{categoria.descricao}}
                 </mat-chip>
             </mat-chip-list>
@@ -37,12 +36,10 @@
         <mat-form-field appearance="fill">
             <mat-label>Valor</mat-label>
             <mat-chip-list #chipList aria-label="Valor" formControlName="tipo">
-                <mat-chip #c="matChip" (click)="setTipo(c)" *ngFor="let tipo of tipos" [selected]="keyword"
-                    [value]="tipo.value">
+                <mat-chip #c="matChip" (click)="setTipo(c)" *ngFor="let tipo of tipos" [value]="tipo.value">
                     {{tipo.label}}
                 </mat-chip>
-                <input currencyMask formControlName="valor" placeholder="Digite o valor"
-                    [matChipInputFor]="chipList">
+                <input currencyMask formControlName="valor" placeholder="Digite o valor" [matChipInputFor]="chipList">
             </mat-chip-list>
         </mat-form-field>
 
