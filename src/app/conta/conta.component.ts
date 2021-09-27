@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatChip, MatSnackBar } from '@angular/material';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { MatChip } from '@angular/material';
 import { Banco } from 'src/app/shared/model/banco';
-import { Conta } from 'src/app/shared/model/conta';
 import { BancoService } from 'src/app/shared/services/banco.service';
 import { ContaService } from 'src/app/shared/services/conta.service';
 
@@ -23,7 +20,6 @@ export class ContaComponent implements OnInit {
     private fb: FormBuilder,
     private bancoService: BancoService,
     private contaService: ContaService,
-    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -39,12 +35,15 @@ export class ContaComponent implements OnInit {
     this.group = this.fb.group({
       descricao: [null, [Validators.required]],
       label: [null, [Validators.required]],
-      banco: [null, [Validators.required]]
+      banco: [null, [Validators.required]],
+      corLabel: [null, [Validators.required]]
     });
 
   }
 
   add() {
+    console.log(this.group.value);
+    
     this.contaService.create(this.group.value).subscribe(() => { }, () => { }, () => { this.findAll(); });
   }
 
@@ -59,6 +58,8 @@ export class ContaComponent implements OnInit {
 
   findAll() {
     this.contaService.findAll().subscribe(data => {
+      console.log(data);
+      
       this.contas = data;
     });
   }

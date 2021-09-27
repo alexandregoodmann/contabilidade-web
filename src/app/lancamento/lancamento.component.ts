@@ -73,7 +73,7 @@ export class LancamentoComponent implements OnInit {
     model.categoria = this.categorias.filter(o => o.id == model.categoria)[0];
     model.conta = this.contas.filter(o => o.id == model.conta)[0];
 
-    if (this.lancamento.id) {
+    if (this.lancamento && this.lancamento.id) {
       this.lancamento.valor = model.valor;
       this.lancamento.categoria = model.categoria;
       this.lancamento.conta = model.conta;
