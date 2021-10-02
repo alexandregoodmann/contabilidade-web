@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  tempoSnackBar: 2000,
   production: false,
   url: 'http://192.168.0.15:8080/v1'
 };

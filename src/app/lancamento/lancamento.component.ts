@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatChip } from '@angular/material';
+import { MatChip, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ContaService } from 'src/app/shared/services/conta.service';
 import { LancamentoService } from 'src/app/shared/services/lancamento.service';
+import { environment } from 'src/environments/environment';
 import { Categoria } from '../shared/model/categoria';
 import { Conta } from '../shared/model/conta';
 import { Lancamento } from '../shared/model/lancamento';
@@ -28,7 +29,8 @@ export class LancamentoComponent implements OnInit {
     private categoriaService: CategoriaService,
     private lancamentoService: LancamentoService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -81,8 +83,17 @@ export class LancamentoComponent implements OnInit {
         this.router.navigate(['/extrato']);
       });
     } else
-      this.lancamentoService.create(model).subscribe(() => { });
+      this.lancamentoService.create(model).subscribe(() => { }, () => { }, () => {
+        this.snackBar.open('Lançamanto adicionado', null, { duration: environment.tempoSnackBar });
+      });
 
+  }
+
+  apagar() {
+    this.lancamentoService.delete(this.lancamento.id).subscribe(() => { }, () => { }, () => {
+      this.snackBar.open('Lançamento apagado', null, { duration: environment.tempoSnackBar });
+      this.router.navigate(['/extrato']);
+    });
   }
 
   setConta(chip: MatChip) {

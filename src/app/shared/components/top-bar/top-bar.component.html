@@ -6,3 +6,6 @@
         <span>{{titulo}}</span>
     </div>
 </div>
+<div *ngIf="loaderService.isLoading | async">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>

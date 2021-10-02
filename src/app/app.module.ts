@@ -1,5 +1,6 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatNativeDateModule } from '@angular/material';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -16,6 +17,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -35,6 +37,10 @@ import { SaldosComponent } from './saldos/saldos.component';
 import { BotaoMenuComponent } from './shared/components/botao-menu/botao-menu.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
+import { InterceptorService } from './shared/services/interceptor.service';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt-BR');
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -67,16 +73,6 @@ const routes: Routes = [
     path: 'extrato',
     component: ExtratoComponent
   },
-  
-/*
-  {
-    path: 'saldos',
-    component: SaldosComponent,
-  },
-  {
-    path: 'carga',
-    component: CargaComponent
-  },*/
   {
     path: '',
     redirectTo: 'principal',
@@ -128,13 +124,17 @@ const routes: Routes = [
     MatAutocompleteModule,
     MatRadioModule,
     MatBadgeModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressBarModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule {
 }
-

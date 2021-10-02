@@ -39,10 +39,18 @@
                 <mat-chip #c="matChip" (click)="setTipo(c)" *ngFor="let tipo of tipos" [value]="tipo.value">
                     {{tipo.label}}
                 </mat-chip>
-                <input currencyMask formControlName="valor" placeholder="Digite o valor" [matChipInputFor]="chipList">
+                <input type="tel" currencyMask formControlName="valor" placeholder="Digite o valor" [matChipInputFor]="chipList">
             </mat-chip-list>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>
+        <div class="w3-display-container" style="height: 40px;">
+            <div class="w3-display-left">
+                <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>
+            </div>
+            <div class="w3-display-right">
+                <button *ngIf="lancamento != undefined" mat-stroked-button type="button"
+                    (click)="apagar()">Apagar</button>
+            </div>
+        </div>
     </form>
 </div>
