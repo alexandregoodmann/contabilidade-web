@@ -1,10 +1,21 @@
-<app-top-bar titulo="Lista de Lançamentos"></app-top-bar>
+<app-top-bar titulo="Extrato">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <div class="w3-row">
+            <div class="w3-col s6" *ngFor="let item of meses" mat-menu-item (click)="filtrar(item)">
+                <span>{{item.label}}</span>
+            </div>
+        </div>
+    </mat-menu>
+</app-top-bar>
 
 <div style="padding: 10px;">
     <div class="w3-row c-row-extrato" *ngFor="let item of lancamentos" (click)="editar(item)">
         <div class="w3-col s2 m1">{{item.data | date:'dd/MM'}}</div>
         <div class="w3-col s2 m1">
-            <span class="w3-tag w3-tiny w3-round-medium"
+            <span class="w3-tag w3-tiny w3-round-medium" *ngIf="item?.conta?.corLabel"
                 [ngStyle]="{'background-color': item.conta.corLabel}">{{item.conta.label}}</span>
         </div>
         <div *ngIf="!mobile" class="w3-col s2 m2" [ngStyle]="{'color': item.categoria == null ? 'gray' : 'black' }">

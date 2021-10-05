@@ -49,7 +49,8 @@ export class LancamentoComponent implements OnInit {
       data: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
       valor: [null, [Validators.required]],
-      tipo: [null, [Validators.required]]
+      tipo: [null, [Validators.required]],
+      repetir: [1, [Validators.required]]
     });
 
     this.group.get('data').setValue(new Date());
@@ -82,10 +83,11 @@ export class LancamentoComponent implements OnInit {
       this.lancamentoService.update(this.lancamento).subscribe(() => { }, () => { }, () => {
         this.router.navigate(['/extrato']);
       });
-    } else
+    } else {
       this.lancamentoService.create(model).subscribe(() => { }, () => { }, () => {
         this.snackBar.open('Lançamanto adicionado', null, { duration: environment.tempoSnackBar });
       });
+    }
 
   }
 
@@ -109,6 +111,20 @@ export class LancamentoComponent implements OnInit {
   setTipo(chip: MatChip) {
     chip.toggleSelected();
     this.group.get('tipo').setValue(chip.value);
+  }
+
+  add() {
+    let rep = this.group.get('repetir').value;
+    rep++;
+    this.group.get('repetir').setValue(rep);
+  }
+
+  remove() {
+    let rep = this.group.get('repetir').value;
+    if (rep > 1) {
+      rep--;
+      this.group.get('repetir').setValue(rep);
+    }
   }
 
 }

@@ -1,11 +1,10 @@
-<div class="box">
-    <div class="left-icon" (click)="irPrincipal()">
-        <mat-icon aria-hidden="false">arrow_back</mat-icon>
-    </div>
-    <div class="box-title">
-        <span>{{titulo}}</span>
-    </div>
-</div>
+<mat-toolbar>
+    <button mat-icon-button class="example-icon" (click)="irPrincipal()" type="button">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="titulo">{{titulo}}</span>
+    <ng-content></ng-content>
+</mat-toolbar>
 <div *ngIf="loaderService.isLoading | async">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>

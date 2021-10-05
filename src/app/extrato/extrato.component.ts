@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDatepicker } from '@angular/material';
 import { Router } from '@angular/router';
 import { Lancamento } from '../shared/model/lancamento';
 import { LancamentoService } from '../shared/services/lancamento.service';
@@ -12,6 +14,20 @@ export class ExtratoComponent implements OnInit {
 
   lancamentos: Lancamento[];
   mobile: Boolean;
+  meses = [
+    { label: 'Janeiro', value: 1 },
+    { label: 'Fevereiro', value: 2 },
+    { label: 'Março', value: 3 },
+    { label: 'Abril', value: 4 },
+    { label: 'Maio', value: 5 },
+    { label: 'Junho', value: 6 },
+    { label: 'Julho', value: 7 },
+    { label: 'Agosto', value: 8 },
+    { label: 'Setembro', value: 9 },
+    { label: 'Outubro', value: 10 },
+    { label: 'Novembro', value: 11 },
+    { label: 'Dezembro', value: 12 }
+  ];
 
   constructor(
     private lancamentoService: LancamentoService,
@@ -19,9 +35,7 @@ export class ExtratoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.mobile = this.isMobile();
-
     this.lancamentoService.findAll().subscribe(data => {
       this.lancamentos = data as unknown as Lancamento[];
     });
@@ -38,4 +52,8 @@ export class ExtratoComponent implements OnInit {
       { queryParams: obj });
   }
 
+  filtrar(item){
+    console.log(item);
+    
+  }
 }

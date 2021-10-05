@@ -59,3 +59,8 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
     background-color: black;
     color: white;
 }
+
+.mat-toolbar {
+    background-color: black;
+    color: white;
+}
