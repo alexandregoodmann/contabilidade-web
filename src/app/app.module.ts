@@ -37,7 +37,6 @@ import { ExtratoComponent } from './extrato/extrato.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { SaldosComponent } from './saldos/saldos.component';
-import { BotaoMenuComponent } from './shared/components/botao-menu/botao-menu.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
@@ -90,7 +89,6 @@ const routes: Routes = [
     PrincipalComponent,
     LancamentoComponent,
     TopBarComponent,
-    BotaoMenuComponent,
     SaldosComponent,
     ProgressBarComponent,
     CategoriaComponent,
