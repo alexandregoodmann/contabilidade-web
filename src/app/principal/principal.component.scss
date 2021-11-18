@@ -1,6 +1,6 @@
 .container {
     margin: 10px;
-    padding: 10px;
+    padding: 5px;
 }
 
 .banner {
@@ -9,7 +9,7 @@
     background-color: rgb(221, 221, 221);
     border-radius: 3px;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     a {
         display: flex;
         vertical-align: middle;
@@ -35,6 +35,12 @@
     color: white;
     font-size: 45px;
     position: relative;
-    top: 11%;
-    left: 11%;
+    top: 13%;
+    left: 13%;
+}
+
+.beta {
+    font-size: 20px;
+    color: gray;
+    align-items: center;
 }

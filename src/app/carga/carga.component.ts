@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatChip } from '@angular/material';
 import { Conta } from '../shared/model/conta';
 import { CargaService } from '../shared/services/carga.service';
 import { ContaService } from '../shared/services/conta.service';
@@ -12,6 +13,7 @@ import { ContaService } from '../shared/services/conta.service';
 export class CargaComponent implements OnInit {
 
   group: FormGroup;
+  contas: Array<Conta>;
 
   constructor(
     private fb: FormBuilder,
@@ -20,34 +22,32 @@ export class CargaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.contaService.findAll().subscribe(data => {
+      this.contas = data as unknown as Array<Conta>;
+    });
+
     this.group = this.fb.group({
       linhas: [null, [Validators.required]],
       conta: [null, [Validators.required]],
-    });
-
-    this.contaService.findAll().subscribe((data: Conta) => {
-      /*
-      data.forEach(e => {
-        this.chipsContas.push({ key: e.id, label: e.conta, value: e });
-      });*/
     });
   }
 
   enviar() {
     let linhas: string[] = this.group.get('linhas').value.split("\n");
     let json = new CargaJson();
-    json.idConta = this.group.get('conta').value.id;
+    json.idConta = this.group.get('conta').value;
     linhas.forEach(l => {
       json.linhas.push(l);
     });
 
-    this.cargaService.cargaC6(json).subscribe(d => {
+    this.cargaService.carga(json).subscribe(d => {
       console.log('resposta', d);
     });
   }
 
-  setConta(conta) {
-    this.group.get('conta').setValue(conta.value);
+  setConta(chip: MatChip) {
+    chip.toggleSelected();
+    this.group.get('conta').setValue(chip.value);
   }
 
 }

@@ -12,7 +12,7 @@ export class CargaService {
 
   constructor(private http: HttpClient) { }
 
-  cargaC6(obj): Observable<any> {
+  carga(obj): Observable<any> {
     return this.http.post<any>(`${environment.url}/carga`, obj, httpOptions).pipe(
       catchError(this.handleError<any>('create'))
     );

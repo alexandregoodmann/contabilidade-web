@@ -75,6 +75,10 @@ const routes: Routes = [
     component: ExtratoComponent
   },
   {
+    path: 'carga',
+    component: CargaComponent
+  },
+  {
     path: '',
     redirectTo: 'principal',
     pathMatch: 'full'
