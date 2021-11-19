@@ -12,10 +12,10 @@
             </mat-chip-list>
         </div>
 
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Carga da fatura C6</mat-label>
-            <textarea formControlName="linhas" rows="25" matInput placeholder="Cole aqui as linhas da fatura do banco C6"></textarea>
-        </mat-form-field>
+        <div class="chips-container">
+            <label class="chips-label">Selecione um arquivo para upload</label>
+            <input id="inputfile" formControlName="arquivo" type="file" (change)="fileChange($event)" >
+        </div>
 
         <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Enviar</button>
     </form>

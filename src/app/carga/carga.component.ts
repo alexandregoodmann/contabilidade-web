@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChip } from '@angular/material';
 import { Conta } from '../shared/model/conta';
-import { CargaService } from '../shared/services/carga.service';
 import { ContaService } from '../shared/services/conta.service';
+import { LancamentoService } from '../shared/services/lancamento.service';
 
 @Component({
   selector: 'app-carga',
@@ -13,12 +13,13 @@ import { ContaService } from '../shared/services/conta.service';
 export class CargaComponent implements OnInit {
 
   group: FormGroup;
+  formData = new FormData();
   contas: Array<Conta>;
 
   constructor(
     private fb: FormBuilder,
-    private cargaService: CargaService,
-    private contaService: ContaService
+    private contaService: ContaService,
+    private lancamentoService: LancamentoService
   ) { }
 
   ngOnInit() {
@@ -27,21 +28,24 @@ export class CargaComponent implements OnInit {
     });
 
     this.group = this.fb.group({
-      linhas: [null, [Validators.required]],
       conta: [null, [Validators.required]],
+      arquivo: [null, [Validators.required]]
     });
   }
 
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    this.group.get('arquivo').setValue(fileList[0]);
+    this.formData.append("thumbnail", fileList[0]);
+  }
+
   enviar() {
-    let linhas: string[] = this.group.get('linhas').value.split("\n");
     let json = new CargaJson();
     json.idConta = this.group.get('conta').value;
-    linhas.forEach(l => {
-      json.linhas.push(l);
-    });
+    json.formData = this.formData;
 
-    this.cargaService.carga(json).subscribe(d => {
-      console.log('resposta', d);
+    this.lancamentoService.carga(json).subscribe(d => {
+      console.log(d);
     });
   }
 
@@ -54,5 +58,5 @@ export class CargaComponent implements OnInit {
 
 export class CargaJson {
   idConta: string;
-  linhas: string[] = [];
+  formData: FormData;
 }
