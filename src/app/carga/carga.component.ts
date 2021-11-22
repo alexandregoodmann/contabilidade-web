@@ -29,7 +29,7 @@ export class CargaComponent implements OnInit {
 
     this.group = this.fb.group({
       conta: [null, [Validators.required]],
-      arquivo: [null, [Validators.required]]
+      linhas: [null, [Validators.required]]
     });
   }
 
@@ -37,18 +37,24 @@ export class CargaComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
-  enviar() {
-    let idConta = this.group.get('conta').value;
-    this.lancamentoService.postFile(idConta, this.fileToUpload).subscribe(data => {
-      // do something, if upload success
-    }, error => {
-      console.log('deu merda', error);
-    });
-  }
-
   setConta(chip: MatChip) {
     chip.toggleSelected();
     this.group.get('conta').setValue(chip.value);
   }
 
+  enviar() {
+    let linhas: string[] = this.group.get('linhas').value.split("\n");
+    let carga = new CargaJson();
+    carga.idConta = this.group.get('conta').value;
+    carga.linhas = linhas;
+    this.lancamentoService.postFile(carga).subscribe(d => {
+      console.log(d);
+    });
+  }
+
+}
+
+export class CargaJson {
+  idConta: string;
+  linhas: string[] = [];
 }
