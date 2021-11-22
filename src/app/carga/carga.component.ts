@@ -13,7 +13,7 @@ import { LancamentoService } from '../shared/services/lancamento.service';
 export class CargaComponent implements OnInit {
 
   group: FormGroup;
-  formData = new FormData();
+  fileToUpload: File | null = null;
   contas: Array<Conta>;
 
   constructor(
@@ -33,19 +33,16 @@ export class CargaComponent implements OnInit {
     });
   }
 
-  fileChange(event) {
-    let fileList: FileList = event.target.files;
-    this.group.get('arquivo').setValue(fileList[0]);
-    this.formData.append("thumbnail", fileList[0]);
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
   }
 
   enviar() {
-    let json = new CargaJson();
-    json.idConta = this.group.get('conta').value;
-    json.formData = this.formData;
-
-    this.lancamentoService.carga(json).subscribe(d => {
-      console.log(d);
+    let idConta = this.group.get('conta').value;
+    this.lancamentoService.postFile(idConta, this.fileToUpload).subscribe(data => {
+      // do something, if upload success
+    }, error => {
+      console.log('deu merda', error);
     });
   }
 
@@ -54,9 +51,4 @@ export class CargaComponent implements OnInit {
     this.group.get('conta').setValue(chip.value);
   }
 
-}
-
-export class CargaJson {
-  idConta: string;
-  formData: FormData;
 }

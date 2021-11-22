@@ -13,8 +13,8 @@
         </div>
 
         <div class="chips-container">
-            <label class="chips-label">Selecione um arquivo para upload</label>
-            <input id="inputfile" formControlName="arquivo" type="file" (change)="fileChange($event)" >
+            <label for="file">Choose File</label>
+            <input formControlName="arquivo" type="file" id="file" (change)="handleFileInput($event.target.files)">
         </div>
 
         <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Enviar</button>
