@@ -9,7 +9,8 @@ export class ProgressBarComponent implements OnInit {
 
   @Input() titulo: string;
   @Input() valor: number;
-  private porcentagem: string;
+
+  porcentagem: string;
 
   constructor() { }
 

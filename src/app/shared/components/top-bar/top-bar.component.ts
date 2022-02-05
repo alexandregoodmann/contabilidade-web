@@ -23,4 +23,7 @@ export class TopBarComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
+  get loader(){
+    return this.loaderService;
+  }
 }

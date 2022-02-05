@@ -5,6 +5,6 @@
     <span class="titulo">{{titulo}}</span>
     <ng-content></ng-content>
 </mat-toolbar>
-<div *ngIf="loaderService.isLoading | async">
+<div *ngIf="loader.isLoading | async">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
