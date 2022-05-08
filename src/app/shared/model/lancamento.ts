@@ -1,4 +1,3 @@
-import { ModuleWithComponentFactories } from "@angular/core";
 import { Categoria } from "./categoria";
 import { Conta } from "./conta";
 
@@ -10,4 +9,9 @@ export class Lancamento {
     descricao: string;
     valor: number;
     data: Date;
+    tipo: TipoLancamento = TipoLancamento.UNICO;
+}
+
+export enum TipoLancamento {
+    UNICO, FIXO
 }

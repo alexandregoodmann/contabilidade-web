@@ -8,7 +8,7 @@ import { LancamentoService } from 'src/app/shared/services/lancamento.service';
 import { environment } from 'src/environments/environment';
 import { Categoria } from '../shared/model/categoria';
 import { Conta } from '../shared/model/conta';
-import { Lancamento } from '../shared/model/lancamento';
+import { Lancamento, TipoLancamento } from '../shared/model/lancamento';
 
 @Component({
   selector: 'app-lancamento',
@@ -49,8 +49,7 @@ export class LancamentoComponent implements OnInit {
       data: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
       valor: [null, [Validators.required]],
-      tipo: [null, [Validators.required]],
-      repetir: [1, [Validators.required]]
+      tipo: [null, [Validators.required]]
     });
 
     this.group.get('data').setValue(new Date());
@@ -75,6 +74,7 @@ export class LancamentoComponent implements OnInit {
     model.valor = model.valor * model.tipo;
     model.categoria = this.categorias.filter(o => o.id == model.categoria)[0];
     model.conta = this.contas.filter(o => o.id == model.conta)[0];
+    model.tipo = TipoLancamento.UNICO;
 
     if (this.lancamento && this.lancamento.id) {
       this.lancamento.valor = model.valor;
@@ -111,20 +111,6 @@ export class LancamentoComponent implements OnInit {
   setTipo(chip: MatChip) {
     chip.toggleSelected();
     this.group.get('tipo').setValue(chip.value);
-  }
-
-  add() {
-    let rep = this.group.get('repetir').value;
-    rep++;
-    this.group.get('repetir').setValue(rep);
-  }
-
-  remove() {
-    let rep = this.group.get('repetir').value;
-    if (rep > 1) {
-      rep--;
-      this.group.get('repetir').setValue(rep);
-    }
   }
 
 }

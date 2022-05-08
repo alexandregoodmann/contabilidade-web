@@ -19,9 +19,7 @@ export class BancoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.findAll();
-
     this.group = this.fb.group({
       descricao: [null, [Validators.required]]
     });

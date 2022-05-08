@@ -1,0 +1,13 @@
+<app-top-bar titulo="Planilha">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <div class="w3-row">
+            <div class="w3-col s6" *ngFor="let item of meses" mat-menu-item (click)="filtrar(item)">
+                <span>{{item.label}}</span>
+            </div>
+        </div>
+    </mat-menu>
+</app-top-bar>
+

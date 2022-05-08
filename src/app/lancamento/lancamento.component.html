@@ -45,19 +45,6 @@
             </mat-chip-list>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Repetir</mat-label>
-            <input matInput type="number" formControlName="repetir">
-            <span matSuffix style="display: flex ;">
-                <button mat-icon-button (click)="remove()" type="button">
-                    <mat-icon>remove</mat-icon>
-                </button>
-                <button mat-icon-button (click)="add()" type="button">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </span>
-        </mat-form-field>
-
         <div class="w3-display-container" style="height: 40px;">
             <div class="w3-display-left">
                 <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>

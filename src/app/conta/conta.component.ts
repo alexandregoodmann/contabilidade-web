@@ -42,8 +42,6 @@ export class ContaComponent implements OnInit {
   }
 
   add() {
-    console.log(this.group.value);
-    
     this.contaService.create(this.group.value).subscribe(() => { }, () => { }, () => { this.findAll(); });
   }
 
@@ -58,8 +56,6 @@ export class ContaComponent implements OnInit {
 
   findAll() {
     this.contaService.findAll().subscribe(data => {
-      console.log(data);
-      
       this.contas = data;
     });
   }

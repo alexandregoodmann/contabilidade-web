@@ -12,7 +12,8 @@ export class PrincipalComponent {
     { href: '/#/conta', icon: 'credit_card', label: 'Conta' },
     { href: '/#/categoria', icon: 'dashboard_customize', label: 'Categoria' },
     { href: '/#/lancamento', icon: 'monetization_on', label: 'Lançamento' },
-    { href: '/#/extrato', icon: 'receipt', label: 'Extrato' }
+    { href: '/#/extrato', icon: 'receipt', label: 'Extrato' },
+    { href: '/#/planilha', icon: 'tab', label: 'Planilha' }
     // { href: '/#/carga', icon: 'input', label: 'Carga de Lançamentos' }
   ];
 
