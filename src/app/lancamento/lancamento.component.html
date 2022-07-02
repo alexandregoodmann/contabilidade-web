@@ -23,6 +23,13 @@
         </div>
 
         <mat-form-field appearance="fill">
+            <mat-label>Planilha</mat-label>
+            <mat-select formControlName="planilha">
+                <mat-option *ngFor="let item of planilhas" [value]="item">{{item.descricao}} - {{item.ano}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
             <mat-label>Data</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="data">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -44,6 +51,10 @@
                     [matChipInputFor]="chipList">
             </mat-chip-list>
         </mat-form-field>
+
+        <div class="w3-display-container" style="height: 40px;">
+            <mat-slide-toggle formControlName="fixo">Fixo</mat-slide-toggle>
+        </div>
 
         <div class="w3-display-container" style="height: 40px;">
             <div class="w3-display-left">

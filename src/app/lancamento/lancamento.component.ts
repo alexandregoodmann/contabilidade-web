@@ -8,7 +8,9 @@ import { LancamentoService } from 'src/app/shared/services/lancamento.service';
 import { environment } from 'src/environments/environment';
 import { Categoria } from '../shared/model/categoria';
 import { Conta } from '../shared/model/conta';
-import { Lancamento, TipoLancamento } from '../shared/model/lancamento';
+import { Lancamento } from '../shared/model/lancamento';
+import { Planilha } from '../shared/model/planilha';
+import { PlanilhaService } from '../shared/services/planilha.service';
 
 @Component({
   selector: 'app-lancamento',
@@ -20,6 +22,7 @@ export class LancamentoComponent implements OnInit {
   group: FormGroup;
   contas: Array<Conta>;
   categorias: Array<Categoria>;
+  planilhas: Array<Planilha>;
   lancamento: Lancamento;
   tipos = [{ label: 'Entrada', value: 1 }, { label: 'Saída', value: -1 }];
 
@@ -28,6 +31,7 @@ export class LancamentoComponent implements OnInit {
     private contaService: ContaService,
     private categoriaService: CategoriaService,
     private lancamentoService: LancamentoService,
+    private planilhaService: PlanilhaService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar
@@ -43,13 +47,19 @@ export class LancamentoComponent implements OnInit {
       this.categorias = data as unknown as Array<Categoria>;
     });
 
+    this.planilhaService.findAll().subscribe(data => {
+      this.planilhas = data as unknown as Array<Planilha>;
+    });
+
     this.group = this.fb.group({
+      planilha: [null, [Validators.required]], 
       conta: [null, [Validators.required]],
       categoria: [null, [Validators.required]],
       data: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
       valor: [null, [Validators.required]],
-      tipo: [null, [Validators.required]]
+      tipo: [null, [Validators.required]],
+      fixo: [null]
     });
 
     this.group.get('data').setValue(new Date());
@@ -70,11 +80,11 @@ export class LancamentoComponent implements OnInit {
   }
 
   salvar() {
+
     let model = this.group.value;
     model.valor = model.valor * model.tipo;
     model.categoria = this.categorias.filter(o => o.id == model.categoria)[0];
     model.conta = this.contas.filter(o => o.id == model.conta)[0];
-    model.tipo = TipoLancamento.UNICO;
 
     if (this.lancamento && this.lancamento.id) {
       this.lancamento.valor = model.valor;

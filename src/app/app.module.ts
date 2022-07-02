@@ -22,7 +22,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,12 +37,12 @@ import { CategoriaComponent } from './categoria/categoria.component';
 import { ContaComponent } from './conta/conta.component';
 import { ExtratoComponent } from './extrato/extrato.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
+import { PlanilhaComponent } from './planilha/planilha.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { SaldosComponent } from './saldos/saldos.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
-import { PlanilhaComponent } from './planilha/planilha.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -137,7 +139,9 @@ const routes: Routes = [
     MatChipsModule,
     MatProgressBarModule,
     MatMenuModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSlideToggleModule,
+    MatTableModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

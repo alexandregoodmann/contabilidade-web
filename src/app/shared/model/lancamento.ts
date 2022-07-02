@@ -9,9 +9,5 @@ export class Lancamento {
     descricao: string;
     valor: number;
     data: Date;
-    tipo: TipoLancamento = TipoLancamento.UNICO;
-}
-
-export enum TipoLancamento {
-    UNICO, FIXO
+    fixo: boolean;
 }
