@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Planilha } from '../shared/model/planilha';
 import { PlanilhaService } from '../shared/services/planilha.service';
@@ -33,7 +34,8 @@ export class PlanilhaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private planilhaService: PlanilhaService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -61,4 +63,7 @@ export class PlanilhaComponent implements OnInit {
     });
   }
 
+  editar(row) {
+    this.router.navigate(['/planilha-detalhe'], { queryParams: row });
+  }
 }

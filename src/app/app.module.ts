@@ -43,6 +43,7 @@ import { SaldosComponent } from './saldos/saldos.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
+import { PlanilhaDetalheComponent } from './planilha-detalhe/planilha-detalhe.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -86,6 +87,10 @@ const routes: Routes = [
     component: PlanilhaComponent
   },
   {
+    path: 'planilha-detalhe',
+    component: PlanilhaDetalheComponent
+  },
+  {
     path: '',
     redirectTo: 'principal',
     pathMatch: 'full'
@@ -108,6 +113,7 @@ const routes: Routes = [
     CargaComponent,
     BancoComponent,
     PlanilhaComponent,
+    PlanilhaDetalheComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),

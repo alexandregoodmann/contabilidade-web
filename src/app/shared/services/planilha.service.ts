@@ -13,4 +13,8 @@ export class PlanilhaService extends BasicCrudService<Planilha> {
     super(`${environment.url}/planilhas`, http);
   }
 
+  getLancamento(idPlanilha){
+    return this.http.get(`${environment.url}/planilhas/${idPlanilha}/lancamentos`);
+  }
+
 }
