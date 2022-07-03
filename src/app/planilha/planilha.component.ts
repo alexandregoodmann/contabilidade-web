@@ -38,8 +38,8 @@ export class PlanilhaComponent implements OnInit {
   ngOnInit() {
 
     this.group = this.fb.group({
-      mes: [null, [Validators.required]],
-      ano: [null, [Validators.required]]
+      mes: [null],
+      ano: [null]
     });
 
     this.findAll();

@@ -34,7 +34,6 @@ import { AppComponent } from './app.component';
 import { CargaComponent } from './carga/carga.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { ContaComponent } from './conta/conta.component';
-import { ExtratoComponent } from './extrato/extrato.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PlanilhaDetalheComponent } from './planilha-detalhe/planilha-detalhe.component';
 import { PlanilhaComponent } from './planilha/planilha.component';
@@ -48,7 +47,7 @@ registerLocaleData(localePt, 'pt-BR');
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
-  allowNegative: false,
+  allowNegative: true,
   decimal: ",",
   precision: 2,
   prefix: "R$ ",
@@ -68,10 +67,6 @@ const routes: Routes = [
   {
     path: 'lancamento',
     component: LancamentoComponent,
-  },
-  {
-    path: 'extrato',
-    component: ExtratoComponent
   },
   {
     path: 'carga',
@@ -104,7 +99,6 @@ const routes: Routes = [
     ProgressBarComponent,
     CategoriaComponent,
     ContaComponent,
-    ExtratoComponent,
     CargaComponent,
     PlanilhaComponent,
     PlanilhaDetalheComponent,

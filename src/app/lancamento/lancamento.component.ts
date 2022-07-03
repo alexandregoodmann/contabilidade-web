@@ -9,8 +9,6 @@ import { environment } from 'src/environments/environment';
 import { Categoria } from '../shared/model/categoria';
 import { Conta } from '../shared/model/conta';
 import { Lancamento } from '../shared/model/lancamento';
-import { Planilha } from '../shared/model/planilha';
-import { PlanilhaService } from '../shared/services/planilha.service';
 
 @Component({
   selector: 'app-lancamento',
@@ -22,16 +20,13 @@ export class LancamentoComponent implements OnInit {
   group: FormGroup;
   contas: Array<Conta>;
   categorias: Array<Categoria>;
-  planilhas: Array<Planilha>;
   lancamento: Lancamento;
-  tipos = [{ label: 'Entrada', value: 1 }, { label: 'Saída', value: -1 }];
 
   constructor(
     private fb: FormBuilder,
     private contaService: ContaService,
     private categoriaService: CategoriaService,
     private lancamentoService: LancamentoService,
-    private planilhaService: PlanilhaService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar
@@ -47,18 +42,12 @@ export class LancamentoComponent implements OnInit {
       this.categorias = data as unknown as Array<Categoria>;
     });
 
-    this.planilhaService.findAll().subscribe(data => {
-      this.planilhas = data as unknown as Array<Planilha>;
-    });
-
     this.group = this.fb.group({
-      planilha: [null, [Validators.required]], 
       conta: [null, [Validators.required]],
       categoria: [null, [Validators.required]],
       data: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
       valor: [null, [Validators.required]],
-      tipo: [null, [Validators.required]],
       fixo: [null]
     });
 
@@ -72,7 +61,6 @@ export class LancamentoComponent implements OnInit {
           this.group.get('data').setValue(new Date(lancamento.data));
           this.group.get('conta').setValue(lancamento.conta.id);
           this.group.get('categoria').setValue(lancamento.categoria.id);
-          this.group.get('tipo').setValue((lancamento.valor > 0) ? 1 : -1);
           this.group.get('valor').setValue(lancamento.valor < 0 ? lancamento.valor * -1 : lancamento.valor);
         });
       }
@@ -82,7 +70,6 @@ export class LancamentoComponent implements OnInit {
   salvar() {
 
     let model = this.group.value;
-    model.valor = model.valor * model.tipo;
     model.categoria = this.categorias.filter(o => o.id == model.categoria)[0];
     model.conta = this.contas.filter(o => o.id == model.conta)[0];
 
@@ -116,11 +103,6 @@ export class LancamentoComponent implements OnInit {
   setCategoria(chip: MatChip) {
     chip.toggleSelected();
     this.group.get('categoria').setValue(chip.value);
-  }
-
-  setTipo(chip: MatChip) {
-    chip.toggleSelected();
-    this.group.get('tipo').setValue(chip.value);
   }
 
 }
