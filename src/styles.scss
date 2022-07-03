@@ -64,3 +64,14 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
     background-color: black;
     color: white;
 }
+
+.content-table {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    margin-top: 20px;
+
+    table {
+        width: 100%;
+    }
+}

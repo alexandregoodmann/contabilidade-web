@@ -11,8 +11,10 @@ import { CategoriaService } from 'src/app/shared/services/categoria.service';
 })
 export class CategoriaComponent implements OnInit {
 
+  categoria;
   group: FormGroup;
   categorias: Array<Categoria>;
+  displayedColumns: string[] = ['descricao'];
 
   constructor(
     private fb: FormBuilder,
@@ -27,18 +29,37 @@ export class CategoriaComponent implements OnInit {
     this.findAll();
   }
 
-  add() {
-    this.categoriaService.create(this.group.value).subscribe(() => { }, () => { }, () => { this.findAll(); });
+  salvar() {
+    if (this.categoria == undefined) {
+      this.categoriaService.create(this.group.value).subscribe(() => { }, () => { }, () => { this.findAll(); });
+    } else {
+      let model = this.group.value;
+      model.id = this.categoria.id;
+      this.categoriaService.update(this.group.value).subscribe(() => { }, () => { }, () => {
+        this.categoria = undefined;
+        this.group.reset();
+        this.findAll();
+      });
+    }
   }
 
-  delete(categoria: Categoria) {
-    this.categoriaService.delete(categoria.id).subscribe(() => { }, () => { }, () => { this.findAll(); });
+  apagar() {
+    this.categoriaService.delete(this.categoria.id).subscribe(() => { }, () => { }, () => {
+      this.categoria = undefined;
+      this.group.reset();
+      this.findAll();
+    });
   }
 
   findAll() {
     this.categoriaService.findAll().subscribe(data => {
       this.categorias = data as unknown as Categoria[];
     });
+  }
+
+  editar(obj) {
+    this.categoria = obj;
+    this.group.patchValue(obj);
   }
 
 }

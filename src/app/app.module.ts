@@ -31,19 +31,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from "ng2-currency-mask";
 import { AppComponent } from './app.component';
-import { BancoComponent } from './banco/banco.component';
 import { CargaComponent } from './carga/carga.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { ContaComponent } from './conta/conta.component';
 import { ExtratoComponent } from './extrato/extrato.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
+import { PlanilhaDetalheComponent } from './planilha-detalhe/planilha-detalhe.component';
 import { PlanilhaComponent } from './planilha/planilha.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { SaldosComponent } from './saldos/saldos.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
-import { PlanilhaDetalheComponent } from './planilha-detalhe/planilha-detalhe.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -58,10 +57,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 };
 
 const routes: Routes = [
-  {
-    path: 'banco',
-    component: BancoComponent
-  },
   {
     path: 'categoria',
     component: CategoriaComponent
@@ -111,7 +106,6 @@ const routes: Routes = [
     ContaComponent,
     ExtratoComponent,
     CargaComponent,
-    BancoComponent,
     PlanilhaComponent,
     PlanilhaDetalheComponent,
   ],

@@ -1,47 +1,44 @@
 <app-top-bar titulo="Contas"></app-top-bar>
 
-<div class="card">
-    <form #form [formGroup]="group" (ngSubmit)="add(); form.reset();" autocomplete="off">
-        <div class="chips-container">
-            <label class="chips-label">Selecione o banco</label>
-            <mat-chip-list #chipList selectable formControlName="banco">
-                <mat-chip #c="matChip" (click)="setBanco(c)" *ngFor="let banco of bancos" [value]="banco">
-                    {{banco.descricao}}
-                </mat-chip>
-            </mat-chip-list>
-        </div>
-        <mat-form-field>
-            <mat-label>Descrição da Conta</mat-label>
-            <input matInput type="text" formControlName="descricao">
-            <mat-error>Informe a conta</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Label da conta no extrato</mat-label>
-            <input matInput type="text" formControlName="label">
-            <mat-error>Informe o label</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Cor da label</mat-label>
-            <input matInput type="color" formControlName="corLabel">
-            <mat-error>Informe a cor</mat-error>
-        </mat-form-field>
+<form class="form" #form [formGroup]="group" (ngSubmit)="salvar(); form.reset();" autocomplete="off">
 
-        <button mat-flat-button color="primary" type="submit" [disabled]="group.invalid">Salvar</button>
-    </form>
-</div>
+    <mat-form-field>
+        <mat-label>Banco</mat-label>
+        <input matInput type="text" formControlName="banco">
+        <mat-error>Informe o banco</mat-error>
+    </mat-form-field>
 
-<div class="card">
-    <div class="w3-row" *ngFor="let item of contas" style="height: 30px;">
-        <div class="w3-col s10">
-            <span>
-                {{item.descricao}}
-            </span>
-            <span class="w3-tag w3-tiny w3-round-medium" [ngStyle]="{'background-color': item.corLabel}">{{item.label}}</span>
+    <mat-form-field>
+        <mat-label>Conta</mat-label>
+        <input matInput type="text" formControlName="descricao">
+        <mat-error>Informe a conta</mat-error>
+    </mat-form-field>
+
+    <div class="w3-display-container" style="height: 40px;">
+        <div class="w3-display-left">
+            <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>
         </div>
-        <div class="w3-col s2">
-            <span style="float: right;">
-                <mat-icon (click)="delete(item)" style="font-size: 22px !important;">close</mat-icon>
-            </span>
+        <div class="w3-display-right">
+            <button *ngIf="conta != undefined" mat-raised-button color="primary" type="button" (click)="apagar()">Apagar</button>
         </div>
     </div>
+
+</form>
+
+<div class="content-table">
+    <table mat-table [dataSource]="contas" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="banco">
+            <th mat-header-cell *matHeaderCellDef> Banco </th>
+            <td mat-cell *matCellDef="let item"> {{item.banco}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef> Descrição </th>
+            <td mat-cell *matCellDef="let item"> {{item.descricao}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editar(row)"></tr>
+    </table>
 </div>

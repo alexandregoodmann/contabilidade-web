@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { Planilha } from '../shared/model/planilha';
 import { PlanilhaService } from '../shared/services/planilha.service';
 
@@ -34,7 +32,6 @@ export class PlanilhaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private planilhaService: PlanilhaService,
-    private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
@@ -52,7 +49,6 @@ export class PlanilhaComponent implements OnInit {
     let model: Planilha = this.group.value;
     model.descricao = this.meses.get(model.mes);
     this.planilhaService.create(model).subscribe(() => { }, () => { }, () => {
-      this.snackBar.open('Planilha salva', null, { duration: environment.tempoSnackBar });
       this.findAll();
     });
   }

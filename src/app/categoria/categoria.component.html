@@ -1,22 +1,34 @@
 <app-top-bar titulo="Categoria"></app-top-bar>
 
-<div class="card">
-    <form #form [formGroup]="group" (ngSubmit)="add(); form.reset();" autocomplete="off">
-        <mat-form-field class="example-form-field">
-            <mat-label>Adicionar nova categoria</mat-label>
-            <input matInput type="text" formControlName="descricao">
-            <mat-error>Informe a categoria</mat-error>
-            <button mat-button matSuffix mat-icon-button type="submit" [disabled]="group.invalid" style="margin-right: 2px;">
-                <mat-icon style="font-size: 24px !important;">add</mat-icon>
-            </button>
-        </mat-form-field>
-    </form>
-    <div *ngFor="let item of categorias" style="height: 30px;">
-        <span>
-            {{item.descricao}}
-        </span>
-        <span style="float: right;">
-            <mat-icon (click)="delete(item)" style="font-size: 22px !important;">close</mat-icon>
-        </span>
+<form class="form" #form [formGroup]="group" (ngSubmit)="salvar(); form.reset();" autocomplete="off">
+
+    <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <input matInput type="text" formControlName="descricao">
+        <mat-error>Informe a categoria</mat-error>
+    </mat-form-field>
+
+    <div class="w3-display-container" style="height: 40px;">
+        <div class="w3-display-left">
+            <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>
+        </div>
+        <div class="w3-display-right">
+            <button *ngIf="categoria != undefined" mat-raised-button color="primary" type="button"
+                (click)="apagar()">Apagar</button>
+        </div>
     </div>
+
+</form>
+
+<div class="content-table">
+    <table mat-table [dataSource]="categorias" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef> Descrição </th>
+            <td mat-cell *matCellDef="let item"> {{item.descricao}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editar(row)"></tr>
+    </table>
 </div>
