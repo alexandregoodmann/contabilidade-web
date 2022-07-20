@@ -42,6 +42,7 @@ import { SaldosComponent } from './saldos/saldos.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
+import { MatSortModule } from '@angular/material/sort';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -135,7 +136,8 @@ const routes: Routes = [
     MatMenuModule,
     MatToolbarModule,
     MatSlideToggleModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

@@ -78,7 +78,7 @@ export class LancamentoComponent implements OnInit {
       this.lancamento.categoria = model.categoria;
       this.lancamento.conta = model.conta;
       this.lancamentoService.update(this.lancamento).subscribe(() => { }, () => { }, () => {
-        this.router.navigate(['/extrato']);
+        this.router.navigate(['/planilha-detalhe'], { queryParams: this.lancamento.planilha });
       });
     } else {
       this.lancamentoService.create(model).subscribe(() => { }, () => { }, () => {
@@ -91,7 +91,7 @@ export class LancamentoComponent implements OnInit {
   apagar() {
     this.lancamentoService.delete(this.lancamento.id).subscribe(() => { }, () => { }, () => {
       this.snackBar.open('Lançamento apagado', null, { duration: environment.tempoSnackBar });
-      this.router.navigate(['/extrato']);
+      this.router.navigate(['/planilha-detalhe'], { queryParams: this.lancamento.planilha });
     });
   }
 

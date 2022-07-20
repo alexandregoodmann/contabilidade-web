@@ -34,9 +34,8 @@ export class PlanilhaDetalheComponent implements OnInit {
     });
   }
 
-  editar(obj) {
-    this.router.navigate(['/lancamento'],
-      { queryParams: obj });
+  editar(lancamento) {
+    this.router.navigate(['/lancamento'], { queryParams: lancamento });
   }
 
 }
