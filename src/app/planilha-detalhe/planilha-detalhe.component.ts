@@ -11,7 +11,7 @@ import { PlanilhaService } from '../shared/services/planilha.service';
 })
 export class PlanilhaDetalheComponent implements OnInit {
 
-  displayedColumns: string[] = ['data', 'conta', 'categoria', 'descricao', 'valor'];
+  displayedColumns: string[] = ['data', 'conta', 'categoria', 'descricao', 'valor', 'concluido'];
   planilha: Planilha;
   lancamentos: Lancamento[];
   total: number = 0;

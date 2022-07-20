@@ -48,7 +48,8 @@ export class LancamentoComponent implements OnInit {
       data: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
       valor: [null, [Validators.required]],
-      fixo: [null]
+      fixo: [null],
+      concluido: [null]
     });
 
     this.group.get('data').setValue(new Date());
@@ -61,7 +62,8 @@ export class LancamentoComponent implements OnInit {
           this.group.get('data').setValue(new Date(lancamento.data));
           this.group.get('conta').setValue(lancamento.conta.id);
           this.group.get('categoria').setValue(lancamento.categoria.id);
-          this.group.get('valor').setValue(lancamento.valor < 0 ? lancamento.valor * -1 : lancamento.valor);
+          this.group.get('concluido').setValue(lancamento.concluido);
+          //this.group.get('valor').setValue(lancamento.valor < 0 ? lancamento.valor * -1 : lancamento.valor);
         });
       }
     });
@@ -77,6 +79,7 @@ export class LancamentoComponent implements OnInit {
       this.lancamento.valor = model.valor;
       this.lancamento.categoria = model.categoria;
       this.lancamento.conta = model.conta;
+      this.lancamento.concluido = model.concluido;
       this.lancamentoService.update(this.lancamento).subscribe(() => { }, () => { }, () => {
         this.router.navigate(['/planilha-detalhe'], { queryParams: this.lancamento.planilha });
       });

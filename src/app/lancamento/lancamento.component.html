@@ -39,8 +39,13 @@
             <input currencyMask matInput formControlName="valor" type="tel">
         </mat-form-field>
 
-        <div class="w3-display-container" style="height: 40px;">
-            <mat-slide-toggle formControlName="fixo">Fixo</mat-slide-toggle>
+        <div class="w3-row" style="margin-bottom: 40px;">
+            <div class="w3-col s6">
+                <mat-slide-toggle formControlName="fixo">Fixo</mat-slide-toggle>
+            </div>
+            <div class="w3-col s6">
+                <mat-slide-toggle formControlName="concluido">Concluído</mat-slide-toggle>
+            </div>
         </div>
 
         <div class="w3-display-container" style="height: 40px;">
