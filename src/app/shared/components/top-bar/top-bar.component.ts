@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { LoaderService } from '../../services/loader.service';
 
 @Component({
@@ -12,18 +12,18 @@ export class TopBarComponent implements OnInit {
   @Input() titulo: string;
 
   constructor(
-    private router: Router,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private location: Location
   ) { }
 
   ngOnInit() {
   }
 
-  irPrincipal() {
-    this.router.navigateByUrl('/');
+  voltar() {
+    this.location.back();
   }
 
-  get loader(){
+  get loader() {
     return this.loaderService;
   }
 }

@@ -1,9 +1,11 @@
 <mat-toolbar>
-    <button mat-icon-button class="example-icon" (click)="irPrincipal()" type="button">
+    <button mat-icon-button class="example-icon" (click)="voltar()" type="button">
         <mat-icon>arrow_back</mat-icon>
     </button>
     <span class="titulo">{{titulo}}</span>
-    <ng-content></ng-content>
+    <a routerLink="principal">
+        <mat-icon>home</mat-icon>
+    </a>
 </mat-toolbar>
 <div *ngIf="loader.isLoading | async">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
