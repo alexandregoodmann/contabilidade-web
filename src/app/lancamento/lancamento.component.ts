@@ -63,7 +63,6 @@ export class LancamentoComponent implements OnInit {
           this.group.get('conta').setValue(lancamento.conta.id);
           this.group.get('categoria').setValue(lancamento.categoria.id);
           this.group.get('concluido').setValue(lancamento.concluido);
-          //this.group.get('valor').setValue(lancamento.valor < 0 ? lancamento.valor * -1 : lancamento.valor);
         });
       }
     });
@@ -79,9 +78,11 @@ export class LancamentoComponent implements OnInit {
       this.lancamento.valor = model.valor;
       this.lancamento.categoria = model.categoria;
       this.lancamento.conta = model.conta;
+      this.lancamento.data = model.data;
       this.lancamento.concluido = model.concluido;
+      this.lancamento.descricao = model.descricao;
       this.lancamentoService.update(this.lancamento).subscribe(() => { }, () => { }, () => {
-        this.router.navigate(['/planilha-detalhe'], { queryParams: this.lancamento.planilha });
+        this.router.navigate(['/extrato']);
       });
     } else {
       this.lancamentoService.create(model).subscribe(() => { }, () => { }, () => {
@@ -94,7 +95,7 @@ export class LancamentoComponent implements OnInit {
   apagar() {
     this.lancamentoService.delete(this.lancamento.id).subscribe(() => { }, () => { }, () => {
       this.snackBar.open('Lançamento apagado', null, { duration: environment.tempoSnackBar });
-      this.router.navigate(['/planilha-detalhe'], { queryParams: this.lancamento.planilha });
+      this.router.navigate(['/extrato'],);
     });
   }
 

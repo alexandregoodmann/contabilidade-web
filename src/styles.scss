@@ -75,3 +75,17 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
         width: 100%;
     }
 }
+
+.mat-expansion-panel-body {
+    padding: 0 0px 0px !important;
+}
+
+.mat-expanded {
+    background-color: #d5d4d4;
+}
+
+.total {
+    text-align: right !important;
+    color: black;
+    font-size: 18px;
+    }

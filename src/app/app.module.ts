@@ -24,6 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -34,6 +35,7 @@ import { AppComponent } from './app.component';
 import { CargaComponent } from './carga/carga.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { ContaComponent } from './conta/conta.component';
+import { ExtratoComponent } from './extrato/extrato.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PlanilhaDetalheComponent } from './planilha-detalhe/planilha-detalhe.component';
 import { PlanilhaComponent } from './planilha/planilha.component';
@@ -42,7 +44,6 @@ import { SaldosComponent } from './saldos/saldos.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
-import { MatSortModule } from '@angular/material/sort';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -82,6 +83,10 @@ const routes: Routes = [
     component: PlanilhaDetalheComponent
   },
   {
+    path: 'extrato',
+    component: ExtratoComponent
+  },
+  {
     path: '',
     redirectTo: 'principal',
     pathMatch: 'full'
@@ -103,6 +108,7 @@ const routes: Routes = [
     CargaComponent,
     PlanilhaComponent,
     PlanilhaDetalheComponent,
+    ExtratoComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
@@ -137,7 +143,8 @@ const routes: Routes = [
     MatToolbarModule,
     MatSlideToggleModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatExpansionModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

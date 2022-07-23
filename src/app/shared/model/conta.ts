@@ -1,6 +1,9 @@
+import { Lancamento } from "./lancamento";
 
 export class Conta {
-    id: string;
+    id: number;
     descricao: string;
     label: string;
+    lancamentos: Lancamento[] = [];
+    total: number = 0;
 }
