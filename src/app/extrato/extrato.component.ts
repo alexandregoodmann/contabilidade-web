@@ -14,6 +14,7 @@ export class ExtratoComponent implements OnInit {
 
   displayedColumns: string[] = ['data', 'categoria', 'descricao', 'valor', 'concluido'];
   contas: Conta[];
+  order: number = 1;
   @ViewChild(MatAccordion, { static: false }) accordion: MatAccordion;
 
   constructor(
@@ -55,5 +56,20 @@ export class ExtratoComponent implements OnInit {
     this.router.navigate(['/lancamento'], { queryParams: lancamento });
   }
 
+  sortBy(indexConta: number, lancamentos: Lancamento[], coluna: string) {
+    let ret = this.order;
+    lancamentos.sort(function (x, y) {
+      if (x[coluna] > y[coluna]) {
+        return ret;
+      }
+      if (x[coluna] < y[coluna]) {
+        return ret * (-1);
+      }
+      return 0;
+    });
+
+    this.contas[indexConta].lancamentos = Array.from(lancamentos);
+    this.order = this.order * (-1);
+  }
 }
 
