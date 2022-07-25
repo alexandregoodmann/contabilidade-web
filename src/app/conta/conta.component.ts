@@ -13,7 +13,7 @@ export class ContaComponent implements OnInit {
   group: FormGroup;
   conta;
   contas;
-  displayedColumns: string[] = ['banco', 'descricao'];
+  displayedColumns: string[] = ['banco', 'descricao', 'cargaArquivo'];
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +27,8 @@ export class ContaComponent implements OnInit {
     //cria group
     this.group = this.fb.group({
       banco: [null, [Validators.required]],
-      descricao: [null, [Validators.required]]
+      descricao: [null, [Validators.required]],
+      cargaArquivo: [null]
     });
 
   }

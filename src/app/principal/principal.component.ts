@@ -12,7 +12,8 @@ export class PrincipalComponent {
     { href: '/#/extrato', icon: 'account_balance', label: 'Extrato' },
     { href: '/#/planilha', icon: 'tab', label: 'Planilha' },
     { href: '/#/conta', icon: 'credit_card', label: 'Conta' },
-    { href: '/#/categoria', icon: 'dashboard_customize', label: 'Categoria' }
+    { href: '/#/categoria', icon: 'dashboard_customize', label: 'Categoria' },
+    { href: '/#/carga', icon: 'file_upload', label: 'Carga de Arquivo' },
   ];
 
   constructor() { }

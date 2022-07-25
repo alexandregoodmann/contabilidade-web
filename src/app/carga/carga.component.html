@@ -1,7 +1,7 @@
 <app-top-bar titulo="Carga C6"></app-top-bar>
 
 <div class="form">
-    <form #form [formGroup]="group" (ngSubmit)="enviar(); form.reset();" autocomplete="off">
+    <form #form [formGroup]="group" autocomplete="off">
 
         <div class="chips-container">
             <label class="chips-label">Selecione a Conta Corrente</label>
@@ -12,11 +12,18 @@
             </mat-chip-list>
         </div>
 
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Carga da fatura C6</mat-label>
-            <textarea formControlName="linhas" rows="25" matInput placeholder="Cole aqui as linhas da fatura do banco C6"></textarea>
-        </mat-form-field>
+        <div class="w3-display-container" style="margin-bottom: 20px;">
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <div class="file-upload">
+                <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                {{fileName || "Selecione um arquivo para carga"}}
+            </div>
+        </div>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Enviar</button>
+        <button mat-raised-button color="primary" type="button" (click)="enviar(form)"
+            [disabled]="group?.invalid">Enviar</button>
+
     </form>
 </div>

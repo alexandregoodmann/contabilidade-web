@@ -6,4 +6,5 @@ export class Conta {
     label: string;
     lancamentos: Lancamento[] = [];
     total: number = 0;
+    cargaArquivo: boolean;
 }
