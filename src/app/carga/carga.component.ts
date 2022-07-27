@@ -57,6 +57,7 @@ export class CargaComponent implements OnInit {
     if (this.file) {
       const formData = new FormData();
       formData.append("file", this.file);
+      formData.append("idConta", this.group.get('conta').value);
       const upload$ = this.http.post(`${environment.url}/lancamentos/uploadFile`, formData);
       upload$.subscribe();
       
