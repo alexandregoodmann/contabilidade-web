@@ -15,6 +15,7 @@ export class PlanilhaComponent implements OnInit {
   displayedColumns: string[] = ['descricao', 'ano'];
   group: FormGroup;
   dataSource;
+  meses = Constants.listaMeses;
 
   constructor(
     private fb: FormBuilder,
@@ -25,8 +26,8 @@ export class PlanilhaComponent implements OnInit {
   ngOnInit() {
 
     this.group = this.fb.group({
-      mes: [null],
-      ano: [null]
+      ano: [null],
+      descricao: [null]
     });
 
     this.findAll();
@@ -34,7 +35,9 @@ export class PlanilhaComponent implements OnInit {
 
   salvar() {
     let model: Planilha = this.group.value;
-    model.descricao = Constants.meses.get(model.mes);
+    model.mes = Constants.listaMeses.indexOf(model.descricao) + 1;
+    console.log(model);
+
     this.planilhaService.create(model).subscribe(() => { }, () => { }, () => {
       this.findAll();
     });

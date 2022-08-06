@@ -37,13 +37,13 @@ import { CategoriaComponent } from './categoria/categoria.component';
 import { ContaComponent } from './conta/conta.component';
 import { ExtratoComponent } from './extrato/extrato.component';
 import { LancamentoComponent } from './lancamento/lancamento.component';
-import { PlanilhaDetalheComponent } from './planilha-detalhe/planilha-detalhe.component';
 import { PlanilhaComponent } from './planilha/planilha.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { SaldosComponent } from './saldos/saldos.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
+import { NavAnoMesComponent } from './shared/components/nav-ano-mes/nav-ano-mes.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -79,10 +79,6 @@ const routes: Routes = [
     component: PlanilhaComponent
   },
   {
-    path: 'planilha-detalhe',
-    component: PlanilhaDetalheComponent
-  },
-  {
     path: 'extrato',
     component: ExtratoComponent
   },
@@ -107,8 +103,8 @@ const routes: Routes = [
     ContaComponent,
     CargaComponent,
     PlanilhaComponent,
-    PlanilhaDetalheComponent,
     ExtratoComponent,
+    NavAnoMesComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
