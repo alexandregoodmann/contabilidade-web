@@ -1,13 +1,15 @@
-<form #form [formGroup]="group" autocomplete="off">
-    <div class="banner" style="padding-top: 20px;">
-        <label class="chips-label">Selecione a planilha</label>
-        <select name="anos" (change)="getPlanilhasDoAno($event.target.value)" class="selectPlanilha"
-            formControlName="ano">
-            <option *ngFor="let ano of anos" [value]="ano">{{ano}}</option>
-        </select>
-        <select *ngIf="meses.size > 0" name="meses" class="selectPlanilha" formControlName="mes"
-            (change)="setPlanilha()">
-            <option *ngFor="let mes of meses" [value]="mes">{{mes}}</option>
-        </select>
-    </div>
-</form>
+<div *ngIf="this.anos.size > 0">
+    <form #form [formGroup]="group" autocomplete="off">
+        <div class="banner" style="padding-top: 20px;">
+            <label class="chips-label">Selecione a planilha</label>
+            <select name="anos" (change)="getPlanilhasDoAno($event.target.value)" class="selectPlanilha"
+                formControlName="ano">
+                <option *ngFor="let ano of anos" [value]="ano">{{ano}}</option>
+            </select>
+            <select *ngIf="meses.size > 0" name="meses" class="selectPlanilha" formControlName="mes"
+                (change)="setPlanilha()">
+                <option *ngFor="let mes of meses" [value]="mes">{{mes}}</option>
+            </select>
+        </div>
+    </form>
+</div>

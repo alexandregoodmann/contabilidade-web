@@ -17,10 +17,12 @@ export class PlanilhaService extends BasicCrudService<Planilha> {
     super(`${environment.url}/planilhas`, http);
   }
 
-  setPlanilhaMes(ano: number, mes: number) {
-    this.http.get<Planilha>(`${environment.url}/planilhas/${ano}/${mes}`).subscribe(data => {
-      this.planilhaBehavior.next(data);
-    });
+  setPlanilhaMes(planilha: Planilha) {
+    this.planilhaBehavior.next(planilha);
+  }
+
+  getPlanilhaMes(ano: number, mes: number) {
+    return this.http.get<Planilha>(`${environment.url}/planilhas/${ano}/${mes}`);
   }
 
 }

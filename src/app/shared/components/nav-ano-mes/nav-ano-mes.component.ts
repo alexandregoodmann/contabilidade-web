@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { Constants } from '../../Constants';
 import { Planilha } from '../../model/planilha';
 import { PlanilhaService } from '../../services/planilha.service';
@@ -22,12 +23,14 @@ export class NavAnoMesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.group = this.fb.group({
       ano: [null],
       mes: [null]
     });
+    this.montaSelects();
+  }
 
+  private montaSelects() {
     this.planilhaService.findAll().subscribe(data => {
       this.planilhas = data;
       data.forEach(e => {
@@ -41,9 +44,9 @@ export class NavAnoMesComponent implements OnInit {
         this.group.get('ano').setValue(anoAtual);
         this.getPlanilhasDoAno(anoAtual);
         this.group.get('mes').setValue(Constants.listaMeses[hoje.getMonth()]);
+        this.setPlanilha();
       }
     });
-
   }
 
   getPlanilhasDoAno(ano: number) {
