@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -9,7 +10,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
     background-color: black;
 }
 
@@ -88,4 +92,26 @@ button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-m
     text-align: right !important;
     color: black;
     font-size: 18px;
+}
+
+.banner {
+    min-height: 80px;
+    background-color: rgb(221, 221, 221);
+    border-radius: 3px;
+    padding: 10px;
+    margin: 10px;
+
+    a {
+        display: flex;
+        vertical-align: middle;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        font-size: 20px;
+        text-decoration: none;
     }
+
+    span {
+        margin-left: 20px;
+    }
+}

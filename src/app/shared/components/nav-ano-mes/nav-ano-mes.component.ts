@@ -7,7 +7,7 @@ import { PlanilhaService } from '../../services/planilha.service';
 @Component({
   selector: 'app-nav-ano-mes',
   templateUrl: './nav-ano-mes.component.html',
-  styleUrls: ['./nav-ano-mes.component.css']
+  styleUrls: ['./nav-ano-mes.component.scss']
 })
 export class NavAnoMesComponent implements OnInit {
 

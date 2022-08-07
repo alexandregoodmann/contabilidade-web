@@ -36,8 +36,6 @@ export class PlanilhaComponent implements OnInit {
   salvar() {
     let model: Planilha = this.group.value;
     model.mes = Constants.listaMeses.indexOf(model.descricao) + 1;
-    console.log(model);
-
     this.planilhaService.create(model).subscribe(() => { }, () => { }, () => {
       this.findAll();
     });
