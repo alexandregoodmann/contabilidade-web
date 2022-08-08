@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { Categoria } from '../shared/model/categoria';
+import { Conta } from '../shared/model/conta';
 import { Planilha } from '../shared/model/planilha';
+import { CategoriaService } from '../shared/services/categoria.service';
+import { ContaService } from '../shared/services/conta.service';
 import { PlanilhaService } from '../shared/services/planilha.service';
 
 @Component({
@@ -10,28 +14,12 @@ import { PlanilhaService } from '../shared/services/planilha.service';
 })
 export class PrincipalComponent implements OnInit {
 
-  banners;
+  planilhas: Planilha[] = [];
+  contas: Conta[] = [];
+  categorias: Categoria[] = [];
   planilhaDoMes: Planilha;
 
-  constructor(
-    private planilhaService: PlanilhaService,
-    private _snackBar: MatSnackBar
-  ) { }
-
-  ngOnInit(): void {
-    this.getPlanilhaMes();
-  }
-
-  private getPlanilhaMes() {
-    let hoje = new Date();
-    this.planilhaService.getPlanilhaMes(hoje.getFullYear(), hoje.getMonth() + 1).subscribe(data => {
-      this.planilhaDoMes = data;
-    }, (err) => { }, () => {
-      this.planilhaService.setPlanilhaMes(this.planilhaDoMes);
-      this.getBanners();
-    });
-  }
-
+  banners = [];
   menu = [
     { href: '/#/planilha', icon: 'tab', label: 'Planilha' },
     { href: '/#/conta', icon: 'credit_card', label: 'Conta' },
@@ -41,17 +29,70 @@ export class PrincipalComponent implements OnInit {
     { href: '/#/carga', icon: 'file_upload', label: 'Carga de Arquivo' },
   ];
 
-  private getBanners() {
-    if (this.planilhaDoMes.id != undefined) {
-      this.banners = this.menu;
-    } else {
-      this.banners = [{ href: '/#/planilha', icon: 'tab', label: 'Planilha' }];
-      this.openSnackBar();
-    }
+  constructor(
+    private planilhaService: PlanilhaService,
+    private contaService: ContaService,
+    private categoriaService: CategoriaService,
+    private _snackBar: MatSnackBar
+  ) { }
+
+  ngOnInit(): void {
+    this.getPlanilhas();
   }
 
-  private openSnackBar() {
-    this._snackBar.open('Primeiramente cadastre uma Planilha', 'Fechar', {
+  private getPlanilhas() {
+    this.banners.push(this.menu[0]);
+    this.planilhaService.findAll().subscribe(data => {
+      this.planilhas = data;
+    }, (err) => { }, () => {
+
+      //verifica se existe planilha
+      if (this.planilhas.length == 0) {
+        this.openSnackBar('Você precisa cadastrar uma Planilha');
+      } else {
+        this.getContas();
+        this.getCategorias();
+      }
+    });
+  }
+
+  private getContas() {
+    this.banners.push(this.menu[1]);
+    this.contaService.findAll().subscribe(data => {
+      this.contas = data;
+    }, (err) => { }, () => {
+      if (this.contas.length == 0) {
+        this.openSnackBar('Você precisa cadastrar uma Conta');
+      } else if (this.categorias.length > 0) {
+        this.banners = this.menu;
+      }
+    });
+  }
+
+  private getCategorias() {
+    this.banners.push(this.menu[2]);
+    this.categoriaService.findAll().subscribe(data => {
+      this.categorias = data;
+    }, (err) => { }, () => {
+      if (this.categorias.length == 0) {
+        this.openSnackBar('Você precisa cadastrar uma Categoria');
+      } else if (this.contas.length > 0) {
+        this.banners = this.menu;
+      }
+    });
+  }
+//---------------------------------------------------------------------------------------------------------------------------
+  private getPlanilhaMes() {
+    let hoje = new Date();
+    this.planilhaService.getPlanilhaMes(hoje.getFullYear(), hoje.getMonth() + 1).subscribe(data => {
+      this.planilhaDoMes = data;
+    }, (err) => { }, () => {
+      this.planilhaService.setPlanilhaMes(this.planilhaDoMes);
+    });
+  }
+
+  private openSnackBar(msg: string) {
+    this._snackBar.open(msg, 'Fechar', {
       horizontalPosition: 'center',
       verticalPosition: 'top'
     });
