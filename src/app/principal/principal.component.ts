@@ -52,7 +52,9 @@ export class PrincipalComponent implements OnInit {
       } else {
         this.getContas();
         this.getCategorias();
+        this.getPlanilhaMes();
       }
+
     });
   }
 
@@ -81,13 +83,15 @@ export class PrincipalComponent implements OnInit {
       }
     });
   }
-//---------------------------------------------------------------------------------------------------------------------------
+
   private getPlanilhaMes() {
     let hoje = new Date();
     this.planilhaService.getPlanilhaMes(hoje.getFullYear(), hoje.getMonth() + 1).subscribe(data => {
       this.planilhaDoMes = data;
     }, (err) => { }, () => {
-      this.planilhaService.setPlanilhaMes(this.planilhaDoMes);
+      if (this.planilhaDoMes.id != undefined) {
+        this.planilhaService.setPlanilhaMes(this.planilhaDoMes);
+      }
     });
   }
 
@@ -97,4 +101,5 @@ export class PrincipalComponent implements OnInit {
       verticalPosition: 'top'
     });
   }
+
 }
