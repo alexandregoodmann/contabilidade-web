@@ -10,15 +10,15 @@ import { BasicCrudService } from './basic-crud.service';
 })
 export class PlanilhaService extends BasicCrudService<Planilha> {
 
-  private planilhaBehavior = new BehaviorSubject<Planilha>(new Planilha());
-  planilhaObservable = this.planilhaBehavior.asObservable();
+  private selectBehavior = new BehaviorSubject<Map<number, Array<string>>>(new Map<number, Array<string>>());
+  selectObservable = this.selectBehavior.asObservable();
+
+  setSelectObservable(mapa){
+    this.selectBehavior.next(mapa);
+  }
 
   constructor(private http: HttpClient) {
     super(`${environment.url}/planilhas`, http);
-  }
-
-  setPlanilhaMes(planilha: Planilha) {
-    this.planilhaBehavior.next(planilha);
   }
 
   getPlanilhaMes(ano: number, mes: number) {

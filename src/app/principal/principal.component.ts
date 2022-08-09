@@ -45,16 +45,14 @@ export class PrincipalComponent implements OnInit {
     this.planilhaService.findAll().subscribe(data => {
       this.planilhas = data;
     }, (err) => { }, () => {
-
       //verifica se existe planilha
       if (this.planilhas.length == 0) {
         this.openSnackBar('Você precisa cadastrar uma Planilha');
       } else {
         this.getContas();
         this.getCategorias();
-        this.getPlanilhaMes();
       }
-
+      this.montaSelect();
     });
   }
 
@@ -84,15 +82,20 @@ export class PrincipalComponent implements OnInit {
     });
   }
 
-  private getPlanilhaMes() {
-    let hoje = new Date();
-    this.planilhaService.getPlanilhaMes(hoje.getFullYear(), hoje.getMonth() + 1).subscribe(data => {
-      this.planilhaDoMes = data;
-    }, (err) => { }, () => {
-      if (this.planilhaDoMes.id != undefined) {
-        this.planilhaService.setPlanilhaMes(this.planilhaDoMes);
+  private montaSelect() {
+    let mapa: Map<number, Array<string>> = new Map<number, Array<string>>();
+    this.planilhas.forEach(e => {
+      if (mapa.has(e.ano)) {
+        let meses = mapa.get(e.ano);
+        meses.push(e.descricao);
+        mapa.set(e.ano, meses);
+      } else {
+        let meses: string[] = [];
+        meses.push(e.descricao);
+        mapa.set(e.ano, meses);
       }
     });
+    this.planilhaService.setSelectObservable(mapa);
   }
 
   private openSnackBar(msg: string) {

@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Constants } from '../../Constants';
-import { Categoria } from '../../model/categoria';
-import { Conta } from '../../model/conta';
-import { Planilha } from '../../model/planilha';
-import { CategoriaService } from '../../services/categoria.service';
-import { ContaService } from '../../services/conta.service';
 import { PlanilhaService } from '../../services/planilha.service';
 
 @Component({
@@ -16,11 +11,8 @@ import { PlanilhaService } from '../../services/planilha.service';
 export class NavAnoMesComponent implements OnInit {
 
   group: FormGroup;
-  planilhas: Planilha[] = [];
-  contas: Conta[] = [];
-  categorias: Categoria[] = [];
-  anos: Set<number> = new Set();
-  meses: Set<string> = new Set();
+  anos: Map<number, Array<string>>;
+  meses: string[];
 
   constructor(
     private planilhaService: PlanilhaService,
@@ -32,42 +24,40 @@ export class NavAnoMesComponent implements OnInit {
       ano: [null],
       mes: [null]
     });
+    this.planilhaService.selectObservable.subscribe(data => {
+      this.anos = data;
+      this.planilhaDoMes();
+    });
   }
 
-  private montaSelects() {
-    this.planilhaService.findAll().subscribe(data => {
-      this.planilhas = data;
-      data.forEach(e => {
-        this.anos.add(e.ano);
-      });
-    }, () => { }, () => {
-
-      // verificar se existe planilha no banco de dados
-      if (this.anos.size > 0) {
-        let hoje = new Date();
-        let anoAtual = hoje.getFullYear();
-
-        this.group.get('ano').setValue(anoAtual);
-        this.getPlanilhasDoAno(anoAtual);
-        this.group.get('mes').setValue(Constants.listaMeses[hoje.getMonth()]);
+  getMeses() {
+    this.anos.forEach((value, key) => {
+      if (this.group.get('ano').value == key) {
+        this.meses = value;
       }
     });
   }
 
-  getPlanilhasDoAno(ano: number) {
-    this.meses.clear();
-    let planilhasDoAno = this.planilhas.filter(o => o.ano == ano);
-    planilhasDoAno.forEach(mes => {
-      this.meses.add(mes.descricao);
+  setMesSelecionado() {
+    let mes = Constants.listaMeses.indexOf(this.group.get('mes').value);
+    this.planilhaService.getPlanilhaMes(this.group.get('ano').value, mes + 1).subscribe(data => {
+      console.log(data);
     });
   }
 
-  setPlanilha() {
-    let model = this.group.value;
-    let mes = Constants.listaMeses.indexOf(model.mes) + 1;
-    this.planilhaService.getPlanilhaMes(model.getFullYear(), mes).subscribe(data => {
-      this.planilhaService.setPlanilhaMes(data);
-    }, (err) => { }, () => {
-    });
+  planilhaDoMes() {
+    let hoje = new Date();
+    let ano = hoje.getFullYear();
+    let mes = Constants.listaMeses[hoje.getMonth()];
+    if (this.anos.has(ano)) {
+      this.group.get('ano').setValue(ano);
+      this.getMeses();
+      this.anos.get(hoje.getFullYear()).forEach(m => {
+        if (m == mes) {
+          this.group.get('mes').setValue(mes);
+        }
+      });
+    }
   }
+
 }
