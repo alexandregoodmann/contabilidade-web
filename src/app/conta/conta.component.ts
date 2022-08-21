@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatChip } from '@angular/material';
 import { ContaService } from 'src/app/shared/services/conta.service';
 
 @Component({
@@ -27,8 +26,7 @@ export class ContaComponent implements OnInit {
     //cria group
     this.group = this.fb.group({
       banco: [null, [Validators.required]],
-      descricao: [null, [Validators.required]],
-      cargaArquivo: [null]
+      descricao: [null, [Validators.required]]
     });
 
   }

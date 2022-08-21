@@ -101,7 +101,7 @@ export class PrincipalComponent implements OnInit {
   private openSnackBar(msg: string) {
     this._snackBar.open(msg, 'Fechar', {
       horizontalPosition: 'center',
-      verticalPosition: 'top'
+      verticalPosition: 'bottom'
     });
   }
 

@@ -27,11 +27,7 @@ export class CargaComponent implements OnInit {
 
   ngOnInit() {
     this.contaService.findAll().subscribe(data => {
-      data.forEach(conta => {
-        if (conta.cargaArquivo) {
-          this.contas.push(conta);
-        }
-      })
+      this.contas = data;
     });
 
     this.group = this.fb.group({
@@ -50,7 +46,7 @@ export class CargaComponent implements OnInit {
     this.fileName = this.file.name;
     console.log(this.group);
     this.group.get('cargaArquivo').setValue(this.fileName);
-    
+
   }
 
   enviar(form) {
@@ -60,7 +56,7 @@ export class CargaComponent implements OnInit {
       formData.append("idConta", this.group.get('conta').value);
       const upload$ = this.http.post(`${environment.url}/lancamentos/uploadFile`, formData);
       upload$.subscribe();
-      
+
       this.fileName = '';
       this.file = undefined;
       form.reset();

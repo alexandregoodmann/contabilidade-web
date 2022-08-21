@@ -48,7 +48,6 @@ export class LancamentoComponent implements OnInit {
       data: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
       valor: [null, [Validators.required]],
-      fixo: [null],
       concluido: [null]
     });
 
