@@ -6,9 +6,11 @@ import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ContaService } from 'src/app/shared/services/conta.service';
 import { LancamentoService } from 'src/app/shared/services/lancamento.service';
 import { environment } from 'src/environments/environment';
+import { Constants } from '../shared/Constants';
 import { Categoria } from '../shared/model/categoria';
 import { Conta } from '../shared/model/conta';
 import { Lancamento } from '../shared/model/lancamento';
+import { PlanilhaService } from '../shared/services/planilha.service';
 
 @Component({
   selector: 'app-lancamento',
@@ -27,6 +29,7 @@ export class LancamentoComponent implements OnInit {
     private contaService: ContaService,
     private categoriaService: CategoriaService,
     private lancamentoService: LancamentoService,
+    private planilhaService: PlanilhaService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar
@@ -73,6 +76,7 @@ export class LancamentoComponent implements OnInit {
     model.categoria = this.categorias.filter(o => o.id == model.categoria)[0];
     model.conta = this.contas.filter(o => o.id == model.conta)[0];
 
+    //edit
     if (this.lancamento && this.lancamento.id) {
       this.lancamento.valor = model.valor;
       this.lancamento.categoria = model.categoria;
@@ -83,9 +87,13 @@ export class LancamentoComponent implements OnInit {
       this.lancamentoService.update(this.lancamento).subscribe(() => { }, () => { }, () => {
         this.router.navigate(['/extrato']);
       });
-    } else {
-      this.lancamentoService.create(model).subscribe(() => { }, () => { }, () => {
-        this.snackBar.open('Lançamanto adicionado', null, { duration: environment.tempoSnackBar });
+    } else { //new
+      debugger;
+      this.planilhaService.planilhaAtual.subscribe(data => {
+        model.planilha = data;
+        this.lancamentoService.create(model).subscribe(() => { }, () => { }, () => {
+          this.snackBar.open('Lançamanto adicionado', null, { duration: environment.tempoSnackBar });
+        });
       });
     }
 

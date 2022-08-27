@@ -40,10 +40,11 @@ import { LancamentoComponent } from './lancamento/lancamento.component';
 import { PlanilhaComponent } from './planilha/planilha.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { SaldosComponent } from './saldos/saldos.component';
+import { LinkPlanilhaComponent } from './shared/components/link-planilha/link-planilha.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
+import { SelectPlanilhaComponent } from './shared/components/select-planilha/select-planilha.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
-import { NavAnoMesComponent } from './shared/components/nav-ano-mes/nav-ano-mes.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -104,7 +105,8 @@ const routes: Routes = [
     CargaComponent,
     PlanilhaComponent,
     ExtratoComponent,
-    NavAnoMesComponent,
+    LinkPlanilhaComponent,
+    SelectPlanilhaComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),

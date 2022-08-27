@@ -14,10 +14,9 @@ import { PlanilhaService } from '../shared/services/planilha.service';
 })
 export class PrincipalComponent implements OnInit {
 
-  planilhas: Planilha[] = [];
   contas: Conta[] = [];
   categorias: Categoria[] = [];
-  planilhaDoMes: Planilha;
+  planilhas: Planilha[] = [];
 
   banners = [];
   menu = [
@@ -37,23 +36,26 @@ export class PrincipalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPlanilhas();
-  }
 
-  private getPlanilhas() {
-    this.banners.push(this.menu[0]);
     this.planilhaService.findAll().subscribe(data => {
       this.planilhas = data;
     }, (err) => { }, () => {
-      //verifica se existe planilha
+
       if (this.planilhas.length == 0) {
         this.openSnackBar('Você precisa cadastrar uma Planilha');
       } else {
+
+        //Guarda no Behavior a planilha a ser usada;
+        this.planilhaService.setPlanilhaAtual(this.planilhas);
+
+        // Guarda no Behavior a estrutura de ano/planilhas
+        this.planilhaService.montaMapaPlanilhas(this.planilhas);
+
         this.getContas();
         this.getCategorias();
       }
-      this.montaSelect();
     });
+
   }
 
   private getContas() {
@@ -80,22 +82,6 @@ export class PrincipalComponent implements OnInit {
         this.banners = this.menu;
       }
     });
-  }
-
-  private montaSelect() {
-    let mapa: Map<number, Array<string>> = new Map<number, Array<string>>();
-    this.planilhas.forEach(e => {
-      if (mapa.has(e.ano)) {
-        let meses = mapa.get(e.ano);
-        meses.push(e.descricao);
-        mapa.set(e.ano, meses);
-      } else {
-        let meses: string[] = [];
-        meses.push(e.descricao);
-        mapa.set(e.ano, meses);
-      }
-    });
-    this.planilhaService.setSelectObservable(mapa);
   }
 
   private openSnackBar(msg: string) {
