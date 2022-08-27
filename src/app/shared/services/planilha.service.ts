@@ -14,9 +14,6 @@ export class PlanilhaService extends BasicCrudService<Planilha> {
   private planilhasAnoB = new BehaviorSubject<Array<PlanilhasAno>>(new Array<PlanilhasAno>());
   planilhasAno = this.planilhasAnoB.asObservable();
 
-  private planilhaAtualB = new BehaviorSubject<Planilha>(new Planilha());
-  planilhaAtual = this.planilhaAtualB.asObservable();
-
   private planilhaSelecionadaB = new BehaviorSubject<Planilha>(new Planilha());
   planilhaSelecionada = this.planilhaSelecionadaB.asObservable();
 
@@ -38,6 +35,33 @@ export class PlanilhaService extends BasicCrudService<Planilha> {
 
   getMapa() {
     return this.http.get<Array<PlanilhasAno>>(`${environment.url}/planilhas/mapa`);
+  }
+
+  setPlanilhaAtual(planilhas: PlanilhasAno[]): void {
+    let retorno: Planilha;
+    let hoje = new Date();
+    planilhas.forEach(ano => {
+      if (ano.ano == hoje.getFullYear()) {
+        ano.planilhas.forEach(planilha => {
+          if (planilha.mes == hoje.getMonth() + 1) {
+            retorno = planilha;
+          }
+        });
+      }
+    });
+
+    if (retorno) {
+      this.planilhaSelecionadaB.next(retorno);
+    } else {
+      let ultima = this.getUltimaPlanilha(planilhas);
+      this.planilhaSelecionadaB.next(ultima);
+    }
+  }
+
+  private getUltimaPlanilha(planilhas: PlanilhasAno[]): Planilha {
+    let i = planilhas.length - 1;
+    let j = planilhas[i].planilhas.length - 1;
+    return planilhas[i].planilhas[j];
   }
 
 }

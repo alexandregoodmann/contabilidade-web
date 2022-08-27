@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -42,10 +43,9 @@ import { PrincipalComponent } from './principal/principal.component';
 import { SaldosComponent } from './saldos/saldos.component';
 import { LinkPlanilhaComponent } from './shared/components/link-planilha/link-planilha.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
+import { SelectPlanilhaComponent } from './shared/components/select-planilha/select-planilha.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
-import { SelectPlanilhaComponent } from './shared/components/select-planilha/select-planilha.component';
-import { PathPlanilhaComponent } from './shared/components/path-planilha/path-planilha.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -107,8 +107,7 @@ const routes: Routes = [
     PlanilhaComponent,
     ExtratoComponent,
     LinkPlanilhaComponent,
-    SelectPlanilhaComponent,
-    PathPlanilhaComponent
+    SelectPlanilhaComponent
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
@@ -144,7 +143,8 @@ const routes: Routes = [
     MatSlideToggleModule,
     MatTableModule,
     MatSortModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

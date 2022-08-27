@@ -88,13 +88,7 @@ export class LancamentoComponent implements OnInit {
         this.router.navigate(['/extrato']);
       });
     } else { //new
-      debugger;
-      this.planilhaService.planilhaAtual.subscribe(data => {
-        model.planilha = data;
-        this.lancamentoService.create(model).subscribe(() => { }, () => { }, () => {
-          this.snackBar.open('Lançamanto adicionado', null, { duration: environment.tempoSnackBar });
-        });
-      });
+
     }
 
   }

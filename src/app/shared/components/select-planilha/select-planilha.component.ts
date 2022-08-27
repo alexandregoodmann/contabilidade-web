@@ -13,7 +13,7 @@ export class SelectPlanilhaComponent implements OnInit {
 
   group: FormGroup;
   planilhasAno: PlanilhasAno[];
-  planilhaAtual: Planilha;
+  planilhaSelecionada: Planilha;
 
   constructor(
     private planilhaService: PlanilhaService,
@@ -30,27 +30,25 @@ export class SelectPlanilhaComponent implements OnInit {
       this.planilhasAno = data;
     });
 
-    this.planilhaService.planilhaAtual.subscribe(data => {
-      this.planilhaAtual = data;
-      console.log(this.planilhaAtual);
-      
-      this.group.get('ano').setValue(this.planilhaAtual.ano);
-      this.group.get('mes').setValue(this.planilhaAtual.descricao);
+    this.planilhaService.planilhaSelecionada.subscribe(data => {
+      this.planilhaSelecionada = data;
+      this.group.get('ano').setValue(this.planilhaSelecionada.ano);
+      this.group.get('mes').setValue(this.planilhaSelecionada);
     });
   }
 
   get meses() {
-    let ano = this.group.get('ano').value;
-    let planilhas: Planilha[];
-    this.planilhasAno.forEach(obj => {
-      if (obj.ano == ano) {
-        planilhas = obj.planilhas;
+    let ret;
+    this.planilhasAno.forEach(a => {
+      if (a.ano == this.group.get('ano').value) {
+        ret = a.planilhas;
       }
     });
-    return planilhas;
+    return ret;
   }
 
-  onChange(e){
-    this.planilhaService.setPlanilhaSelecionada(e);
+  onChange(e) {
+    console.log(e);
+
   }
 }
