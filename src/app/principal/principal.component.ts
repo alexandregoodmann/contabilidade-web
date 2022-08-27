@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Categoria } from '../shared/model/categoria';
 import { Conta } from '../shared/model/conta';
-import { Planilha } from '../shared/model/planilha';
+import { PlanilhasAno } from '../shared/model/PlanilhasAno';
 import { CategoriaService } from '../shared/services/categoria.service';
 import { ContaService } from '../shared/services/conta.service';
 import { PlanilhaService } from '../shared/services/planilha.service';
@@ -16,7 +16,7 @@ export class PrincipalComponent implements OnInit {
 
   contas: Conta[] = [];
   categorias: Categoria[] = [];
-  planilhas: Planilha[] = [];
+  planilhasAno: PlanilhasAno[];
 
   banners = [];
   menu = [
@@ -37,20 +37,14 @@ export class PrincipalComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.planilhaService.findAll().subscribe(data => {
-      this.planilhas = data;
+    this.planilhaService.getMapa().subscribe(data => {
+      this.planilhasAno = data;
     }, (err) => { }, () => {
 
-      if (this.planilhas.length == 0) {
+      if (this.planilhasAno.length == 0) {
         this.openSnackBar('Você precisa cadastrar uma Planilha');
       } else {
-
-        //Guarda no Behavior a planilha a ser usada;
-        this.planilhaService.setPlanilhaAtual(this.planilhas);
-
-        // Guarda no Behavior a estrutura de ano/planilhas
-        this.planilhaService.montaMapaPlanilhas(this.planilhas);
-
+        this.planilhaService.setPlanilhasAno(this.planilhasAno);
         this.getContas();
         this.getCategorias();
       }

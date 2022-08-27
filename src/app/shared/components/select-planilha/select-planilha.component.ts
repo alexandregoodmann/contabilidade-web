@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Planilha } from '../../model/planilha';
+import { PlanilhasAno } from '../../model/PlanilhasAno';
 import { PlanilhaService } from '../../services/planilha.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { PlanilhaService } from '../../services/planilha.service';
 export class SelectPlanilhaComponent implements OnInit {
 
   group: FormGroup;
-  anos: Map<number, Array<string>> = new Map<number, Array<string>>();
+  planilhasAno: PlanilhasAno[];
   planilhaAtual: Planilha;
 
   constructor(
@@ -25,34 +26,31 @@ export class SelectPlanilhaComponent implements OnInit {
       mes: [null]
     });
 
-    this.planilhaService.planilhasDoAno.subscribe(data => {
-      this.anos = data;
+    this.planilhaService.planilhasAno.subscribe(data => {
+      this.planilhasAno = data;
     });
 
     this.planilhaService.planilhaAtual.subscribe(data => {
       this.planilhaAtual = data;
+      console.log(this.planilhaAtual);
+      
       this.group.get('ano').setValue(this.planilhaAtual.ano);
       this.group.get('mes').setValue(this.planilhaAtual.descricao);
     });
   }
 
   get meses() {
-    let ret: string[];
-    this.anos.forEach((value, key) => {
-      if (key == this.group.get('ano').value) {
-        ret = value;
+    let ano = this.group.get('ano').value;
+    let planilhas: Planilha[];
+    this.planilhasAno.forEach(obj => {
+      if (obj.ano == ano) {
+        planilhas = obj.planilhas;
       }
     });
-    return ret;
+    return planilhas;
   }
 
-  onChange(mes: string) {
-    console.log(mes);
-    this.anos.forEach((value, key) => {
-      if (key == this.group.get('ano').value) {
-        
-      }
-    });
+  onChange(e){
+    this.planilhaService.setPlanilhaSelecionada(e);
   }
-
 }
