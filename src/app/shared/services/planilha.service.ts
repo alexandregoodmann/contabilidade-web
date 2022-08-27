@@ -16,8 +16,15 @@ export class PlanilhaService extends BasicCrudService<Planilha> {
   private planilhaAtualB = new BehaviorSubject<Planilha>(new Planilha());
   planilhaAtual = this.planilhaAtualB.asObservable();
 
+  private planilhaSelecionadaB = new BehaviorSubject<Planilha>(new Planilha());
+  planilhaSelecionada = this.planilhaSelecionadaB.asObservable();
+
   constructor(private http: HttpClient) {
     super(`${environment.url}/planilhas`, http);
+  }
+
+  setPlanilhaSelecionada(planilha: Planilha) {
+    this.planilhaAtualB.next(planilha);
   }
 
   getPlanilha(ano: number, mes: number) {

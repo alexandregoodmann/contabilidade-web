@@ -42,9 +42,10 @@ import { PrincipalComponent } from './principal/principal.component';
 import { SaldosComponent } from './saldos/saldos.component';
 import { LinkPlanilhaComponent } from './shared/components/link-planilha/link-planilha.component';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
-import { SelectPlanilhaComponent } from './shared/components/select-planilha/select-planilha.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
+import { SelectPlanilhaComponent } from './shared/components/select-planilha/select-planilha.component';
+import { PathPlanilhaComponent } from './shared/components/path-planilha/path-planilha.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -107,6 +108,7 @@ const routes: Routes = [
     ExtratoComponent,
     LinkPlanilhaComponent,
     SelectPlanilhaComponent,
+    PathPlanilhaComponent
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
