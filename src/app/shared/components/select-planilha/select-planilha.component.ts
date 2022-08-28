@@ -14,6 +14,7 @@ export class SelectPlanilhaComponent implements OnInit {
   group: FormGroup;
   planilhasAno: PlanilhasAno[];
   planilhaSelecionada: Planilha;
+  expanded = false;
 
   constructor(
     private planilhaService: PlanilhaService,
@@ -47,8 +48,9 @@ export class SelectPlanilhaComponent implements OnInit {
     return ret;
   }
 
-  onChange(e) {
-    console.log(e);
-
+  setPlanilhaMes(mes) {
+    this.planilhaService.setPlanilhaSelecionada(mes);
+    this.expanded = false;
   }
+
 }
