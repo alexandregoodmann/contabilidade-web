@@ -14,7 +14,7 @@ export class CategoriaComponent implements OnInit {
   categoria;
   group: FormGroup;
   categorias: Array<Categoria>;
-  displayedColumns: string[] = ['descricao'];
+  displayedColumns: string[] = ['descricao', 'delete'];
 
   constructor(
     private fb: FormBuilder,
@@ -43,23 +43,23 @@ export class CategoriaComponent implements OnInit {
     }
   }
 
-  apagar() {
-    this.categoriaService.delete(this.categoria.id).subscribe(() => { }, () => { }, () => {
-      this.categoria = undefined;
-      this.group.reset();
-      this.findAll();
-    });
-  }
-
   findAll() {
     this.categoriaService.findAll().subscribe(data => {
       this.categorias = data as unknown as Categoria[];
     });
   }
-
-  editar(obj) {
+  
+  edit(obj) {
     this.categoria = obj;
     this.group.patchValue(obj);
+  }
+  
+  delete(item) {
+    this.categoriaService.delete(item.id).subscribe(() => { }, () => { }, () => {
+      this.categoria = undefined;
+      this.group.reset();
+      this.findAll();
+    });
   }
 
 }

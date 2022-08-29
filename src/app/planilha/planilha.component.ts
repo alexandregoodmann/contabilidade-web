@@ -53,4 +53,7 @@ export class PlanilhaComponent implements OnInit {
     });
   }
 
+  edit(obj) {
+    this.group.patchValue(obj);
+  }
 }

@@ -2,13 +2,13 @@
 
 <form class="form" #form [formGroup]="group" (ngSubmit)="salvar(); form.reset();" autocomplete="off">
 
-    <mat-form-field>
+    <mat-form-field appearance="fill">
         <mat-label>Banco</mat-label>
         <input matInput type="text" formControlName="banco">
         <mat-error>Informe o banco</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="fill">
         <mat-label>Conta</mat-label>
         <input matInput type="text" formControlName="descricao">
         <mat-error>Informe a conta</mat-error>
@@ -17,10 +17,6 @@
     <div class="w3-display-container" style="height: 40px;">
         <div class="w3-display-left">
             <button mat-raised-button color="primary" type="submit" [disabled]="group?.invalid">Salvar</button>
-        </div>
-        <div class="w3-display-right">
-            <button *ngIf="conta != undefined" mat-raised-button color="primary" type="button"
-                (click)="apagar()">Apagar</button>
         </div>
     </div>
 
@@ -39,14 +35,14 @@
             <td mat-cell *matCellDef="let item"> {{item.descricao}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="cargaArquivo">
-            <th mat-header-cell *matHeaderCellDef> Carga </th>
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let item">
-                <mat-icon *ngIf="item.cargaArquivo">check</mat-icon>
+                <mat-icon (click)="delete(item)">delete</mat-icon>
             </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editar(row)"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="edit(row)"></tr>
     </table>
 </div>

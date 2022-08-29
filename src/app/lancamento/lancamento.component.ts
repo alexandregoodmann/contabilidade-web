@@ -46,6 +46,7 @@ export class LancamentoComponent implements OnInit {
     });
 
     this.group = this.fb.group({
+      planilha: [null, [Validators.required]],
       conta: [null, [Validators.required]],
       categoria: [null, [Validators.required]],
       data: [null, [Validators.required]],
@@ -55,6 +56,10 @@ export class LancamentoComponent implements OnInit {
     });
 
     this.group.get('data').setValue(new Date());
+
+    this.planilhaService.planilhaSelecionada.subscribe(data => {
+      this.group.get('planilha').setValue(data);
+    });
 
     this.activatedRoute.queryParamMap.subscribe(param => {
       if (param.get('id') != null) {
@@ -88,7 +93,7 @@ export class LancamentoComponent implements OnInit {
         this.router.navigate(['/extrato']);
       });
     } else { //new
-
+      this.lancamentoService.create(model).subscribe(() => { }, () => { }, () => { });
     }
 
   }

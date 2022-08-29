@@ -1,4 +1,4 @@
-<div *ngIf="planilhasAno" class="select-container">
+<div class="select-container">
     <mat-accordion>
         <mat-expansion-panel [expanded]="expanded" (opened)="expanded = true">
             <mat-expansion-panel-header>
@@ -23,7 +23,8 @@
                         </td>
                         <td style="width: 100%;">
                             <div class="w3-row">
-                                <span class="w3-col s3 col-mes" *ngFor="let mes of ano.planilhas" (click)="setPlanilhaMes(mes)">
+                                <span class="w3-col s3 col-mes" *ngFor="let mes of ano.planilhas"
+                                    (click)="setPlanilhaMes(mes)">
                                     {{mes.descricao}}
                                 </span>
                             </div>

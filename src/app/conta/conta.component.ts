@@ -12,7 +12,7 @@ export class ContaComponent implements OnInit {
   group: FormGroup;
   conta;
   contas;
-  displayedColumns: string[] = ['banco', 'descricao', 'cargaArquivo'];
+  displayedColumns: string[] = ['banco', 'descricao', 'delete'];
 
   constructor(
     private fb: FormBuilder,
@@ -45,19 +45,19 @@ export class ContaComponent implements OnInit {
     }
   }
 
-  editar(obj) {
+  edit(obj) {
     this.conta = obj;
     this.group.patchValue(obj);
   }
 
-  apagar() {
-    this.contaService.delete(this.conta.id).subscribe(() => { }, () => { }, () => {
-      this.conta = undefined;
+  delete(item) {
+    this.contaService.delete(item.id).subscribe(() => { }, () => { }, () => {
       this.group.reset();
+      this.conta = undefined;
       this.findAll();
     });
   }
-
+  
   findAll() {
     this.contaService.findAll().subscribe(data => {
       this.contas = data;

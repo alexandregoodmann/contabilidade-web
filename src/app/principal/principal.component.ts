@@ -24,8 +24,8 @@ export class PrincipalComponent implements OnInit {
     { href: '/#/conta', icon: 'credit_card', label: 'Conta' },
     { href: '/#/categoria', icon: 'dashboard_customize', label: 'Categoria' },
     { href: '/#/lancamento', icon: 'add_card', label: 'Lançamento' },
-    { href: '/#/extrato', icon: 'account_balance', label: 'Extrato' },
-    { href: '/#/carga', icon: 'file_upload', label: 'Carga de Arquivo' },
+    //{ href: '/#/extrato', icon: 'account_balance', label: 'Extrato' },
+    //{ href: '/#/carga', icon: 'file_upload', label: 'Carga de Arquivo' },
   ];
 
   constructor(
@@ -40,6 +40,7 @@ export class PrincipalComponent implements OnInit {
     this.planilhaService.getMapa().subscribe(data => {
       this.planilhasAno = data;
     }, (err) => { }, () => {
+      this.banners.push(this.menu[0]);
       if (this.planilhasAno.length == 0) {
         this.openSnackBar('Você precisa cadastrar uma Planilha');
       } else {
