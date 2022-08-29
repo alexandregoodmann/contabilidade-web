@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Constants } from '../shared/Constants';
 import { Planilha } from '../shared/model/planilha';
@@ -12,7 +12,7 @@ import { PlanilhaService } from '../shared/services/planilha.service';
 })
 export class PlanilhaComponent implements OnInit {
 
-  displayedColumns: string[] = ['ano','descricao'];
+  displayedColumns: string[] = ['ano', 'descricao', 'acao'];
   group: FormGroup;
   dataSource;
   meses = Constants.listaMeses;
@@ -47,7 +47,10 @@ export class PlanilhaComponent implements OnInit {
     });
   }
 
-  editar(row) {
-    this.router.navigate(['/planilha-detalhe'], { queryParams: row });
+  delete(row) {
+    this.planilhaService.delete(row.id).subscribe(() => { }, () => { }, () => {
+      this.findAll();
+    });
   }
+
 }
