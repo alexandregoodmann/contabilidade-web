@@ -1,21 +1,17 @@
 <app-top-bar titulo="Extrato"></app-top-bar>
 
-<div class="example-action-buttons">
-    <button mat-button (click)="accordion.openAll()">Expand All</button>
-    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
-</div>
-
 <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel *ngFor="let conta of contas; let indexConta = index">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <strong>
+                <span class="header">
                     {{conta.descricao}}
-                </strong>
+                </span>
             </mat-panel-title>
             <mat-panel-description>
-                <span></span>
-                <span class="total">{{conta.total | number: '1.2-2'}}</span>
+                <span class="header right">
+                    {{conta.total | number: '1.2-2'}}
+                </span>
             </mat-panel-description>
         </mat-expansion-panel-header>
 

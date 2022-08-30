@@ -10,6 +10,7 @@ import { Constants } from '../shared/Constants';
 import { Categoria } from '../shared/model/categoria';
 import { Conta } from '../shared/model/conta';
 import { Lancamento } from '../shared/model/lancamento';
+import { Planilha } from '../shared/model/planilha';
 import { PlanilhaService } from '../shared/services/planilha.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class LancamentoComponent implements OnInit {
   contas: Array<Conta>;
   categorias: Array<Categoria>;
   lancamento: Lancamento;
+  planilhaSelecionada: Planilha;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +48,6 @@ export class LancamentoComponent implements OnInit {
     });
 
     this.group = this.fb.group({
-      planilha: [null, [Validators.required]],
       conta: [null, [Validators.required]],
       categoria: [null, [Validators.required]],
       data: [null, [Validators.required]],
@@ -58,7 +59,7 @@ export class LancamentoComponent implements OnInit {
     this.group.get('data').setValue(new Date());
 
     this.planilhaService.planilhaSelecionada.subscribe(data => {
-      this.group.get('planilha').setValue(data);
+      this.planilhaSelecionada = data;
     });
 
     this.activatedRoute.queryParamMap.subscribe(param => {
@@ -80,6 +81,7 @@ export class LancamentoComponent implements OnInit {
     let model = this.group.value;
     model.categoria = this.categorias.filter(o => o.id == model.categoria)[0];
     model.conta = this.contas.filter(o => o.id == model.conta)[0];
+    model.planilha = this.planilhaSelecionada;
 
     //edit
     if (this.lancamento && this.lancamento.id) {

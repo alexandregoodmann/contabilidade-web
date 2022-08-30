@@ -8,10 +8,11 @@ import { LancamentoService } from '../shared/services/lancamento.service';
 @Component({
   selector: 'app-extrato',
   templateUrl: './extrato.component.html',
-  styleUrls: ['./extrato.component.css']
+  styleUrls: ['./extrato.component.scss']
 })
 export class ExtratoComponent implements OnInit {
 
+  expandido = false;
   displayedColumns: string[] = ['data', 'categoria', 'descricao', 'valor', 'concluido'];
   contas: Conta[];
   order: number = 1;

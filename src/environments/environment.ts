@@ -5,7 +5,7 @@
 export const environment = {
   tempoSnackBar: 2000,
   production: false,
-  url: 'http://192.168.0.15:8081/v1'
+  url: 'http://localhost:8081/v1'
 };
 
 /*
