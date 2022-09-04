@@ -1,5 +1,7 @@
 <app-top-bar titulo="Extrato"></app-top-bar>
 
+<span>Saldo Total: {{saldo}}</span>
+
 <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel *ngFor="let conta of contas; let indexConta = index">
         <mat-expansion-panel-header>

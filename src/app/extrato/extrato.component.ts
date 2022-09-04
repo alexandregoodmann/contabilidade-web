@@ -16,6 +16,7 @@ export class ExtratoComponent implements OnInit {
   displayedColumns: string[] = ['data', 'categoria', 'descricao', 'valor', 'concluido'];
   contas: Conta[];
   order: number = 1;
+  saldo: number = 0;
   @ViewChild(MatAccordion, { static: false }) accordion: MatAccordion;
 
   constructor(
@@ -50,7 +51,13 @@ export class ExtratoComponent implements OnInit {
         }
       });
       this.contas = Array.from(mapa.values());
+
+      this.contas.forEach(c => {
+        this.saldo = this.saldo + c.total;
+      })
     });
+
+
   }
 
   editar(lancamento) {
