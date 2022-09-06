@@ -51,6 +51,7 @@ export class ExtratoComponent implements OnInit {
         }
       });
       this.contas = Array.from(mapa.values());
+console.log(this.contas);
 
       this.contas.forEach(c => {
         this.saldo = this.saldo + c.total;

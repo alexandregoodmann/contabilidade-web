@@ -5,6 +5,7 @@ import { MatChip } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { Conta } from '../shared/model/conta';
 import { ContaService } from '../shared/services/conta.service';
+import { PlanilhaService } from '../shared/services/planilha.service';
 
 @Component({
   selector: 'app-carga',
@@ -15,17 +16,21 @@ export class CargaComponent implements OnInit {
 
   group: FormGroup;
   contas: Array<Conta> = [];
-
+  planilhaSelecionada;
   fileName = '';
   file: File;
 
   constructor(
     private fb: FormBuilder,
     private contaService: ContaService,
+    private planilhaService: PlanilhaService,
     private http: HttpClient
   ) { }
 
   ngOnInit() {
+
+    this.planilhaService.planilhaSelecionada.subscribe(data => { this.planilhaSelecionada = data });
+
     this.contaService.findAll().subscribe(data => {
       this.contas = data;
     });
@@ -54,6 +59,7 @@ export class CargaComponent implements OnInit {
       const formData = new FormData();
       formData.append("file", this.file);
       formData.append("idConta", this.group.get('conta').value);
+      formData.append("idPlanilha", this.planilhaSelecionada.id);
       const upload$ = this.http.post(`${environment.url}/lancamentos/uploadFile`, formData);
       upload$.subscribe();
 
