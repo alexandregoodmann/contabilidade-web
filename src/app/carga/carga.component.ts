@@ -49,17 +49,18 @@ export class CargaComponent implements OnInit {
   onFileSelected(event) {
     this.file = event.target.files[0];
     this.fileName = this.file.name;
-    console.log(this.group);
     this.group.get('cargaArquivo').setValue(this.fileName);
-
   }
 
   enviar(form) {
     if (this.file) {
       const formData = new FormData();
+      let conta: Conta = this.group.get('conta').value;
+      formData.append("idConta", conta.id.toString());
+      formData.append("banco", conta.descricao.toUpperCase());
       formData.append("file", this.file);
-      formData.append("idConta", this.group.get('conta').value);
       formData.append("idPlanilha", this.planilhaSelecionada.id);
+
       const upload$ = this.http.post(`${environment.url}/lancamentos/uploadFile`, formData);
       upload$.subscribe();
 

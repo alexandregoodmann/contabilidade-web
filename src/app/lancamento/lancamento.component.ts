@@ -69,7 +69,9 @@ export class LancamentoComponent implements OnInit {
           this.group.patchValue(lancamento);
           this.group.get('data').setValue(new Date(lancamento.data));
           this.group.get('conta').setValue(lancamento.conta.id);
-          this.group.get('categoria').setValue(lancamento.categoria.id);
+          if (lancamento.categoria != undefined) {
+            this.group.get('categoria').setValue(lancamento.categoria.id);
+          }
           this.group.get('concluido').setValue(lancamento.concluido);
         });
       }

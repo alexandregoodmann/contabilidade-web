@@ -9,7 +9,7 @@
     <form #form [formGroup]="group" (ngSubmit)="salvar(); form.reset();" autocomplete="off">
 
         <div class="chips-container">
-            <label class="chips-label">Selecione a Conta Corrente</label>
+            <label class="mini-label" style="margin-left: 10px;">Selecione a Conta Corrente</label>
             <mat-chip-list #chipList selectable formControlName="conta">
                 <mat-chip #c="matChip" (click)="setConta(c)" *ngFor="let conta of contas" [value]="conta.id">
                     {{conta.descricao}}
@@ -18,7 +18,7 @@
         </div>
 
         <div class="chips-container">
-            <label class="chips-label">Selecione a Categoria</label>
+            <label class="mini-label" style="margin-left: 10px;">Selecione a Categoria</label>
             <mat-chip-list #chipList multiple formControlName="categoria">
                 <mat-chip #c="matChip" (click)="setCategoria(c)" *ngFor="let categoria of categorias"
                     [value]="categoria.id">

@@ -44,13 +44,6 @@ button.mat-primary,
     margin-bottom: 20px;
 }
 
-.chips-label {
-    font-size: 11.5px;
-    color: #615f5f;
-    display: block;
-    margin-left: 11px;
-}
-
 .mat-chip.mat-standard-chip {
     background-color: #ffff;
     color: rgba(0, 0, 0, 0.87);
@@ -129,4 +122,10 @@ button.mat-primary,
 .select-container {
     padding-left: 10px;
     margin-bottom: 15px;
+}
+
+.mini-label {
+    font-size: 11.5px;
+    color: #615f5f;
+    display: block;
 }

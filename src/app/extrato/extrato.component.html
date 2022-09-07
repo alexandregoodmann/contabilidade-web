@@ -1,6 +1,14 @@
 <app-top-bar titulo="Extrato"></app-top-bar>
 
-<span>Saldo Total: {{saldo}}</span>
+<div class="w3-row" style="margin-top: 15px; margin-left: 15px;">
+    <div class="select-container w3-col s6">
+        <app-link-planilha></app-link-planilha>
+    </div>
+    <div class="select-container w3-col s6" style="text-align: right; padding-right: 50px;">
+        <label class="mini-label">Saldo total</label>
+        R$ {{saldo | number: '1.2-2'}}
+    </div>
+</div>
 
 <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel *ngFor="let conta of contas; let indexConta = index">
@@ -12,7 +20,7 @@
             </mat-panel-title>
             <mat-panel-description>
                 <span class="header right">
-                    {{conta.total | number: '1.2-2'}}
+                    R$ {{conta.total | number: '1.2-2'}}
                 </span>
             </mat-panel-description>
         </mat-expansion-panel-header>
@@ -28,7 +36,7 @@
             <ng-container matColumnDef="categoria">
                 <th mat-header-cell *matHeaderCellDef (click)="sortBy(indexConta, conta.lancamentos, 'categoria')">
                     Categoria </th>
-                <td mat-cell *matCellDef="let item"> {{item?.categoria?.descricao}} </td>
+                <td mat-cell *matCellDef="let item"> {{item?.categoria}} </td>
             </ng-container>
 
             <ng-container matColumnDef="descricao">

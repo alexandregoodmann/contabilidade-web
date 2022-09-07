@@ -37,6 +37,10 @@ export class PlanilhaService extends BasicCrudService<Planilha> {
     return this.http.get<Array<PlanilhasAno>>(`${environment.url}/planilhas/mapa`);
   }
 
+  getExtrato(idPlanilha: number) {
+    return this.http.get(`${environment.url}/planilhas/${idPlanilha}/extrato`);
+  }
+
   initPlanilha(planilhas: PlanilhasAno[]): void {
     let retorno: Planilha;
     let hoje = new Date();

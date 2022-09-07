@@ -9,9 +9,9 @@
     <form #form [formGroup]="group" autocomplete="off">
 
         <div class="chips-container">
-            <label class="chips-label">Selecione a Conta Corrente</label>
+            <label class="mini-label" style="margin-left: 10px;">Selecione a Conta Corrente</label>
             <mat-chip-list #chipList selectable formControlName="conta">
-                <mat-chip #c="matChip" (click)="setConta(c)" *ngFor="let conta of contas" [value]="conta.id">
+                <mat-chip #c="matChip" (click)="setConta(c)" *ngFor="let conta of contas" [value]="conta">
                     {{conta.descricao}}
                 </mat-chip>
             </mat-chip-list>
