@@ -13,8 +13,9 @@ export class ContaComponent implements OnInit {
   group: FormGroup;
   conta;
   contas;
-  cargas = ['BRADESCO', 'C6']
-  displayedColumns: string[] = ['banco', 'descricao', 'carga','delete'];
+  cargas = cargasArquivo;
+  tipos = tiposConta;
+  displayedColumns: string[] = ['banco', 'descricao', 'carga', 'delete'];
 
   constructor(
     private fb: FormBuilder,
@@ -27,9 +28,15 @@ export class ContaComponent implements OnInit {
     this.group = this.fb.group({
       banco: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
+      tipo: [null, [Validators.required]],
       carga: [null]
     });
 
+  }
+
+  setTipo(chip: MatChip) {
+    chip.toggleSelected();
+    this.group.get('tipo').setValue(chip.value);
   }
 
   setCarga(chip: MatChip) {
@@ -44,8 +51,10 @@ export class ContaComponent implements OnInit {
         conta.carga = (conta.carga as string).toUpperCase();
       this.contaService.create(this.group.value).subscribe(() => { }, () => { }, () => { this.findAll(); });
     } else {
+
       let model = this.group.value;
       model.id = this.conta.id;
+
       if (model.carga != undefined)
         model.carga = (model.carga as string).toUpperCase();
 
@@ -59,10 +68,6 @@ export class ContaComponent implements OnInit {
 
   edit(obj) {
     this.conta = obj;
-    console.log(this.conta);
-
-    if (this.conta.carga != undefined)
-      this.group.get('carga').setValue(this.conta.carga);
     this.group.patchValue(obj);
   }
 
@@ -80,3 +85,16 @@ export class ContaComponent implements OnInit {
     });
   }
 }
+
+export const tiposConta = [
+  { tipo: "CC", descricao: "Conta corrente" },
+  { tipo: "CARTAO", descricao: "Cartão de crédito" },
+  { tipo: "CARTEIRA", descricao: "Carteira de dinheiro" },
+  { tipo: "REFEICAO", descricao: "Vale refeição" },
+  { tipo: "ALIMENTACAO", descricao: "Vale alimentação" },
+];
+
+export const cargasArquivo = [
+  { arquivo: "BRADESCO", descricao: "Bradesco" },
+  { arquivo: "C6", descricao: "Cartão C6" }
+];

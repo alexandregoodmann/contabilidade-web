@@ -36,7 +36,8 @@ export class ExtratoComponent implements OnInit {
       this.planilhaService.getExtrato(this.planilhaSelecionada.id).subscribe(data => {
         this.contas = data;
         this.contas.forEach(conta => {
-          this.saldo = this.saldo + conta.total;
+          if (conta.tipo == 'CC')
+            this.saldo = this.saldo + conta.total;
         });
       });
     }
