@@ -1,7 +1,7 @@
 import { Lancamento } from "./lancamento";
 
 export class Planilha {
-    id: string;
+    id: number;
     mes: number;
     ano: number;
     descricao: string;

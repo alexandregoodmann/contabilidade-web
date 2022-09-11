@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatChip } from '@angular/material';
+import { MatChip, MatSnackBar } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { Conta } from '../shared/model/conta';
 import { ContaService } from '../shared/services/conta.service';
@@ -15,15 +15,17 @@ import { PlanilhaService } from '../shared/services/planilha.service';
 export class CargaComponent implements OnInit {
 
   group: FormGroup;
-  contas: Array<Conta> = [];
+  bancos = ['Bradesco', 'C6'];
+  contas;
   planilhaSelecionada;
   fileName = '';
   file: File;
 
   constructor(
     private fb: FormBuilder,
-    private contaService: ContaService,
     private planilhaService: PlanilhaService,
+    private contaService: ContaService,
+    private _snackBar: MatSnackBar,
     private http: HttpClient
   ) { }
 
@@ -32,7 +34,7 @@ export class CargaComponent implements OnInit {
     this.planilhaService.planilhaSelecionada.subscribe(data => { this.planilhaSelecionada = data });
 
     this.contaService.findAll().subscribe(data => {
-      this.contas = data;
+      this.contas = (data as Conta[]).filter(o => o.carga != null);
     });
 
     this.group = this.fb.group({
@@ -53,16 +55,24 @@ export class CargaComponent implements OnInit {
   }
 
   enviar(form) {
+
     if (this.file) {
       const formData = new FormData();
       let conta: Conta = this.group.get('conta').value;
       formData.append("idConta", conta.id.toString());
-      formData.append("banco", conta.descricao.toUpperCase());
-      formData.append("file", this.file);
       formData.append("idPlanilha", this.planilhaSelecionada.id);
+      formData.append("file", this.file);
 
-      const upload$ = this.http.post(`${environment.url}/lancamentos/uploadFile`, formData);
-      upload$.subscribe();
+      this.http.post(`${environment.url}/lancamentos/uploadFile`, formData).subscribe(data => {
+        let retorno = data as RetornoCarga;
+        this.openSnackBar(`SUCESSO: Foram inseridos ${retorno.qtdLancamentos} lançamentos.`);
+      }, (error) => {
+        if (error.error.status == 400) {
+          this.openSnackBar('ERRO: Não foi possível fazer a carga do arquivo. Verifique a planilha, conta e arquivo.');
+        } else if (error.error.status == 500) {
+          this.openSnackBar('ERRO: Ocorreu um erro ao fazer a carga do arquivo');
+        }
+      });
 
       this.fileName = '';
       this.file = undefined;
@@ -70,4 +80,26 @@ export class CargaComponent implements OnInit {
     }
   }
 
+  private openSnackBar(msg: string) {
+    this._snackBar.open(msg, 'Fechar', {
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
+  }
+
+  private confirmarCarga(form) {
+    this._snackBar.open('Todos os lançamentos desta planilha serão sobrepostos. Deseja continuar?', 'SIM', {
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      duration: 3000
+    }).onAction().subscribe(() => {
+      this.enviar(form);
+    });
+  }
+}
+
+export interface RetornoCarga {
+  idConta: number;
+  idPlanilha: number;
+  qtdLancamentos: number;
 }

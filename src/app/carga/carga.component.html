@@ -9,7 +9,7 @@
     <form #form [formGroup]="group" autocomplete="off">
 
         <div class="chips-container">
-            <label class="mini-label" style="margin-left: 10px;">Selecione a Conta Corrente</label>
+            <label class="mini-label" style="margin-left: 10px;">Selecione a conta</label>
             <mat-chip-list #chipList selectable formControlName="conta">
                 <mat-chip #c="matChip" (click)="setConta(c)" *ngFor="let conta of contas" [value]="conta">
                     {{conta.descricao}}
@@ -27,8 +27,10 @@
             </div>
         </div>
 
-        <button mat-raised-button color="primary" type="button" (click)="enviar(form)"
+        <button mat-raised-button color="primary" type="button" (click)="confirmarCarga(form)"
             [disabled]="group?.invalid">Enviar</button>
 
     </form>
 </div>
+
+<div *ngIf="error != undefined" class="message-box">{{error}}</div>

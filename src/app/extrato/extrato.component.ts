@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material';
 import { Router } from '@angular/router';
 import { Lancamento } from '../shared/model/lancamento';
+import { Planilha } from '../shared/model/planilha';
 import { PlanilhaService } from '../shared/services/planilha.service';
 
 @Component({
@@ -16,6 +17,8 @@ export class ExtratoComponent implements OnInit {
   contas: any;
   order: number = 1;
   saldo: number = 0;
+  planilhaSelecionada: Planilha;
+
   @ViewChild(MatAccordion, { static: false }) accordion: MatAccordion;
 
   constructor(
@@ -24,12 +27,19 @@ export class ExtratoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.planilhaService.getExtrato(18).subscribe(data => {
-      this.contas = data;
-      this.contas.forEach(conta => {
-        this.saldo = this.saldo + conta.total;
-      });
+
+    this.planilhaService.planilhaSelecionada.subscribe(planilha => {
+      this.planilhaSelecionada = planilha;
     });
+
+    if (this.planilhaSelecionada.id != undefined) {
+      this.planilhaService.getExtrato(this.planilhaSelecionada.id).subscribe(data => {
+        this.contas = data;
+        this.contas.forEach(conta => {
+          this.saldo = this.saldo + conta.total;
+        });
+      });
+    }
   }
 
   editar(lancamento) {
