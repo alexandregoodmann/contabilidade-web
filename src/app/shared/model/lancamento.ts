@@ -3,7 +3,7 @@ import { Conta } from "./conta";
 import { Planilha } from "./planilha";
 
 export class Lancamento {
-    id: string;
+    id: number;
     conta: Conta;
     categoria: Categoria;
     planilha: Planilha;
@@ -12,4 +12,5 @@ export class Lancamento {
     valor: number;
     data: Date;
     concluido: boolean;
+    marcado?: boolean;
 }

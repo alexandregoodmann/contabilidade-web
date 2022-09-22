@@ -144,7 +144,8 @@ const routes: Routes = [
     MatTableModule,
     MatSortModule,
     MatExpansionModule,
-    MatDividerModule
+    MatDividerModule,
+    MatListModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

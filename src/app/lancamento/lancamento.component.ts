@@ -103,7 +103,7 @@ export class LancamentoComponent implements OnInit {
   }
 
   apagar() {
-    this.lancamentoService.delete(this.lancamento.id).subscribe(() => { }, () => { }, () => {
+    this.lancamentoService.delete(this.lancamento.id.toString()).subscribe(() => { }, () => { }, () => {
       this.snackBar.open('Lançamento apagado', null, { duration: environment.tempoSnackBar });
       this.router.navigate(['/extrato'],);
     });
