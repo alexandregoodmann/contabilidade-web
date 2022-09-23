@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material';
 import { Router } from '@angular/router';
 import { Categoria } from '../shared/model/categoria';
+import { TipoContaEnum } from '../shared/model/conta';
+import { Extrato } from '../shared/model/extrato';
 import { Lancamento } from '../shared/model/lancamento';
 import { Planilha } from '../shared/model/planilha';
 import { CategoriaService } from '../shared/services/categoria.service';
@@ -15,14 +17,14 @@ import { PlanilhaService } from '../shared/services/planilha.service';
 })
 export class ExtratoComponent implements OnInit {
 
-  expandido = false;
   displayedColumns: string[] = ['acao', 'data', 'categoria', 'descricao', 'valor', 'concluido'];
-  contas: any;
+  extrato: Extrato[];
   order: number = 1;
   saldo: number = 0;
   planilhaSelecionada: Planilha;
   marcados: Lancamento[] = [];
   categorias: Categoria[];
+  expandidos: Map<number, boolean> = new Map<number, boolean>();
 
   @ViewChild(MatAccordion, { static: false }) accordion: MatAccordion;
 
@@ -47,9 +49,9 @@ export class ExtratoComponent implements OnInit {
 
   private findExtrato() {
     this.planilhaService.getExtrato(this.planilhaSelecionada.id).subscribe(data => {
-      this.contas = data;
-      this.contas.forEach(conta => {
-        if (conta.tipo == 'CC')
+      this.extrato = data as Extrato[];
+      this.extrato.forEach(conta => {
+        if (conta.tipo == TipoContaEnum.CC)
           this.saldo = this.saldo + conta.total;
       });
     });
@@ -71,7 +73,7 @@ export class ExtratoComponent implements OnInit {
       return 0;
     });
 
-    this.contas[indexConta].lancamentos = Array.from(lancamentos);
+    this.extrato[indexConta].lancamentos = Array.from(lancamentos);
     this.order = this.order * (-1);
   }
 
@@ -102,11 +104,10 @@ export class ExtratoComponent implements OnInit {
         this.deleteAll();
         break;
       case 'CONCLUIR':
-        console.log('concluir', this.marcados);
-
+        this.concluirMarcados();
         break;
       case 'CATEGORIZAR':
-        console.log(this.marcados, categoria);
+        this.categorizar(categoria);
         break;
 
       default:
@@ -114,18 +115,38 @@ export class ExtratoComponent implements OnInit {
     }
   }
 
-  private deleteAll() {
-
-    let ids: number[] = [];
-    this.marcados.forEach(m => {
-      ids.push(m.id);
-    });
-
-    this.lancamentoService.deleteAll(ids).subscribe(() => { }, () => { }, () => {
+  private concluirMarcados() {
+    this.lancamentoService.concluir(this.marcados.map(n => n.id)).subscribe(() => { }, () => { }, () => {
       this.marcados = [];
       this.findExtrato();
     });
+  }
 
+  private deleteAll() {
+    this.lancamentoService.deleteAll(this.marcados.map(n => n.id)).subscribe(() => { }, () => { }, () => {
+      this.marcados = [];
+      this.findExtrato();
+    });
+  }
+
+  private categorizar(categoria: Categoria) {
+    this.lancamentoService.categorizar(this.marcados.map(n => n.id), categoria).subscribe(() => { }, () => { }, () => {
+      this.marcados = [];
+      this.findExtrato();
+    });
+  }
+
+  isExpanded(id: number) {
+    return this.expandidos.get(id);
+  }
+
+  expand(conta: Extrato) {
+    if (this.expandidos.has(conta.id)) {
+      let e = this.expandidos.get(conta.id);
+      this.expandidos.set(conta.id, !e);
+    } else {
+      this.expandidos.set(conta.id, true);
+    }
   }
 }
 

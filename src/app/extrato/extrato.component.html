@@ -11,8 +11,8 @@
 </div>
 
 <mat-accordion class="example-headers-align" multi>
-    <mat-expansion-panel *ngFor="let conta of contas; let indexConta = index">
-        <mat-expansion-panel-header>
+    <mat-expansion-panel *ngFor="let conta of extrato; let indexConta = index" [expanded]="isExpanded(conta.id)">
+        <mat-expansion-panel-header (click)="expand(conta)">
             <mat-panel-title>
                 <span class="header">
                     {{conta.descricao}}
