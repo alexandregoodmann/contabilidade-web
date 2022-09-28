@@ -18,7 +18,7 @@ export class PlanilhaService extends BasicCrudService<Planilha> {
   planilhaSelecionada = this.planilhaSelecionadaB.asObservable();
 
   constructor(private http: HttpClient) {
-    super(`${environment.url}/planilhas`, http);
+    super(`${environment.url}/planilhas/`, http);
   }
 
   setPlanilhasAno(planilhas: PlanilhasAno[]) {

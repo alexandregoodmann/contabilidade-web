@@ -31,7 +31,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from "ng2-currency-mask";
 import { AppComponent } from './app.component';
 import { CargaComponent } from './carga/carga.component';
 import { CategoriaComponent } from './categoria/categoria.component';
@@ -48,16 +47,6 @@ import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
 
 registerLocaleData(localePt, 'pt-BR');
-
-export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-  align: "left",
-  allowNegative: true,
-  decimal: ",",
-  precision: 2,
-  prefix: "R$ ",
-  suffix: "",
-  thousands: "."
-};
 
 const routes: Routes = [
   {
@@ -116,7 +105,6 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CurrencyMaskModule,
     //MATERIAL
     MatCardModule,
     MatGridListModule,
@@ -150,7 +138,6 @@ const routes: Routes = [
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
   ],
 

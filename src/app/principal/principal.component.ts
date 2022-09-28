@@ -40,7 +40,7 @@ export class PrincipalComponent implements OnInit {
     this.planilhaService.getMapa().subscribe(data => {
       this.planilhasAno = data;
     }, (err) => { }, () => {
-      this.banners.push(this.menu[0]);
+           this.banners.push(this.menu[0]);
       if (this.planilhasAno.length == 0) {
         this.openSnackBar('Você precisa cadastrar uma Planilha');
       } else {

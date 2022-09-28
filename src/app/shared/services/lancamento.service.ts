@@ -12,7 +12,7 @@ import { BasicCrudService, httpOptions } from './basic-crud.service';
 export class LancamentoService extends BasicCrudService<Lancamento> {
 
   constructor(private http: HttpClient) {
-    super(`${environment.url}/lancamentos`, http);
+    super(`${environment.url}/lancamentos`, http)
   }
 
   deleteAll(lancamento_ids: number[]) {
@@ -30,7 +30,7 @@ export class LancamentoService extends BasicCrudService<Lancamento> {
   }
 
   categorizar(lancamento_ids: number[], categoria: Categoria) {
-    let dto = { list: lancamento_ids, idCategoria: categoria.id};
+    let dto = { list: lancamento_ids, idCategoria: categoria.id };
     return this.http.post(`${environment.url}/lancamentos/categorizar`, dto, httpOptions).pipe(
       catchError(this.handleError('categorizar'))
     );

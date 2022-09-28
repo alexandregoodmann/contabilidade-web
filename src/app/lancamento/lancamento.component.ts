@@ -6,7 +6,6 @@ import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ContaService } from 'src/app/shared/services/conta.service';
 import { LancamentoService } from 'src/app/shared/services/lancamento.service';
 import { environment } from 'src/environments/environment';
-import { Constants } from '../shared/Constants';
 import { Categoria } from '../shared/model/categoria';
 import { Conta } from '../shared/model/conta';
 import { Lancamento } from '../shared/model/lancamento';
@@ -38,7 +37,7 @@ export class LancamentoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    debugger
     this.contaService.findAll().subscribe(data => {
       this.contas = data as unknown as Array<Conta>;
     });
@@ -64,7 +63,8 @@ export class LancamentoComponent implements OnInit {
 
     this.activatedRoute.queryParamMap.subscribe(param => {
       if (param.get('id') != null) {
-        this.lancamentoService.findById(param.get('id')).subscribe(lancamento => {
+        let id: number = param.get('id') as unknown as number;
+        this.lancamentoService.findById(id).subscribe(lancamento => {
           this.lancamento = lancamento;
           this.group.patchValue(lancamento);
           this.group.get('data').setValue(new Date(lancamento.data));

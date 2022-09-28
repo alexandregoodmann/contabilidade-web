@@ -87,7 +87,7 @@ export class CargaComponent implements OnInit {
     });
   }
 
-  private confirmarCarga(form) {
+  confirmarCarga(form) {
     this._snackBar.open('Todos os lançamentos desta planilha serão sobrepostos. Deseja continuar?', 'SIM', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',

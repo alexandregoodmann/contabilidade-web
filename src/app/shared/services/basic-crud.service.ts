@@ -1,17 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class BasicCrudService<T> {
 
   private _url;
   private _http: HttpClient;
 
-  constructor(url: string, http: HttpClient) {
+  constructor(url: string, http?: HttpClient) {
     this._url = url;
     this._http = http;
   }
@@ -36,7 +32,7 @@ export class BasicCrudService<T> {
       );
   }
 
-  findById(id: string) {
+  findById(id: number) {
     return this._http.get<T>(`${this._url}/${id}`);
   }
 
