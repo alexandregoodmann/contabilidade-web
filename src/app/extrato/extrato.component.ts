@@ -57,8 +57,8 @@ export class ExtratoComponent implements OnInit {
     });
   }
 
-  editar(lancamento) {
-    this.router.navigate(['/lancamento'], { queryParams: lancamento });
+  editar(idLancamento) {
+    this.router.navigate(['/lancamento'], { queryParams: { idLancamento: idLancamento } });
   }
 
   sortBy(indexConta: number, lancamentos: Lancamento[], coluna: string) {

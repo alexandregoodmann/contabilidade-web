@@ -37,7 +37,7 @@ export class LancamentoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.contaService.findAll().subscribe(data => {
       this.contas = data as unknown as Array<Conta>;
     });
@@ -62,9 +62,12 @@ export class LancamentoComponent implements OnInit {
     });
 
     this.activatedRoute.queryParamMap.subscribe(param => {
-      if (param.get('id') != null) {
-        let id: number = param.get('id') as unknown as number;
-        this.lancamentoService.findById(id).subscribe(lancamento => {
+
+      let idLancamento: number = param.get('idLancamento') as unknown as number;
+      if (idLancamento != undefined) {
+        console.log(idLancamento);
+
+        this.lancamentoService.findById(idLancamento).subscribe(lancamento => {
           this.lancamento = lancamento;
           this.group.patchValue(lancamento);
           this.group.get('data').setValue(new Date(lancamento.data));
