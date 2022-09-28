@@ -45,6 +45,7 @@ import { ProgressBarComponent } from './shared/components/progress-bar/progress-
 import { SelectPlanilhaComponent } from './shared/components/select-planilha/select-planilha.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { InterceptorService } from './shared/services/interceptor.service';
+import { NgxCurrencyModule } from "ngx-currency";
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -105,6 +106,7 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxCurrencyModule,
     //MATERIAL
     MatCardModule,
     MatGridListModule,

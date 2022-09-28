@@ -37,7 +37,7 @@ export class LancamentoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger
+    
     this.contaService.findAll().subscribe(data => {
       this.contas = data as unknown as Array<Conta>;
     });
