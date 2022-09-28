@@ -51,8 +51,9 @@ export class ExtratoComponent implements OnInit {
     this.planilhaService.getExtrato(this.planilhaSelecionada.id).subscribe(data => {
       this.extrato = data as Extrato[];
       this.extrato.forEach(conta => {
-        if (conta.tipo == TipoContaEnum.CC)
+        if (conta.tipo.toString() == 'CC'){
           this.saldo = this.saldo + conta.total;
+        }
       });
     });
   }
