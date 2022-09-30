@@ -12,7 +12,7 @@ import { PlanilhaService } from '../shared/services/planilha.service';
 })
 export class PlanilhaComponent implements OnInit {
 
-  displayedColumns: string[] = ['ano', 'descricao', 'acao'];
+  displayedColumns: string[] = ['ano', 'descricao'];
   group: FormGroup;
   dataSource;
   meses = Constants.listaMeses;

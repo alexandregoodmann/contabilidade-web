@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material';
 import { Router } from '@angular/router';
 import { Categoria } from '../shared/model/categoria';
-import { TipoContaEnum } from '../shared/model/conta';
 import { Extrato } from '../shared/model/extrato';
 import { Lancamento } from '../shared/model/lancamento';
 import { Planilha } from '../shared/model/planilha';
@@ -43,7 +42,6 @@ export class ExtratoComponent implements OnInit {
     if (this.planilhaSelecionada.id != undefined) {
       this.findExtrato();
     }
-
     this.categoriaService.findAll().subscribe(data => { this.categorias = data });
   }
 
@@ -51,7 +49,7 @@ export class ExtratoComponent implements OnInit {
     this.planilhaService.getExtrato(this.planilhaSelecionada.id).subscribe(data => {
       this.extrato = data as Extrato[];
       this.extrato.forEach(conta => {
-        if (conta.tipo.toString() == 'CC'){
+        if (conta.tipo.toString() == 'CC') {
           this.saldo = this.saldo + conta.total;
         }
       });
@@ -65,6 +63,8 @@ export class ExtratoComponent implements OnInit {
   sortBy(indexConta: number, lancamentos: Lancamento[], coluna: string) {
     let ret = this.order;
     lancamentos.sort(function (x, y) {
+      x[coluna] = (x[coluna] == null) ? '' : x[coluna];
+      y[coluna] = (y[coluna] == null) ? '' : y[coluna];
       if (x[coluna] > y[coluna]) {
         return ret;
       }
@@ -73,7 +73,6 @@ export class ExtratoComponent implements OnInit {
       }
       return 0;
     });
-
     this.extrato[indexConta].lancamentos = Array.from(lancamentos);
     this.order = this.order * (-1);
   }
@@ -110,7 +109,6 @@ export class ExtratoComponent implements OnInit {
       case 'CATEGORIZAR':
         this.categorizar(categoria);
         break;
-
       default:
         break;
     }

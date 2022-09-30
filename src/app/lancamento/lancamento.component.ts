@@ -62,11 +62,8 @@ export class LancamentoComponent implements OnInit {
     });
 
     this.activatedRoute.queryParamMap.subscribe(param => {
-
       let idLancamento: number = param.get('idLancamento') as unknown as number;
       if (idLancamento != undefined) {
-        console.log(idLancamento);
-
         this.lancamentoService.findById(idLancamento).subscribe(lancamento => {
           this.lancamento = lancamento;
           this.group.patchValue(lancamento);
