@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatChip, MatSnackBar } from '@angular/material';
+import { MatChip } from '@angular/material/chips';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import { Conta } from '../shared/model/conta';
 import { ContaService } from '../shared/services/conta.service';

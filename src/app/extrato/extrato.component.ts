@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatAccordion } from '@angular/material';
+import { MatAccordion } from '@angular/material/expansion';
 import { Router } from '@angular/router';
 import { Categoria } from '../shared/model/categoria';
 import { Extrato } from '../shared/model/extrato';

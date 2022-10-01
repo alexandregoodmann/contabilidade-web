@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatChip } from '@angular/material';
+import { MatChip } from '@angular/material/chips';
 import { ContaService } from 'src/app/shared/services/conta.service';
 
 @Component({

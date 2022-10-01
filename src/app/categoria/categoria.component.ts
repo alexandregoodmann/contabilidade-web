@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Categoria } from 'src/app/shared/model/categoria';
 import { CategoriaService } from 'src/app/shared/services/categoria.service';
 
