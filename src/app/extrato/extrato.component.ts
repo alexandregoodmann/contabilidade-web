@@ -25,7 +25,7 @@ export class ExtratoComponent implements OnInit {
   categorias: Categoria[];
   expandidos: Map<number, boolean> = new Map<number, boolean>();
 
-  @ViewChild(MatAccordion, { static: false }) accordion: MatAccordion;
+  @ViewChild(MatAccordion) accordion: MatAccordion;
 
   constructor(
     private planilhaService: PlanilhaService,
